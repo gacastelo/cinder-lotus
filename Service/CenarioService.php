@@ -27,9 +27,7 @@ class CenarioService
 
     public static function getCena($cenaID): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         $tipo = $_SESSION["cenarios"][$cenaID]["tipo"];
         if ($tipo == "desafio") {
             header("Location: ../public/desafio.php");
@@ -41,14 +39,18 @@ class CenarioService
 
     public static function unlockNextLevel($cenaID): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {
-            session_start();
-        }
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         $_SESSION["cenarios"][$cenaID]["bloqueada"] = false;
         $caminhos = $_SESSION["fases"][$cenaID]->getConexoes();
         foreach ($caminhos as $caminho) {
             $_SESSION["fases"][$caminho]->unlock();
         }
+    }
+
+    public static function isUnlocked($cenaID): bool
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        return !$_SESSION["cenarios"][$cenaID]["bloqueada"];
     }
 
     public static function definirCenario($cenaId): void
