@@ -36,13 +36,19 @@ if (!isset($_SESSION["acoes"])) {
     $_SESSION["acoes"] = [];
 }
 
+if (!isset($_SESSION["background"])){
+    $_SESSION["background"] = CombateService::getBackground();
+}
+
+
 $_SESSION["combateService"]->initCombate($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 $inventario = $player->getInventario();
 
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
-var_dump($player);
+//var_dump($player);
 //var_dump(($player->getDano()));
-var_dump($_SESSION["inimigo"]);
+//var_dump($_SESSION["inimigo"]);
+//var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]);
 ?>
 
 <!DOCTYPE html>
@@ -56,7 +62,11 @@ var_dump($_SESSION["inimigo"]);
 
     <link rel="stylesheet" href="resources/css/animacoes.css">
     <link rel="stylesheet" href="resources/css/combate.css">
-
+    <style>
+        .batalha {
+            background-image: url("<?= $_SESSION["background"] ?>");
+        }
+    </style>
 </head>
 
 <body>

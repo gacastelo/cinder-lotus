@@ -37,6 +37,17 @@ class CombateService
         ];
     }
 
+    public static function getBackground(): string
+    {
+
+        $backgrounds = [
+            "fundinho.png",
+            "sigmainha.png"
+        ];
+
+        return $backgrounds[array_rand($backgrounds)];
+    }
+
     public function gerarInimigo(string $level = "1"): \Inimigo
     {
         $get = "getTabelaLv". $level;

@@ -27,7 +27,6 @@ main {
     position: relative;
     overflow: hidden;
 
-    background-image: url("fundo.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

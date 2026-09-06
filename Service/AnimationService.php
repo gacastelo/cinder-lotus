@@ -29,6 +29,7 @@ class AnimationService
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         $_SESSION["acoes"] = [];
+        unset($_SESSION["background"]);
     }
 
     public static function derrota(): void
