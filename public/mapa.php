@@ -15,8 +15,14 @@ if (!isset($_SESSION["cenarios"])){
 }
 
 if (isset($_GET["cena"])) {
-    $_SESSION["cenarioAtualId"] = $_GET["cena"];
-    CenarioService::getCena($_GET["cena"]);
+    if (CenarioService::isUnlocked($_GET["cena"])){
+        $_SESSION["cenarioAtualId"] = $_GET["cena"];
+        CenarioService::getCena($_GET["cena"]);
+    }
+    else{
+        header("Location: mapa.php");
+        exit();
+    }
 }
 
 if (isset($_SESSION["inimigo"])){
@@ -34,7 +40,6 @@ if (isset($_SESSION["acoes"])){
 //for ($i = 2; $i < 13 ; $i++) {
 //    $_SESSION["cenarioService"]->unlockLevel($i);
 //}
-
 //var_dump($_SESSION["cenarios"]);
 ?>
 <!DOCTYPE html>
