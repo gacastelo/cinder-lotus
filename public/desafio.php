@@ -5,6 +5,7 @@ require_once "../Model/Itens/Equipamento.php";
 require_once "../Model/Itens/Consumivel.php";
 require_once "../Service/ConsumivelService.php";
 require_once "../Service/DesafioService.php";
+require_once "../Model/Fase.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -25,12 +26,18 @@ if (isset($_GET["acao"])){
     exit();
 }
 
+if (isset($_GET["fugiu"])) {
+    DesafioService::fugir();
+}
+
 $player = $_SESSION["player"];
 $inventario = $player->getInventario();
 
-DesafioService::initDesafio($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
+DesafioService::initDesafio($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
 
-var_dump($_SESSION["desafio"]);
+if (!isset($_SESSION["background"])){
+    $_SESSION["background"] = $_SESSION["desafio"]->getLinkBackground();
+}
 
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 //var_dump($player);
@@ -48,7 +55,7 @@ var_dump($_SESSION["desafio"]);
     <link rel="stylesheet" href="resources/css/desafio.css">
     <style>
         .batalha{
-            background-image: url("<?= CombateService::getBackground()?>");
+            background-image: url("<?= $_SESSION["background"] ?>");
         }
     </style>
 </head>
@@ -90,6 +97,13 @@ var_dump($_SESSION["desafio"]);
                     onclick="mostrarItens()"
             >
                 Itens
+            </button>
+
+            <button
+                    id="btnFugir"
+                    onclick="fugir()"
+            >
+                Fugir
             </button>
 
         </div>
@@ -176,7 +190,6 @@ var_dump($_SESSION["desafio"]);
     const btnItens =
         document.getElementById("btnItens");
 
-
     function mostrarAcoes() {
 
         acoes.style.display = "grid";
@@ -227,7 +240,21 @@ var_dump($_SESSION["desafio"]);
 
     }
 
+    function fugir() {
 
+        btnFugir.classList.add("ativo");
+
+        btnAcoes.classList.remove("ativo");
+
+        btnItens.classList.remove("ativo");
+
+        const url = new URL(window.location.href);
+
+        url.searchParams.set("fugiu", "true");
+
+        window.location.href = url.toString();
+
+    }
 </script>
 
 </body>

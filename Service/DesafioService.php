@@ -1,8 +1,23 @@
 <?php
 require_once "../Model/Desafio.php";
 require_once "../Model/Dados.php";
+require_once "../Service/AnimationService.php";
 class DesafioService
 {
+    public static function fugir()
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        AnimationService::limpar();
+        header("location: ../public/mapa.php");
+        exit();
+    }
+
+    public static function getBackground(int $LevelID): string
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        return $_SESSION["fases"][$LevelID]->getLinkBackground();
+    }
+
     private static function getTabelaLv1(): array
     {
         return [
@@ -111,7 +126,7 @@ class DesafioService
         ];
     }
 
-    public static function initDesafio(string $level)
+    public static function initDesafio(string $level): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
 

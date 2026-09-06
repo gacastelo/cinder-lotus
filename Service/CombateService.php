@@ -118,6 +118,7 @@ class CombateService
 
     public function fugir(): void
     {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         AnimationService::limpar();
         unset($_SESSION["inimigo"]);
         header("location: ../public/mapa.php");

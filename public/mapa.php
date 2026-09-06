@@ -10,10 +10,6 @@ if (!isset($_SESSION["fases"])){
     CenarioService::generateAllFases();
 }
 
-if (!isset($_SESSION["cenarios"])){
-    CenarioService::generateAllCenarios();
-}
-
 if (isset($_GET["cena"])) {
     if (CenarioService::isUnlocked($_GET["cena"])){
         $_SESSION["cenarioAtualId"] = $_GET["cena"];

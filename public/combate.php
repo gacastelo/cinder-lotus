@@ -5,6 +5,7 @@ require_once "../Model/Itens/Equipamento.php";
 require_once "../Model/Itens/Consumivel.php";
 require_once "../Service/ConsumivelService.php";
 require_once "../Service/CombateService.php";
+require_once "../Model/Fase.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -41,7 +42,7 @@ if (!isset($_SESSION["background"])){
 }
 
 
-$_SESSION["combateService"]->initCombate($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
+$_SESSION["combateService"]->initCombate($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
 $inventario = $player->getInventario();
 
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);

@@ -8,8 +8,10 @@ class Fase
     public int $y;
     public array $conexoes;
     public bool $bloqueada;
+    public int $dificuldade;
+    public string $tipo;
 
-    public function __construct(int $id, string $nome, int $x, int $y,array $conexoes, bool $bloqueada = true)
+    public function __construct(int $id, string $nome, int $x, int $y, array $conexoes, int $dificuldade, string $tipo, bool $bloqueada = true)
     {
         $this->id = $id;
         $this->nome = $nome;
@@ -17,9 +19,11 @@ class Fase
         $this->y = $y;
         $this->conexoes = $conexoes;
         $this->bloqueada = $bloqueada;
+        $this->dificuldade = $dificuldade;
+        $this->tipo = $tipo;
     }
 
-    public function unlock():void
+    public function unlock(): void
     {
         $this->bloqueada = false;
     }
@@ -27,5 +31,17 @@ class Fase
     public function getConexoes(): array
     {
         return $this->conexoes;
+    }
+    public function getTipo(): string
+    {
+        return $this->tipo;
+    }
+    public function isBloqueada(): bool
+    {
+        return $this->bloqueada;
+    }
+    public function getDificuldade(): int
+    {
+        return $this->dificuldade;
     }
 }
