@@ -56,6 +56,10 @@ class AbsEntity
     public function attack(AbsEntity $entity) : void {
         $entity->take_damage($this->getDano());
     }
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
 
     public function cry(): string
     {

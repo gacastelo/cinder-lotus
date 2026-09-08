@@ -6,34 +6,34 @@ class CombateService
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], ""),
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "")
+            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/goblin_base.gif"),
+//            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], ""),
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "")
+            new Inimigo("Goblin de Elite", 50, 2, 5, 5, [], "img/goblin_azul.gif"),
+            new Inimigo("Goblin Elitissímo", 50, 2, 5, 5, [], "img/goblin_rosa.gif")
         ];
     }
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], ""),
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "")
+            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif"),
+            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
     private function getTabelaLv4(): array
     {
         return [
-            new Inimigo("Goblin Chefe", 500, 20, 50, 25, [], "")
+            new Inimigo("Cinder Lotus", 500, 20, 50, 25, [], "img/cinder_lotus.gif")
         ];
     }
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Goblin de Pano", 25, -5, 1, 1, [], "")
+            new Inimigo("Goblin de Pano", 25, -5, 1, 1, [], "img/default_hero.gif")
         ];
     }
 
@@ -41,8 +41,7 @@ class CombateService
     {
 
         $backgrounds = [
-            "fundinho.png",
-            "sigmainha.png"
+            "img/backgrondTeste.png"
         ];
 
         return $backgrounds[array_rand($backgrounds)];

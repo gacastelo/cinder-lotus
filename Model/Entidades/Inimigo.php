@@ -28,4 +28,8 @@ class Inimigo extends AbsEntity
         AnimationService::acaoDano("inimigo", $damage);
         parent::take_damage($damage);
     }
+    public function getLinkImagem(): string
+    {
+        return $this->link_imagem;
+    }
 }

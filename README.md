@@ -44,7 +44,7 @@ Durante o desenvolvimento do projeto, foram aplicados conceitos fundamentais de 
 * **JavaScript** (Interatividade e dinamismo no frontend)
 * **HTML5** (Estruturação de páginas)
 * **CSS3** (Estilização com temática medieval/fantasia)
-* **IA Generativa** (Utilizada como suporte no desenvolvimento de scripts em JavaScript)
+* **IA Generativa** (Utilizada como suporte no desenvolvimento)
 
 ---
 

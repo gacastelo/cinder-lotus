@@ -67,6 +67,16 @@ $inventario = $player->getInventario();
         .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
         }
+        <?php
+            if ($_SESSION["inimigo"]->getNome() == "Cinder Lotus"){
+                echo ".inimigo {
+                  top: 22%;
+                  right: 5%;
+                  width: 25%;
+                  height: 80%;
+                }";
+            }
+        ?>
     </style>
 </head>
 
@@ -78,8 +88,8 @@ $inventario = $player->getInventario();
 
         <img
                 class="inimigo"
-                src="img/default_hero.gif"
-                alt="Inimigo"
+                src="<?=$_SESSION["inimigo"]->getLinkImagem()?>"
+                alt="<?=$_SESSION["inimigo"]->getNome()?>"
         >
 
         <img
