@@ -115,9 +115,12 @@ if (!isset($_SESSION["background"])){
                     id="acoes"
             >
 
-                <div onclick="usarAcao('Acao1')">
-                    <span>Ação 1</span>
-                </div>
+            <?php
+                if (!isset($_SESSION["acoesDesafio"])){
+                    $_SESSION["acoesDesafio"] = $_SESSION["desafio"]->getHtmlAcoes();
+                }
+                echo $_SESSION["acoesDesafio"];
+            ?>
 
 
             </div>

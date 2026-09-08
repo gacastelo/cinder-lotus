@@ -8,6 +8,7 @@ class DesafioService
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         AnimationService::limpar();
+        unset($_SESSION["acoesDesafio"]);
         header("location: ../public/mapa.php");
         exit();
     }
@@ -18,6 +19,22 @@ class DesafioService
         return $_SESSION["fases"][$LevelID]->getLinkBackground();
     }
 
+    private static function getTabelaLv0(): array
+    {
+        return [
+            new Desafio(
+                "Ponte Quebrada",
+                8,
+                "A ponte está quebrada. Você precisará atravessar seus restos para continuar.",
+                "ponte_quebrada",
+                "velocidade",
+                "Correr pelos escombros",
+                "Destruir o restante da estrutura",
+                "Saltar sobre as falhas"
+            ),
+        ];
+    }
+
     private static function getTabelaLv1(): array
     {
         return [
@@ -26,7 +43,10 @@ class DesafioService
                 12,
                 "A velha ponte range a cada passo. Atravesse sem deixar que ela desabe.",
                 "ponte_madeira",
-                "velocidade"
+                "velocidade",
+                "Correr pela ponte",
+                "Pular a ponte",
+                "Equilibrar-se na ponte"
             ),
 
             new Desafio(
@@ -34,7 +54,10 @@ class DesafioService
                 14,
                 "Uma antiga ponte de pedra bloqueia o caminho. O terreno é irregular e perigoso.",
                 "ponte_pedra",
-                "chance_esquiva"
+                "chance_esquiva",
+                "Atravessar correndo rapidamente",
+                "Forçar passagem pisando firme",
+                "Desviar das pedras soltas"
             ),
 
             new Desafio(
@@ -42,7 +65,10 @@ class DesafioService
                 10,
                 "Um enorme campo se estende à sua frente. Algo se move entre a vegetação.",
                 "campo",
-                "velocidade"
+                "velocidade",
+                "Sprintar pelo campo",
+                "Avançar cortando a vegetação",
+                "Desviar das investidas na grama"
             ),
         ];
     }
@@ -55,7 +81,10 @@ class DesafioService
                 16,
                 "O caminho sobe pela montanha. Pedras soltas tornam cada passo perigoso.",
                 "montanha",
-                "chance_esquiva"
+                "chance_esquiva",
+                "Subir correndo antes que rolem pedras",
+                "Empurrar os obstáculos do caminho",
+                "Esquivar das pedras que caem"
             ),
 
             new Desafio(
@@ -63,7 +92,10 @@ class DesafioService
                 18,
                 "A floresta é densa e quase não há luz entre as árvores. Você sente que está sendo observado.",
                 "floresta",
-                "dano"
+                "dano",
+                "Correr entre as árvores escuras",
+                "Atacar a escuridão de frente",
+                "Esquivar dos galhos baixos"
             ),
 
             new Desafio(
@@ -71,7 +103,10 @@ class DesafioService
                 20,
                 "Uma enorme parede bloqueia o caminho. Será necessário encontrar uma maneira de escalá-la.",
                 "parede_escalavel",
-                "velocidade"
+                "velocidade",
+                "Escalar o mais rápido possível",
+                "Forçar o apoio socando a rocha",
+                "Desviar de rachaduras na parede"
             ),
         ];
     }
@@ -84,7 +119,10 @@ class DesafioService
                 15,
                 "A noite começa a cair sobre o campo. A escuridão dificulta enxergar o que vem pela frente.",
                 "campo_noite",
-                "chance_esquiva"
+                "chance_esquiva",
+                "Correr antes que a noite feche",
+                "Avançar alertando qualquer ameaça",
+                "Desviar de sombras na penumbra"
             ),
 
             new Desafio(
@@ -92,7 +130,10 @@ class DesafioService
                 22,
                 "A trilha pela montanha tornou-se ainda mais perigosa depois do anoitecer.",
                 "montanha_noite",
-                "dano"
+                "dano",
+                "Subir às pressas no escuro",
+                "Arrombar caminho pela rocha fria",
+                "Esquivar de precipícios invisíveis"
             ),
 
             new Desafio(
@@ -100,7 +141,10 @@ class DesafioService
                 25,
                 "A floresta está completamente escura. Criaturas se escondem entre as árvores.",
                 "floresta_noite",
-                "velocidade"
+                "velocidade",
+                "Disparar pela mata escura",
+                "Atacar monstros à cegas",
+                "Esquivar de emboscadas na escuridão"
             ),
 
             new Desafio(
@@ -108,20 +152,10 @@ class DesafioService
                 28,
                 "A parede começa a desmoronar enquanto você tenta atravessá-la. Não há tempo para hesitar.",
                 "parede_deslizamento",
-                "chance_esquiva"
-            ),
-        ];
-    }
-
-    private static function getTabelaLv0(): array
-    {
-        return [
-            new Desafio(
-                "Ponte Quebrada",
-                8,
-                "A ponte está quebrada. Você precisará atravessar seus restos para continuar.",
-                "ponte_quebrada",
-                "velocidade"
+                "chance_esquiva",
+                "Escalar correndo do desabamento",
+                "Segurar firme na rocha que cede",
+                "Desviar dos escombros caindo"
             ),
         ];
     }
@@ -131,6 +165,7 @@ class DesafioService
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
 
         if (!isset($_SESSION["desafio"])){
+            unset($_SESSION["acoesDesafio"]);
             $desafio = DesafioService::gerarDesafio($level);
             $_SESSION["desafio"] = $desafio;
         }
