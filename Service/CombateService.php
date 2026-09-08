@@ -6,15 +6,15 @@ class CombateService
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/goblin_base.gif"),
+            new Inimigo("Goblin", 35, 2, 5, 5, [], "img/goblin_base.gif"),
 //            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Goblin de Elite", 50, 2, 5, 5, [], "img/goblin_azul.gif"),
-            new Inimigo("Goblin Elitissímo", 50, 2, 5, 5, [], "img/goblin_rosa.gif")
+            new Inimigo("Goblin de Elite", 50, 3, 7, 10, [], "img/goblin_azul.gif"),
+            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, [], "img/goblin_rosa.gif")
         ];
     }
     private function getTabelaLv3(): array
@@ -33,7 +33,7 @@ class CombateService
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Goblin de Pano", 25, -5, 1, 1, [], "img/default_hero.gif")
+            new Inimigo("Goblin de Pano", 25, -5, 1, 1, [], "img/boneco_treino.gif")
         ];
     }
 

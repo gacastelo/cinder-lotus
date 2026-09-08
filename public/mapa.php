@@ -1,6 +1,7 @@
 <?php
-require "../Service/CenarioService.php";
+require_once "../Service/CenarioService.php";
 require_once "../Service/AnimationService.php";
+require_once "../Model/Entidades/Player.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -33,8 +34,8 @@ if (isset($_SESSION["acoes"])){
     unset($_SESSION["acoes"]);
 }
 
-//for ($i = 2; $i < 13 ; $i++) {
-//    CenarioService::unlockNextLevel($i);
+//for ($i = 2; $i < 12 ; $i++) {
+  //  CenarioService::unlockNextLevel($i);
 //}
 
 if (isset($_SESSION["matouBossFinal"])){
@@ -43,7 +44,6 @@ if (isset($_SESSION["matouBossFinal"])){
         exit();
     }
 }
-
 //var_dump($_SESSION["cenarios"]);
 ?>
 <!DOCTYPE html>
@@ -55,13 +55,12 @@ if (isset($_SESSION["matouBossFinal"])){
     <title>Mapa do Jogo</title>
 
     <link rel="stylesheet" href="resources/css/mapa.css">
+    <link href='https://fonts.googleapis.com/css?family=Pixelify Sans' rel='stylesheet'>
 </head>
 
 <body>
 
 <div id="mapa">
-
-    <div class="agua"></div>
 
     <div id="informacoes">
         <strong>Mapa do Mundo</strong><br>
@@ -74,10 +73,56 @@ if (isset($_SESSION["matouBossFinal"])){
         Você está na Fase 1
     </div>
 
+    <div id="inventario_button">
+        <button onclick="openInventario()">Inventário</button>
+    </div>
+    <div id="inventario">
+
+        <div id="inventario-conteudo">
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <?php
+                    $inventario = $_SESSION["player"]->getInventario();
+                    foreach ($inventario as $item) {
+                        if ($item instanceof Equipamento){
+                            echo $item->getHtml();
+                        }
+                    }
+
+                ?>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
 </div>
 
 
 <script>
+
+    const inventario = document.getElementById("inventario");
+
+    function openInventario(){
+        if (inventario.style.display === "block"){
+            inventario.style.display = "none"
+        }
+        else{
+            inventario.style.display = "block"
+        }
+    }
+
     // CÓDIGO JAVASCRIPT FEITO COM AUXÍLIO DE IA, PARA DEIXAR MAIS BONITA A NAVEGAÇÃO ENTRE FASES POR MEIO DE MAPA INTERATIVO
 
     const fases = <?= json_encode($_SESSION["fases"]) ?>;

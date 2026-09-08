@@ -21,7 +21,7 @@ class Player extends AbsEntity
         $this->link_imagem = $link_imagem;
         $this->guardarItem(new Consumivel("Poçao de Cura Mínima", "Cura 10 de vida", ["metodo" => "heal", "args" => [10]]));
         $this->guardarItem(new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Max", ["metodo" => "increaseVidaMax", "args" => [15, 5]]));
-        $this->equip(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma", 0, 0, 45, 0, false));
+        $this->guardarItem(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente", 0, 0, 45, 0, false));
 
 
     }

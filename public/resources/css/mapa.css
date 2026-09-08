@@ -26,13 +26,15 @@ body {
 
     overflow: hidden;
 
-    background: linear-gradient(
-            180deg,
-            #5bc0eb 0%,
-            #5bc0eb 45%,
-            #4caf50 45%,
-            #2e8b57 100%
-    );
+    /*background: linear-gradient(*/
+    /*        180deg,*/
+    /*        #5bc0eb 0%,*/
+    /*        #5bc0eb 45%,*/
+    /*        #4caf50 45%,*/
+    /*        #2e8b57 100%*/
+    /*);*/
+
+    background: url("../../img/mapa.png");
 
     border: 5px solid white;
 }
@@ -147,4 +149,80 @@ body {
     border-radius: 10px;
 
     z-index: 10;
+}
+
+#inventario_button {
+    position: absolute;
+    display: flex;
+    right: 1%;
+    bottom: 1%;
+}
+#inventario_button button {
+    border: #6c572f dashed 5px;
+    width: 150px;
+    height: 75px;
+    color: #6c572f;
+    background: #ab925c;
+    font-family: 'Pixelify Sans';
+    font-size: 22px;
+}
+#inventario_button button:hover{
+    background: #c8b17d;
+    cursor: pointer;
+}
+
+#inventario {
+    top: 15%;
+    left: 25%;
+
+    width: 50%;
+    height: 70%;
+
+    position: absolute;
+    z-index: 200;
+
+    background: #ab925c;
+
+    padding: 10px;
+
+    display: none;
+}
+
+#inventario-conteudo {
+    width: 100%;
+    height: 100%;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+
+#inventario table {
+    width: 100%;
+    font-size: 20px;
+    font-family: 'Pixelify Sans';
+    border-collapse: collapse;
+}
+
+#inventario th {
+    background-color: #6c572f;
+    color: #dcc8a8;
+
+    position: sticky;
+    top: 0;
+
+    z-index: 2;
+}
+
+#inventario th,
+#inventario td {
+    padding: 10px;
+
+    border: 2px dashed #6c572f;
+
+    text-align: center;
+}
+
+#inventario tr:hover {
+    background-color: #dcc8a8;
 }

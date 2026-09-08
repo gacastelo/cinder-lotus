@@ -46,4 +46,40 @@ class Equipamento extends AbsItem
     {
         $this->is_equipped = !$this->is_equipped;
     }
+
+    public function getTipo(): string
+    {
+        $resposta = "";
+        switch ($this->tipo) {
+            case "mao_principal":
+                $resposta = "Mão Principal";
+                break;
+            case "cabeca":
+                $resposta = "Cabeça";
+                break;
+            case "peitoral":
+                $resposta = "Peitoral";
+                break;
+            case "botas":
+                $resposta = "Botas";
+                break;
+            case "mao_secundaria":
+                $resposta = "Mão Secundaria";
+                break;
+        }
+        return $resposta;
+    }
+
+    public function getHtml(): string
+    {
+        return "
+        <tr>
+            <td>".$this->nome."</td>
+            <td>".$this->getTipo()."</td>
+            <td>".$this->descricao."</td>
+            <td>D:".$this->getDanoModifier()." V: ".$this->getVelocidadeModifier()." HP: ".$this->getVidaMaximaModifier(). " E: ".$this->getChanceEsquivaModifier()."</td>
+            <td><a href='?item=".$this->id."'>Usar</a></td>
+        </tr>
+        ";
+    }
 }
