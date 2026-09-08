@@ -14,8 +14,22 @@ class Inimigo extends AbsEntity
         $this->link_imagem = $link_imagem;
     }
 
-    public function getDrops(): array
+    public function get_loot(): array
     {
         return $this->drops;
+    }
+
+    public function attack(AbsEntity $entity) : void {
+        AnimationService::acaoAtacar("inimigo");
+        parent::attack($entity);
+    }
+    public function take_damage(int $damage): void
+    {
+        AnimationService::acaoDano("inimigo", $damage);
+        parent::take_damage($damage);
+    }
+    public function getLinkImagem(): string
+    {
+        return $this->link_imagem;
     }
 }

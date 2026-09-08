@@ -19,6 +19,11 @@ class AbsEntity
         return $this->$atribute;
     }
 
+    public function getVelocidade(): int
+    {
+        return $this->velocidade;
+    }
+
     public function getAtributes(): array
     {
         return get_object_vars($this);
@@ -50,6 +55,10 @@ class AbsEntity
 
     public function attack(AbsEntity $entity) : void {
         $entity->take_damage($this->getDano());
+    }
+    public function getNome(): string
+    {
+        return $this->nome;
     }
 
     public function cry(): string

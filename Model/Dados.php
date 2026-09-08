@@ -2,14 +2,14 @@
 
 class Dados
 {
-    public function rolarDados(): int
+    public static function rolarDados(): int
     {
         return rand(1, 20);
     }
 
-    public function testeCD($CD, $modificador = 0): bool
+    public static function testeCD($CD, $modificador = 0): bool
     {
-        $resultado = $this->rolarDados() + $modificador;
+        $resultado = Dados::rolarDados() + $modificador;
         return $resultado >= $CD;
     }
 }

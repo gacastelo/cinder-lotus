@@ -1,7 +1,8 @@
 <?php
+require "../AbsModel/AbsItem.php";
 class Consumivel extends AbsItem
 {
-    private string $efeito;
+    private array $efeito;
 
     public function __construct($nome, $descricao, $efeito)
     {
@@ -12,19 +13,8 @@ class Consumivel extends AbsItem
         $this->tipo = "Consumivel";
     }
 
-    public function getEfeito(): string
+    public function getEfeito(): array
     {
         return $this->efeito;
-    }
-
-    public function getHtml(): string
-    {
-        return "
-        <tr>
-            <td>".$this->nome."</td>
-            <td>".$this->descricao."</td>
-            <td><a href='?item=".$this->id."'>Usar</a></td>
-        </tr>
-        ";
     }
 }

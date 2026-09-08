@@ -1,6 +1,8 @@
 <?php
 require_once "../Model/Entidades/Player.php";
 session_start();
+
+
 ?>
 
 <!DOCTYPE html>

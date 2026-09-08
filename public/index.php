@@ -3,7 +3,9 @@ require_once "../Model/Entidades/Player.php";
 
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $_SESSION = array();
     $_SESSION["player"] = new Player($_POST["nome_heroi"]);
+    $_SESSION["tempoInicial"] = new DateTime();
     header("Location: mapa.php");
     exit();
 }

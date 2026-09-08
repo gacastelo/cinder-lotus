@@ -29,4 +29,15 @@ class AbsItem
     {
         return get_object_vars($this);
     }
+
+    public function getHtml(): string
+    {
+        return "
+        <tr>
+            <td>".$this->nome."</td>
+            <td>".$this->descricao."</td>
+            <td><a href='?item=".$this->id."'>Usar</a></td>
+        </tr>
+        ";
+    }
 }
