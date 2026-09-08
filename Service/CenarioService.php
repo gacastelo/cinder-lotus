@@ -26,6 +26,10 @@ class CenarioService
         foreach ($caminhos as $caminho) {
             $_SESSION["fases"][$caminho]->unlock();
         }
+        //Teste para qnd matar o boss
+        if ($cenaID == 12){
+            $_SESSION["matouBossFinal"] = true;
+        }
     }
 
     public static function isUnlocked($cenaID): bool

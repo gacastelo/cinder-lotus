@@ -34,8 +34,16 @@ if (isset($_SESSION["acoes"])){
 }
 
 //for ($i = 2; $i < 13 ; $i++) {
-//    $_SESSION["cenarioService"]->unlockLevel($i);
+//    CenarioService::unlockNextLevel($i);
 //}
+
+if (isset($_SESSION["matouBossFinal"])){
+    if ($_SESSION["matouBossFinal"]){
+        header("Location: fim.php");
+        exit();
+    }
+}
+
 //var_dump($_SESSION["cenarios"]);
 ?>
 <!DOCTYPE html>
