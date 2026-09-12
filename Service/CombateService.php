@@ -86,6 +86,9 @@ class CombateService
             $_SESSION["player"]->guardarItem($item);
             $_SESSION["new_loots"]++;
         }
+        if ($_SESSION["new_loots"] == 0){
+            unset($_SESSION["new_loots"]);
+        }
     }
 
     private function resultado(): void
