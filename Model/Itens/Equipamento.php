@@ -7,7 +7,7 @@ class Equipamento extends AbsItem
     private int $vida_maxima_modifier;
     private bool $is_equipped;
 
-    public function __construct($nome, $tipo, $descricao, $vida_maxima_modifier, $velocidade_modifier, $dano_modifier, $chance_esquiva_modifier,$is_equipped)
+    public function __construct($nome, $tipo, $descricao, $vida_maxima_modifier, $velocidade_modifier, $dano_modifier, $chance_esquiva_modifier)
     {
         $this->id = uniqid("eqp");
         $this->nome = $nome;
@@ -17,7 +17,7 @@ class Equipamento extends AbsItem
         $this->velocidade_modifier = $velocidade_modifier;
         $this->dano_modifier = $dano_modifier;
         $this->chance_esquiva_modifier = $chance_esquiva_modifier;
-        $this->is_equipped = $is_equipped;
+        $this->is_equipped = false;
         $this->is_new = true;
     }
 

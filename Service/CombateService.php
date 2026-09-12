@@ -1,27 +1,30 @@
 <?php
 require "../Service/AnimationService.php";
 require "../Service/CenarioService.php";
+require "../Service/LootService.php";
 class CombateService
 {
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Goblin", 35, 2, 5, 5, [], "img/goblin_base.gif"),
-            new Inimigo("Macharanguejo",30 , 0, 10, 2, [], "img/macharanguejo_base.gif")
+            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoot(1, rand(0,2)), "img/goblin_base.gif"),
+            new Inimigo("Macharanguejo",30 , 0, 10, 2, LootService::getLoot(1, rand(0,2)), "img/macharanguejo_base.gif")
 //            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Goblin de Elite", 50, 3, 7, 10, [], "img/goblin_azul.gif"),
-            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, [], "img/goblin_rosa.gif")
+            new Inimigo("Goblin de Elite", 50, 3, 7, 10, LootService::getLoot(2, rand(0,2)), "img/goblin_azul.gif"),
+            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, LootService::getLoot(2, rand(0,2)), "img/goblin_rosa.gif"),
+            new Inimigo("Macharanguejo de Elite",80 , 2, 15, 3, LootService::getLoot(2, rand(0,2)), "img/macharanguejo_rosa.gif")
         ];
     }
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
+            new Inimigo("Macharanguejo Elitissímo",350 , 5, 18, 10, LootService::getLoot(3, rand(0,2)), "img/macharanguejo_verde.gif")
+
         ];
     }
     private function getTabelaLv4(): array

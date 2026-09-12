@@ -1,6 +1,6 @@
 <?php
 require_once "../Service/ConsumivelService.php";
-
+require_once "../Service/EquipamentoService.php";
 class LootService
 {
     public static function getLoot(string $level, int $numberOfItems = 1): array
@@ -11,7 +11,8 @@ class LootService
                 $ConsumivelService = new ConsumivelService();
                 $loot[] = $ConsumivelService->gerarConsumivel($level);
             } else {
-                $loot[] = null;
+                $EquipamentoService = new EquipamentoService();
+                $loot[] = $EquipamentoService->gerarEquipamento($level);
             }
         }
         return $loot;

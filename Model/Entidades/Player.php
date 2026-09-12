@@ -21,7 +21,7 @@ class Player extends AbsEntity
         $this->link_imagem = $link_imagem;
         $this->guardarItem(new Consumivel("Poçao de Cura Mínima", "Cura 10 de vida", ["metodo" => "heal", "args" => [10]]));
         $this->guardarItem(new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Max", ["metodo" => "increaseVidaMax", "args" => [15, 5]]));
-        $this->guardarItem(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente", 0, 0, 45, 0, false));
+        $this->guardarItem(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente", 0, 0, 45, 0));
 
     }
 
@@ -123,7 +123,7 @@ class Player extends AbsEntity
         unset($this->inventario[$id]);
     }
 
-    private function getEquipamentoBuffs(string $type): int
+    public function getEquipamentoBuffs(string $type): int
     {
         $buffs = 0;
         foreach ($this->equipamento as $equip) {
@@ -151,7 +151,7 @@ class Player extends AbsEntity
 
     public function getChanceEquiva(): int
     {
-        return $this->chance_esquiva + $this->buffs["$this->chance_esquiva"]["value"] + $this->getEquipamentoBuffs("$this->chance_esquiva");
+        return $this->chance_esquiva + $this->buffs["$this->chance_esquiva"]["value"] + $this->getEquipamentoBuffs("chance_esquiva");
     }
     public function attack(AbsEntity $entity) : void {
         AnimationService::acaoAtacar("jogador");
