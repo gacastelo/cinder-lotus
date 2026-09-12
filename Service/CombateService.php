@@ -7,7 +7,7 @@ class CombateService
     {
         return [
             new Inimigo("Goblin", 35, 2, 5, 5, [], "img/goblin_base.gif"),
-            new Inimigo("Machasiri",30 , 0, 10, 2, [], "img/machasiri_base.gif")
+            new Inimigo("Macharanguejo",30 , 0, 10, 2, [], "img/macharanguejo_base.gif")
 //            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
