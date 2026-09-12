@@ -186,6 +186,7 @@ body {
     padding: 10px;
 
     display: none;
+    border: #6c572f dashed 3px;
 }
 
 #inventario-conteudo {
@@ -278,3 +279,25 @@ td span img {
     font-size: 25px;
     margin: 0;
 }
+#status {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 15px;
+    font-family: "VT323", "Pixelify Sans", serif;
+    font-size: 30px;
+    background: #ab925c;
+    width: 10%;
+    border: #6c572f dashed 3px;
+    position: absolute;
+    padding: 15px;
+
+    top: 15%;
+    left: 10%;
+}
+
+#status span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+

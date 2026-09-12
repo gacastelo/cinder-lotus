@@ -7,22 +7,21 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-if (!isset($_SESSION["fases"])){
+if (!isset($_SESSION["fases"])) {
     CenarioService::generateAllFases();
 }
 
 if (isset($_GET["cena"])) {
-    if (CenarioService::isUnlocked($_GET["cena"])){
+    if (CenarioService::isUnlocked($_GET["cena"])) {
         $_SESSION["cenarioAtualId"] = $_GET["cena"];
         CenarioService::getCena($_GET["cena"]);
-    }
-    else{
+    } else {
         header("Location: mapa.php");
         exit();
     }
 }
 
-if (isset($_SESSION["inimigo"])){
+if (isset($_SESSION["inimigo"])) {
     unset($_SESSION["inimigo"]);
 }
 
@@ -30,22 +29,22 @@ if (!isset($_SESSION["cenarioAtualId"])) {
     $_SESSION["cenarioAtualId"] = 1;
 }
 
-if (isset($_SESSION["acoes"])){
+if (isset($_SESSION["acoes"])) {
     unset($_SESSION["acoes"]);
 }
 
-if (isset($_GET["item"])){
+if (isset($_GET["item"])) {
     $_SESSION["player"]->useItem($_GET["item"]);
     header("Location: mapa.php");
     exit();
 }
 
-//for ($i = 2; $i < 12 ; $i++) {
+//for ($i = 2; $i < 12; $i++) {
 //    CenarioService::unlockNextLevel($i);
 //}
 
-if (isset($_SESSION["matouBossFinal"])){
-    if ($_SESSION["matouBossFinal"]){
+if (isset($_SESSION["matouBossFinal"])) {
+    if ($_SESSION["matouBossFinal"]) {
         header("Location: fim.php");
         exit();
     }
@@ -85,13 +84,31 @@ if (isset($_SESSION["matouBossFinal"])){
     </div>
 
     <?php
-        if (isset($_SESSION["new_loots"])){
-            echo "<div id='new_loots'><p>".$_SESSION["new_loots"]."</p></div>";
-            unset($_SESSION["new_loots"]);
-        }
+    if (isset($_SESSION["new_loots"])) {
+        echo "<div id='new_loots'><p>" . $_SESSION["new_loots"] . "</p></div>";
+        unset($_SESSION["new_loots"]);
+    }
     ?>
-    <div id="inventario">
+    <div id="status">
+        <span>
+            <img src="img/icons/dano_icon.png" alt="Dano" width="25">
+            <?= $_SESSION["player"]->getEquipamentoBuffs("dano"); ?>
+        </span>
+            <span>
+            <img src="img/icons/velocidade_icon.png" alt="Velocidade" width="25">
+            <?= $_SESSION["player"]->getEquipamentoBuffs("velocidade"); ?>
+        </span>
+        <span>
+            <img src="img/icons/vida_icon.png" alt="Vida Máxima" width="25">
+            <?= $_SESSION["player"]->getEquipamentoBuffs("vida_max"); ?>
+        </span>
+            <span>
+            <img src="img/icons/esquiva_icon.png" alt="Esquiva" width="25">
+            <?= $_SESSION["player"]->getEquipamentoBuffs("chance_esquiva"); ?>
+        </span>
+    </div>
 
+    <div id="inventario">
         <div id="inventario-conteudo">
 
             <table>
@@ -99,7 +116,7 @@ if (isset($_SESSION["matouBossFinal"])){
                 <tr>
                     <th>Nome</th>
                     <th>Tipo</th>
-<!--                    <th>Descrição</th>-->
+                    <!--                    <th>Descrição</th>-->
                     <th>Status</th>
                     <th>Ação</th>
                 </tr>
@@ -107,11 +124,11 @@ if (isset($_SESSION["matouBossFinal"])){
 
                 <tbody>
                 <?php
-                    $inventario = $_SESSION["player"]->getInventario();
-                    foreach ($inventario as $item) {
-                            echo $item->getHtml();
-                            $item->unNew();
-                    }
+                $inventario = $_SESSION["player"]->getInventario();
+                foreach ($inventario as $item) {
+                    echo $item->getHtml(true);
+                    $item->unNew();
+                }
 
                 ?>
                 </tbody>
@@ -126,13 +143,19 @@ if (isset($_SESSION["matouBossFinal"])){
 <script>
 
     const inventario = document.getElementById("inventario");
+    const status = document.getElementById("status");
 
-    function openInventario(){
-        if (inventario.style.display === "block"){
+    function openInventario() {
+        if (inventario.style.display === "block") {
             inventario.style.display = "none"
-        }
-        else{
+        } else {
             inventario.style.display = "block"
+        }
+
+        if (status.style.display === "grid") {
+            status.style.display = "none"
+        } else {
+            status.style.display = "grid"
         }
     }
 
