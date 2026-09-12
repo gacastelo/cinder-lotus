@@ -23,7 +23,6 @@ class Player extends AbsEntity
         $this->guardarItem(new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Max", ["metodo" => "increaseVidaMax", "args" => [15, 5]]));
         $this->guardarItem(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente", 0, 0, 45, 0, false));
 
-
     }
 
     public function guardarItem($item): void
@@ -49,10 +48,14 @@ class Player extends AbsEntity
         if (!isset($this->equipamento[$tipo])) {
             $this->equipamento[$tipo] = $equip;
         } else {
-            $replace = $this->equipamento[$tipo];
-            $this->equipamento[$tipo] = $equip;
-            $replace->toggleEquipped();
-            $this->guardarItem($replace);
+            if ($this->equipamento[$tipo]->getId() == $equip->getId()) {
+                $this->equipamento[$tipo] = null;
+            } else{
+                $replace = $this->equipamento[$tipo];
+                $this->equipamento[$tipo] = $equip;
+                $replace->toggleEquipped();
+                $this->guardarItem($replace);
+            }
         }
     }
 
