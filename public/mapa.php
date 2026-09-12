@@ -34,8 +34,14 @@ if (isset($_SESSION["acoes"])){
     unset($_SESSION["acoes"]);
 }
 
+if (isset($_GET["item"])){
+    $_SESSION["player"]->useItem($_GET["item"]);
+    header("Location: mapa.php");
+    exit();
+}
+
 //for ($i = 2; $i < 12 ; $i++) {
-  //  CenarioService::unlockNextLevel($i);
+//    CenarioService::unlockNextLevel($i);
 //}
 
 if (isset($_SESSION["matouBossFinal"])){
@@ -55,7 +61,8 @@ if (isset($_SESSION["matouBossFinal"])){
     <title>Mapa do Jogo</title>
 
     <link rel="stylesheet" href="resources/css/mapa.css">
-    <link href='https://fonts.googleapis.com/css?family=Pixelify Sans' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -76,6 +83,13 @@ if (isset($_SESSION["matouBossFinal"])){
     <div id="inventario_button">
         <button onclick="openInventario()">Inventário</button>
     </div>
+
+    <?php
+        if (isset($_SESSION["new_loots"])){
+            echo "<div id='new_loots'><p>".$_SESSION["new_loots"]."</p></div>";
+            unset($_SESSION["new_loots"]);
+        }
+    ?>
     <div id="inventario">
 
         <div id="inventario-conteudo">
@@ -85,7 +99,7 @@ if (isset($_SESSION["matouBossFinal"])){
                 <tr>
                     <th>Nome</th>
                     <th>Tipo</th>
-                    <th>Descrição</th>
+<!--                    <th>Descrição</th>-->
                     <th>Status</th>
                     <th>Ação</th>
                 </tr>
@@ -95,9 +109,8 @@ if (isset($_SESSION["matouBossFinal"])){
                 <?php
                     $inventario = $_SESSION["player"]->getInventario();
                     foreach ($inventario as $item) {
-                        if ($item instanceof Equipamento){
                             echo $item->getHtml();
-                        }
+                            $item->unNew();
                     }
 
                 ?>

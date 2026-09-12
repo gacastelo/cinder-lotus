@@ -138,6 +138,8 @@ if (!isset($_SESSION["background"])){
 
                         <th>Item</th>
 
+                        <th>Tipo</th>
+
                         <th>Descrição</th>
 
                         <th>Ação</th>

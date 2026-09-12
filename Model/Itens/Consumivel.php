@@ -1,5 +1,6 @@
 <?php
 require "../AbsModel/AbsItem.php";
+
 class Consumivel extends AbsItem
 {
     private array $efeito;
@@ -11,6 +12,7 @@ class Consumivel extends AbsItem
         $this->descricao = $descricao;
         $this->efeito = $efeito;
         $this->tipo = "Consumivel";
+        $this->is_new = true;
     }
 
     public function getEfeito(): array

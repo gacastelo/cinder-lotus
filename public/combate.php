@@ -172,6 +172,8 @@ $inventario = $player->getInventario();
 
                         <th>Item</th>
 
+                        <th>Tipo</th>
+
                         <th>Descrição</th>
 
                         <th>Ação</th>

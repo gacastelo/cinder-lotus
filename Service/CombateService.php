@@ -7,6 +7,7 @@ class CombateService
     {
         return [
             new Inimigo("Goblin", 35, 2, 5, 5, [], "img/goblin_base.gif"),
+            new Inimigo("Machasiri",30 , 0, 10, 2, [], "img/machasiri_base.gif")
 //            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
@@ -20,7 +21,6 @@ class CombateService
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif"),
             new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
@@ -33,7 +33,7 @@ class CombateService
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Goblin de Pano", 25, -5, 1, 1, [], "img/boneco_treino.gif")
+            new Inimigo("Goblin de Pano", 15, -5, 0, 1, [], "img/boneco_treino.gif")
         ];
     }
 
@@ -79,9 +79,12 @@ class CombateService
 
     private function destribuirLoot(): void
     {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         $loot = $_SESSION["inimigo"]->get_loot();
+        $_SESSION["new_loots"] = 0;
         foreach ($loot as $item) {
             $_SESSION["player"]->guardarItem($item);
+            $_SESSION["new_loots"]++;
         }
     }
 

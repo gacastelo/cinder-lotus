@@ -18,6 +18,7 @@ class Equipamento extends AbsItem
         $this->dano_modifier = $dano_modifier;
         $this->chance_esquiva_modifier = $chance_esquiva_modifier;
         $this->is_equipped = $is_equipped;
+        $this->is_new = true;
     }
 
     public function getStats(): array
@@ -70,16 +71,52 @@ class Equipamento extends AbsItem
         return $resposta;
     }
 
+//        public function getHtml(): string
+//        {
+//            $acao = ($this->is_equipped) ? "Desequipar" : "Equipar";
+//
+//            return "
+//            <tr>
+//                <td>".$this->nome."</td>
+//                <td>".$this->getTipo()."</td>
+//                <td>Dano: ".$this->getDanoModifier()." Velocidade: ".$this->getVelocidadeModifier()." Vida Max.: ".$this->getVidaMaximaModifier(). " Esquiva: ".$this->getChanceEsquivaModifier()."</td>
+//                <td><a href='?item=".$this->id."'>".$acao."</a></td>
+//            </tr>
+//            ";
+//        }
+
     public function getHtml(): string
     {
+        $acao = ($this->is_equipped) ? "Desequipar" : "Equipar";
+        $novo = ($this->is_new) ? "<span class='newA'>*<span class='new'>New</span>*</span>" : "";
         return "
-        <tr>
-            <td>".$this->nome."</td>
-            <td>".$this->getTipo()."</td>
-            <td>".$this->descricao."</td>
-            <td>D:".$this->getDanoModifier()." V: ".$this->getVelocidadeModifier()." HP: ".$this->getVidaMaximaModifier(). " E: ".$this->getChanceEsquivaModifier()."</td>
-            <td><a href='?item=".$this->id."'>Usar</a></td>
-        </tr>
-        ";
+    <tr>
+        <td>".$novo.$this->nome."</td>
+        <td>".$this->getTipo()."</td>
+        <td>
+            <span>
+                <img src='img/icons/dano_icon.png' alt='Dano' width='20'>
+                ".$this->getDanoModifier()."
+            </span>
+
+            <span>
+                <img src='img/icons/velocidade_icon.png' alt='Velocidade' width='20'>
+                ".$this->getVelocidadeModifier()."
+            </span>
+
+            <span>
+                <img src='img/icons/vida_icon.png' alt='Vida Máxima' width='20'>
+                ".$this->getVidaMaximaModifier()."
+            </span>
+
+            <span>
+                <img src='img/icons/esquiva_icon.png' alt='Esquiva' width='20'>
+                ".$this->getChanceEsquivaModifier()."
+            </span>
+        </td>
+        <td><a href='?item=".$this->id."'>".$acao."</a></td>
+    </tr>
+    ";
     }
+
 }
