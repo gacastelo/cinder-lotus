@@ -19,4 +19,20 @@ class Consumivel extends AbsItem
     {
         return $this->efeito;
     }
+
+    public function getHtml($inventario = false): string
+    {
+        if ($inventario) {
+            $novo = ($this->is_new) ? "<span class='newA'>*<span class='new'>New</span>*</span>" : "";
+            return "
+        <tr>
+            <td>".$novo.$this->nome."</td>
+            <td>" . $this->tipo . "</td>
+            <td>" . $this->descricao . "</td>
+            <td><a href='?item=" . $this->id . "'>Usar</a></td>
+        </tr>
+        ";
+        }
+        return parent::getHtml();
+    }
 }
