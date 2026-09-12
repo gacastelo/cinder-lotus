@@ -163,7 +163,7 @@ body {
     height: 75px;
     color: #6c572f;
     background: #ab925c;
-    font-family: 'Pixelify Sans';
+    font-family: 'Pixelify Sans', serif;
     font-size: 22px;
 }
 #inventario_button button:hover{
@@ -200,7 +200,7 @@ body {
 #inventario table {
     width: 100%;
     font-size: 25px;
-    font-family: "VT323",'Pixelify Sans';
+    font-family: "VT323",'Pixelify Sans', serif;
     border-collapse: collapse;
 }
 
@@ -273,7 +273,7 @@ td span img {
 }
 
 #new_loots p {
-    font-family: "VT323", "Pixelify Sans";
+    font-family: "VT323", "Pixelify Sans", serif;
     color: #eadbc0;
     font-size: 25px;
     margin: 0;
