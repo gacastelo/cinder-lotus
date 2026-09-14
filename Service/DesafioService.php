@@ -184,7 +184,7 @@ class DesafioService
 
         switch ($selectedAtribute){
             case "AcaoE":
-                $atribute = $_SESSION["player"]->getChanceEquiva();
+                $atribute = $_SESSION["player"]->getChanceEsquiva();
                 break;
             case "AcaoD":
                 $atribute = $_SESSION["player"]->getDano();

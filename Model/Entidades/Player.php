@@ -149,9 +149,9 @@ class Player extends AbsEntity
         return $this->velocidade + $this->buffs["velocidade"]["value"] + $this->getEquipamentoBuffs("velocidade");
     }
 
-    public function getChanceEquiva(): int
+    public function getChanceEsquiva(): int
     {
-        return $this->chance_esquiva + $this->buffs["$this->chance_esquiva"]["value"] + $this->getEquipamentoBuffs("chance_esquiva");
+        return $this->chance_esquiva + $this->buffs["chance_esquiva"]["value"] + $this->getEquipamentoBuffs("chance_esquiva");
     }
     public function attack(AbsEntity $entity) : void {
         AnimationService::acaoAtacar("jogador");
