@@ -24,7 +24,7 @@ if (isset($_GET["item"])) {
 if (isset($_GET["acao"])){
     $resultado = DesafioService::desafiarDesafio($_SESSION["desafio"], $_GET["acao"]);
 
-    if (!$resultado){
+    if ($resultado){
     $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
     } else {
     $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "derrota"];
