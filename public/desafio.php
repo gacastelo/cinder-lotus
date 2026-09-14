@@ -53,6 +53,8 @@ if (!isset($_SESSION["background"])){
     <title>Desafio</title>
 
     <link rel="stylesheet" href="resources/css/desafio.css">
+    <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         .batalha{
             background-image: url("<?= $_SESSION["background"] ?>");
@@ -65,7 +67,9 @@ if (!isset($_SESSION["background"])){
 <main>
 
     <section class="batalha">
-
+        <div id="descricao">
+            <span><?= $_SESSION["desafio"]->getDescricao()?></span>
+        </div>
         <img
                 class="inimigo"
                 src="img/default_hero.gif"

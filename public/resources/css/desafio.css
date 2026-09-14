@@ -219,3 +219,15 @@ tr:hover {
         font-size: 12px;
     }
 }
+
+#descricao {
+    background: #9c865d;
+    width: auto;
+    position: absolute;
+    left: 1%;
+    top: 2%;
+    font-size: 25px;
+    font-family: "VT323", "Pixelify Sans", serif;
+    border: #6c572f dashed 3px;
+    padding: 10px;
+}

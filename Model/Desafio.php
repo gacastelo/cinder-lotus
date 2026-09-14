@@ -41,4 +41,8 @@ class Desafio
         return implode(' ', $embaralhador);
     }
 
+    public function getDescricao(): string
+    {
+        return $this->descricao;
+    }
 }
