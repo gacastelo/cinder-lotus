@@ -11,7 +11,7 @@ class Inimigo extends AbsEntity
         $this->dano = $dano;
         $this->chance_esquiva = $chance_esquiva;
         $this->drops = $drops;
-        $this->link_imagem = $link_imagem;
+        $this->link_imagem = "img/inimigos/" . $link_imagem . ".gif";
     }
 
     public function get_loot(): array
