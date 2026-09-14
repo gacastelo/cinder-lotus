@@ -7,36 +7,36 @@ class CombateService
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0,2)), "img/goblin_base.gif"),
-            new Inimigo("Macharanguejo",30 , 0, 10, 2, LootService::getLoots(1, rand(0,2)), "img/macharanguejo_base.gif")
+            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0,2)), "goblin_base"),
+            new Inimigo("Macharanguejo",30 , 0, 10, 2, LootService::getLoots(1, rand(0,2)), "macharanguejo_base")
 //            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
         ];
     }
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Goblin de Elite", 50, 3, 7, 10, LootService::getLoots(2, rand(0,2)), "img/goblin_azul.gif"),
-            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, LootService::getLoots(2, rand(0,2)), "img/goblin_rosa.gif"),
-            new Inimigo("Macharanguejo de Elite",80 , 2, 15, 3, LootService::getLoots(2, rand(0,2)), "img/macharanguejo_rosa.gif")
+            new Inimigo("Goblin de Elite", 50, 3, 7, 10, LootService::getLoots(2, rand(0,2)), "goblin_azul"),
+            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, LootService::getLoots(2, rand(0,2)), "goblin_rosa"),
+            new Inimigo("Macharanguejo de Elite",80 , 2, 15, 3, LootService::getLoots(2, rand(0,2)), "macharanguejo_rosa")
         ];
     }
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Macharanguejo Elitissímo",350 , 5, 18, 10, LootService::getLoots(3, rand(0,2)), "img/macharanguejo_verde.gif")
+            new Inimigo("Macharanguejo Elitissímo",350 , 5, 18, 10, LootService::getLoots(3, rand(0,2)), "macharanguejo_verde")
 
         ];
     }
     private function getTabelaLv4(): array
     {
         return [
-            new Inimigo("Cinder Lotus", 500, 20, 50, 25, [], "img/cinder_lotus.gif")
+            new Inimigo("Cinder Lotus", 500, 20, 50, 25, [], "cinder_lotus")
         ];
     }
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Goblin de Pano", 15, -5, 0, 1, [], "img/boneco_treino.gif")
+            new Inimigo("Goblin de Pano", 15, -5, 0, 1, [], "boneco_treino")
         ];
     }
 
