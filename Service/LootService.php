@@ -3,18 +3,23 @@ require_once "../Service/ConsumivelService.php";
 require_once "../Service/EquipamentoService.php";
 class LootService
 {
-    public static function getLoot(string $level, int $numberOfItems = 1): array
+    public static function getLoots(string $level, int $numberOfItems = 1): array
     {
         $loot = [];
-        for ($i = 1; $i <= $numberOfItems; $i++) {
-            if (rand(0, 2) < 2) {
-                $ConsumivelService = new ConsumivelService();
-                $loot[] = $ConsumivelService->gerarConsumivel($level);
-            } else {
-                $EquipamentoService = new EquipamentoService();
-                $loot[] = $EquipamentoService->gerarEquipamento($level);
-            }
+        for ($i = 0; $i < $numberOfItems; $i++) {
+            $loot[] = self::getLoot($level);
         }
         return $loot;
+    }
+
+    private static function getLoot(string $level): Equipamento|Consumivel
+    {
+            if (rand(0, 2) < 2) {
+                $ConsumivelService = new ConsumivelService();
+                return $ConsumivelService->gerarConsumivel($level);
+            } else {
+                $EquipamentoService = new EquipamentoService();
+                return $EquipamentoService->gerarEquipamento($level);
+            }
     }
 }
