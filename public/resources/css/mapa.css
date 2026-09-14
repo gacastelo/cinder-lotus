@@ -173,9 +173,9 @@ body {
 
 #inventario {
     top: 15%;
-    left: 25%;
+    left: 20%;
 
-    width: 50%;
+    width: 60%;
     height: 70%;
 
     position: absolute;
@@ -292,7 +292,7 @@ td span img {
     padding: 15px;
 
     top: 15%;
-    left: 10%;
+    left: 5%;
 }
 
 #status span {

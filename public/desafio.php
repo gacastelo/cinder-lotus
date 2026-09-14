@@ -21,13 +21,13 @@ if (isset($_GET["item"])) {
     exit();
 }
 
-if (isset($_GET["acao"])){
+if (isset($_GET["acao"])) {
     $resultado = DesafioService::desafiarDesafio($_SESSION["desafio"], $_GET["acao"]);
 
-    if ($resultado){
-    $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
+    if ($resultado) {
+        $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
     } else {
-    $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "derrota"];
+        $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "derrota"];
     }
 
     header("Location: desafio.php");
@@ -43,7 +43,7 @@ $inventario = $player->getInventario();
 
 DesafioService::initDesafio($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
 
-if (!isset($_SESSION["background"])){
+if (!isset($_SESSION["background"])) {
     $_SESSION["background"] = $_SESSION["desafio"]->getLinkBackground();
 }
 
@@ -67,7 +67,7 @@ if (!isset($_SESSION["background"])){
     <link rel="stylesheet" href="resources/css/animacoes.css">
 
     <style>
-        .batalha{
+        .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
         }
     </style>
@@ -79,13 +79,8 @@ if (!isset($_SESSION["background"])){
 
     <section class="batalha">
         <div id="descricao">
-            <span><?= $_SESSION["desafio"]->getDescricao()?></span>
+            <span><?= $_SESSION["desafio"]->getDescricao() ?></span>
         </div>
-        <img
-                class="inimigo"
-                src="img/default_hero.gif"
-                alt="Inimigo"
-        >
 
         <img
                 class="jogador"
@@ -130,12 +125,12 @@ if (!isset($_SESSION["background"])){
                     id="acoes"
             >
 
-            <?php
-                if (!isset($_SESSION["acoesDesafio"])){
+                <?php
+                if (!isset($_SESSION["acoesDesafio"])) {
                     $_SESSION["acoesDesafio"] = $_SESSION["desafio"]->getHtmlAcoes();
                 }
                 echo $_SESSION["acoesDesafio"];
-            ?>
+                ?>
 
 
             </div>
@@ -192,9 +187,9 @@ if (!isset($_SESSION["background"])){
 </main>
 
 <script>
-        /* =========================================================
-       [ANIMAÇÃO NOVA] - SISTEMA DE AÇÕES DE BATALHA
-       ========================================================= */
+    /* =========================================================
+   [ANIMAÇÃO NOVA] - SISTEMA DE AÇÕES DE BATALHA
+   ========================================================= */
 
 
     /*
@@ -205,10 +200,6 @@ if (!isset($_SESSION["background"])){
 
     const personagemJogador =
         document.querySelector(".jogador");
-
-
-    const personagemInimigo =
-        document.querySelector(".inimigo");
 
 
     /*
@@ -334,97 +325,12 @@ if (!isset($_SESSION["background"])){
     }
 
 
-    /*
-        ========================================================
-        [ANIMAÇÃO NOVA]
-        ANIMAÇÃO DE ATAQUE
-        ========================================================
-    */
-
-    async function animacaoAtacar(
-        quem,
-        distancia = 80
-    ) {
-
-
-        let personagem;
-
-
-        /*
-            [ANIMAÇÃO NOVA]
-
-            Descobre qual personagem está atacando.
-        */
-
-        if (quem === "jogador") {
-
-            personagem = personagemJogador;
-
-        } else {
-
-            personagem = personagemInimigo;
-
-        }
-
-
-        /*
-            [ANIMAÇÃO NOVA]
-
-            Jogador vai para a direita.
-
-            Inimigo vai para a esquerda.
-        */
-
-        let movimento;
-
-
-        if (quem === "jogador") {
-
-            movimento = distancia;
-
-        } else {
-
-            movimento = -distancia;
-
-        }
-
-
-        /*
-            [ANIMAÇÃO NOVA]
-
-            Avança.
-        */
-
-        personagem.style.transform =
-            `translateX(${movimento}px)`;
-
-
-        await esperarAnimacao(200);
-
-
-        /*
-            [ANIMAÇÃO NOVA]
-
-            Volta.
-        */
-
-        personagem.style.transform =
-            "translateX(0px)";
-
-
-        await esperarAnimacao(200);
-
-    }
-
     async function animacaoDerrota() {
 
         bloquearBatalha(true);
 
         // Faz o jogador cair
         personagemJogador.classList.add("animacao-derrota");
-
-        // Faz inimigo comemorar
-        personagemInimigo.classList.add("animacao-vitoria");
 
         await esperarAnimacao(1500);
 
@@ -453,9 +359,6 @@ if (!isset($_SESSION["background"])){
 
         // Jogador comemora
         personagemJogador.classList.add("animacao-vitoria");
-
-        //Inimigo Cai
-        personagemInimigo.classList.add("animacao-derrota");
 
         await esperarAnimacao(1000);
 
@@ -510,9 +413,9 @@ if (!isset($_SESSION["background"])){
     }
 
     <?php
-        if (isset($_SESSION["acoes"])){
-            echo "executarAcoes(".json_encode($_SESSION["acoes"]).")";
-        }
+    if (isset($_SESSION["acoes"])) {
+        echo "executarAcoes(" . json_encode($_SESSION["acoes"]) . ")";
+    }
     ?>
 </script>
 <script>

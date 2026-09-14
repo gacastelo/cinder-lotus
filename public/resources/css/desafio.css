@@ -46,11 +46,11 @@ main {
 .jogador {
     position: absolute;
 
-    bottom: 5%;
+    bottom: -7%;
     left: 10%;
 
-    width: 250px;
-    height: 250px;
+    width: 25%;
+    height: 66%;
 
     object-fit: contain;
 }
