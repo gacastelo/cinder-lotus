@@ -178,7 +178,28 @@ class DesafioService
         return $table[array_rand($table)];
     }
 
-    public static function desafiarDesafio(int $cd, string $bestAtribute, $selectedAtribute, $atributeValue): bool
+    public static function desafiarDesafio(Desafio $desafio, string $selectedAtribute): bool
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+
+        switch ($selectedAtribute){
+            case "AcaoE":
+                $atribute = $_SESSION["player"]->getChanceEquiva();
+                break;
+            case "AcaoD":
+                $atribute = $_SESSION["player"]->getDano();
+                break;
+            case "AcaoV":
+                $atribute = $_SESSION["player"]->getVelocidade();
+                break;
+            return false;
+        }
+
+        return self::processarDesafio($desafio->getCd(), $desafio->getBestAtribute(), $selectedAtribute, $atribute);
+    }
+
+
+    private static function processarDesafio(int $cd, string $bestAtribute, $selectedAtribute, $atributeValue): bool
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         if ($bestAtribute == $selectedAtribute) {
