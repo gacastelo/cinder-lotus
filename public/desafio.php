@@ -22,6 +22,14 @@ if (isset($_GET["item"])) {
 }
 
 if (isset($_GET["acao"])){
+    $resultado = DesafioService::desafiarDesafio($_SESSION["desafio"], $_GET["acao"]);
+
+    if ($resultado){
+    $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
+    } else {
+    $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "derrota"];
+    }
+
     header("Location: desafio.php");
     exit();
 }
@@ -41,6 +49,7 @@ if (!isset($_SESSION["background"])){
 
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 //var_dump($player);
+//var_dump($_SESSION["acoes"]);
 ?>
 
 <!DOCTYPE html>
@@ -55,6 +64,8 @@ if (!isset($_SESSION["background"])){
     <link rel="stylesheet" href="resources/css/desafio.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="resources/css/animacoes.css">
+
     <style>
         .batalha{
             background-image: url("<?= $_SESSION["background"] ?>");
@@ -92,7 +103,7 @@ if (!isset($_SESSION["background"])){
                     class="ativo"
                     onclick="mostrarAcoes()"
             >
-                Açoes
+                Ações
             </button>
 
 
@@ -180,10 +191,331 @@ if (!isset($_SESSION["background"])){
 
 </main>
 
-
 <script>
+        /* =========================================================
+       [ANIMAÇÃO NOVA] - SISTEMA DE AÇÕES DE BATALHA
+       ========================================================= */
 
 
+    /*
+        [ANIMAÇÃO NOVA]
+
+        Pega os personagens que já existem no HTML.
+    */
+
+    const personagemJogador =
+        document.querySelector(".jogador");
+
+
+    const personagemInimigo =
+        document.querySelector(".inimigo");
+
+
+    /*
+        [ANIMAÇÃO NOVA]
+
+        Função para esperar determinado tempo.
+    */
+
+    function esperarAnimacao(tempo) {
+
+        return new Promise(resolve => {
+
+            setTimeout(resolve, tempo);
+
+        });
+
+    }
+
+
+    async function executarAcoes(acoes) {
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Bloqueia os menus enquanto a animação acontece.
+        */
+
+        bloquearBatalha(true);
+
+
+        for (const acao of acoes) {
+
+
+            switch (acao.tipo) {
+
+
+                /*
+                    [ANIMAÇÃO NOVA]
+                    ATAQUE
+                */
+
+                case "atacar":
+
+                    await animacaoAtacar(
+                        acao.quem,
+                        acao.distancia ?? 80
+                    );
+
+                    break;
+
+
+
+                /*
+                    [ANIMAÇÃO NOVA]
+                    DANO
+                */
+
+                case "dano":
+
+                    await animacaoDano(
+                        acao.alvo,
+                        acao.valor
+                    );
+
+                    break;
+
+
+
+                /*
+                    [ANIMAÇÃO NOVA]
+                    ESPERAR
+                */
+
+                case "esperar":
+
+                    await esperarAnimacao(
+                        acao.tempo ?? 500
+                    );
+
+                    break;
+
+
+
+                /*
+                    [ANIMAÇÃO NOVA]
+                    MENSAGEM
+                */
+
+                case "mensagem":
+
+                    alert(acao.texto);
+
+                    break;
+
+                case "resultado":
+
+                    await esperarAnimacao(1000);
+
+                    if (acao.resultado === "vitoria") {
+                        await animacaoVitoria();
+                        return;
+                    }
+
+                    if (acao.resultado === "derrota") {
+                        await animacaoDerrota();
+                        return;
+                    }
+
+                    break;
+            }
+
+        }
+
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Libera os menus novamente.
+        */
+
+        bloquearBatalha(false);
+
+    }
+
+
+    /*
+        ========================================================
+        [ANIMAÇÃO NOVA]
+        ANIMAÇÃO DE ATAQUE
+        ========================================================
+    */
+
+    async function animacaoAtacar(
+        quem,
+        distancia = 80
+    ) {
+
+
+        let personagem;
+
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Descobre qual personagem está atacando.
+        */
+
+        if (quem === "jogador") {
+
+            personagem = personagemJogador;
+
+        } else {
+
+            personagem = personagemInimigo;
+
+        }
+
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Jogador vai para a direita.
+
+            Inimigo vai para a esquerda.
+        */
+
+        let movimento;
+
+
+        if (quem === "jogador") {
+
+            movimento = distancia;
+
+        } else {
+
+            movimento = -distancia;
+
+        }
+
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Avança.
+        */
+
+        personagem.style.transform =
+            `translateX(${movimento}px)`;
+
+
+        await esperarAnimacao(200);
+
+
+        /*
+            [ANIMAÇÃO NOVA]
+
+            Volta.
+        */
+
+        personagem.style.transform =
+            "translateX(0px)";
+
+
+        await esperarAnimacao(200);
+
+    }
+
+    async function animacaoDerrota() {
+
+        bloquearBatalha(true);
+
+        // Faz o jogador cair
+        personagemJogador.classList.add("animacao-derrota");
+
+        // Faz inimigo comemorar
+        personagemInimigo.classList.add("animacao-vitoria");
+
+        await esperarAnimacao(1500);
+
+        // Cria a tela escura
+        const tela = document.createElement("div");
+        tela.classList.add("tela-derrota");
+
+        document.querySelector(".batalha").appendChild(tela);
+
+        const texto = document.createElement("div");
+
+        texto.classList.add("texto-derrota");
+
+        texto.textContent = "Falhou ;-;";
+
+        tela.appendChild(texto);
+
+        await esperarAnimacao(3000);
+
+        window.location.href = "../public/mapa.php";
+    }
+
+    async function animacaoVitoria() {
+
+        bloquearBatalha(true);
+
+        // Jogador comemora
+        personagemJogador.classList.add("animacao-vitoria");
+
+        //Inimigo Cai
+        personagemInimigo.classList.add("animacao-derrota");
+
+        await esperarAnimacao(1000);
+
+        // Cria a tela de vitória
+        const tela = document.createElement("div");
+
+        tela.classList.add("tela-vitoria");
+
+        const texto = document.createElement("div");
+
+        texto.classList.add("texto-vitoria");
+
+        texto.textContent = "Sucesso!";
+
+        tela.appendChild(texto);
+
+        document.querySelector(".batalha").appendChild(tela);
+
+        await esperarAnimacao(3000);
+
+        window.location.href = "../public/mapa.php";
+    }
+
+
+    /*
+        ========================================================
+        [ANIMAÇÃO NOVA]
+        BLOQUEAR MENU DURANTE ANIMAÇÃO
+        ========================================================
+    */
+
+    function bloquearBatalha(bloquear) {
+
+
+        const botoes =
+            document.querySelectorAll(
+                ".menu button, .acoes div, .itens button"
+            );
+
+
+        botoes.forEach(botao => {
+
+            botao.style.pointerEvents =
+                bloquear ? "none" : "auto";
+
+
+            botao.style.opacity =
+                bloquear ? "0.6" : "1";
+
+        });
+
+    }
+
+    <?php
+        if (isset($_SESSION["acoes"])){
+            echo "executarAcoes(".json_encode($_SESSION["acoes"]).")";
+        }
+    ?>
+</script>
+<script>
     const acoes =
         document.getElementById("acoes");
 

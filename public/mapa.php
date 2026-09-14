@@ -39,9 +39,9 @@ if (isset($_GET["item"])) {
     exit();
 }
 
-//for ($i = 2; $i < 12; $i++) {
-//    CenarioService::unlockNextLevel($i);
-//}
+for ($i = 2; $i < 12; $i++) {
+    CenarioService::unlockNextLevel($i);
+}
 
 if (isset($_SESSION["matouBossFinal"])) {
     if ($_SESSION["matouBossFinal"]) {
@@ -49,7 +49,7 @@ if (isset($_SESSION["matouBossFinal"])) {
         exit();
     }
 }
-//var_dump($_SESSION["cenarios"]);
+//var_dump($_SESSION["fases"]);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

@@ -23,26 +23,56 @@ class Desafio
         $this->chance_esquivaTexto = $chance_esquivaTexto;
     }
 
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    public function getDescricao(): string
+    {
+        return $this->descricao;
+    }
+
     public function getLinkBackground(): string
     {
         return $this->link_background;
     }
 
+    public function getCd(): int
+    {
+        return $this->cd;
+    }
+
+    public function getBestAtribute(): string
+    {
+        return $this->bestAtribute;
+    }
+
+    public function getVelocidadeTexto(): string
+    {
+        return $this->velocidadeTexto;
+    }
+
+    public function getDanoTexto(): string
+    {
+        return $this->danoTexto;
+    }
+
+    public function getChanceEsquivaTexto(): string
+    {
+        return $this->chance_esquivaTexto;
+    }
+
     public function getHtmlAcoes(): string
     {
-        $velocidade = "<div onclick=\"usarAcao('AcaoV')\"><span>".$this->velocidadeTexto."</span></div>";
-        $dano = "<div onclick=\"usarAcao('AcaoD')\"><span>".$this->danoTexto."</span></div>";
-        $esquiva = "<div onclick=\"usarAcao('AcaoE')\"><span>".$this->chance_esquivaTexto."</span></div>";
+        $velocidade = "<div onclick=\"usarAcao('AcaoV')\"><span>" . $this->velocidadeTexto . "</span></div>";
+        $dano = "<div onclick=\"usarAcao('AcaoD')\"><span>" . $this->danoTexto . "</span></div>";
+        $esquiva = "<div onclick=\"usarAcao('AcaoE')\"><span>" . $this->chance_esquivaTexto . "</span></div>";
 
         $embaralhador = [$velocidade, $dano, $esquiva];
 
         shuffle($embaralhador);
 
         return implode(' ', $embaralhador);
-    }
-
-    public function getDescricao(): string
-    {
-        return $this->descricao;
     }
 }
