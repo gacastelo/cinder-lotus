@@ -285,10 +285,6 @@ $inventario = $player->getInventario();
 
     function usarAcao(nomeAtaque) {
 
-        alert(
-            "<?=$_SESSION["player"]->getAtribute("nome") ?> usou: " + nomeAtaque
-        );
-
         const url = new URL(window.location.href);
 
         url.searchParams.set("ataque", nomeAtaque);
@@ -299,11 +295,7 @@ $inventario = $player->getInventario();
 
 
     function usarItem(nomeItem) {
-
-        alert(
-            "<?=$_SESSION["player"]->getAtribute("nome") ?> usou: " + nomeItem
-        );
-
+        console.log(nomeItem)
     }
 
 
