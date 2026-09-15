@@ -54,7 +54,7 @@ DesafioService::initDesafio($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->get
 if (!isset($_SESSION["background"])) {
     $_SESSION["background"] = $_SESSION["desafio"]->getLinkBackground();
 }
-var_dump($_SESSION["desafio"]);
+//var_dump($_SESSION["desafio"]);
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 //var_dump($player);
 //var_dump($_SESSION["acoes"]);

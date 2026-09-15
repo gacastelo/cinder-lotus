@@ -37,7 +37,7 @@ if (!isset($_SESSION["acoes"])) {
     $_SESSION["acoes"] = [];
 }
 
-if (!isset($_SESSION["background"])){
+if (!isset($_SESSION["background"])) {
     $_SESSION["background"] = CombateService::getBackground();
 }
 

@@ -49,6 +49,7 @@ if (isset($_SESSION["matouBossFinal"])) {
         exit();
     }
 }
+unset($_SESSION["background"]);
 //var_dump($_SESSION["fases"]);
 ?>
 <!DOCTYPE html>

@@ -44,7 +44,9 @@ class CombateService
     {
 
         $backgrounds = [
-            "img/backgrondTeste.png"
+            "img/cenarios/cena_campo_dia.png",
+            "img/cenarios/cena_campo_noite.png",
+            "img/cenarios/cena_campo_tarde.png",
         ];
 
         return $backgrounds[array_rand($backgrounds)];
