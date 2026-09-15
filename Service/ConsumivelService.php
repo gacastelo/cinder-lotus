@@ -11,7 +11,8 @@ class ConsumivelService
             new Consumivel("Poçao de Cura Menor", "Cura 25 de vida", ["metodo" => "heal", "args" => [25]]),
             new Consumivel("Poçao de Dano", "Aumenta seu dano em 10", ["metodo" => "buff", "args" => ["dano", 10, 5]]),
             new Consumivel("Poçao de Velocidade", "Aumenta sua velocidade em 5", ["metodo" => "buff", "args" => ["velocidade", 5, 5]]),
-            new Consumivel("Poçao de Esquiva", "Aumenta sua chance de esquiva em 5%", ["metodo" => "buff", "args" => ["chance_esquiva", 5, 5]])
+            new Consumivel("Poçao de Esquiva", "Aumenta sua chance de esquiva em 5%", ["metodo" => "buff", "args" => ["chance_esquiva", 5, 5]]),
+            new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Máxima em 15", ["metodo" => "increaseVidaMax", "args" => [15, 5]])
         ];
     }
     private function getTabelaLv2(): array
@@ -21,7 +22,8 @@ class ConsumivelService
             new Consumivel("Poçao de Cura Maior", "Cura 50 de vida", ["metodo" => "heal", "args" => [50]]),
             new Consumivel("Poçao de Dano Maior", "Aumenta seu dano em 20", ["metodo" => "buff", "args" => ["dano", 20, 5]]),
             new Consumivel("Poçao de Velocidade Maior", "Aumenta sua velocidade em 10", ["metodo" => "buff", "args" => ["velocidade", 10, 5]]),
-            new Consumivel("Poçao de Esquiva Maior", "Aumenta sua chance de esquiva em 10%", ["metodo" => "buff", "args" => ["chance_esquiva", 10, 5]])
+            new Consumivel("Poçao de Esquiva Maior", "Aumenta sua chance de esquiva em 10%", ["metodo" => "buff", "args" => ["chance_esquiva", 10, 5]]),
+            new Consumivel("Poçao de Fortalecimento Maior", "Aumenta Vida Máxima em 35", ["metodo" => "increaseVidaMax", "args" => [35, 5]])
         ];
     }
     private function getTabelaLv3(): array
@@ -31,7 +33,8 @@ class ConsumivelService
             new Consumivel("Poçao de Cura Suprema", "Cura 100 de vida", ["metodo" => "heal", "args" => [100]]),
             new Consumivel("Poçao de Dano Suprema", "Aumenta seu dano em 30", ["metodo" => "buff", "args" => ["dano", 30, 5]]),
             new Consumivel("Poçao de Velocidade Suprema", "Aumenta sua velocidade em 15", ["metodo" => "buff", "args" => ["velocidade", 15, 5]]),
-            new Consumivel("Poçao de Esquiva Suprema", "Aumenta sua chance de esquiva em 15%", ["metodo" => "buff", "args" => ["chance_esquiva", 15, 5]])
+            new Consumivel("Poçao de Esquiva Suprema", "Aumenta sua chance de esquiva em 15%", ["metodo" => "buff", "args" => ["chance_esquiva", 15, 5]]),
+            new Consumivel("Poçao de Fortalecimento Suprema", "Aumenta Vida Máxima em 75", ["metodo" => "increaseVidaMax", "args" => [75, 5]])
         ];
     }
 

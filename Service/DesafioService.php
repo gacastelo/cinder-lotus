@@ -2,20 +2,31 @@
 require_once "../Model/Desafio.php";
 require_once "../Model/Dados.php";
 require_once "../Service/AnimationService.php";
+
 class DesafioService
 {
     public static function fugir()
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-        AnimationService::limpar();
-        unset($_SESSION["acoesDesafio"]);
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        self::limpar();
         header("location: ../public/mapa.php");
         exit();
     }
 
+    public static function limpar():void
+    {
+        AnimationService::limpar();
+        unset($_SESSION["acoesDesafio"]);
+        unset($_SESSION["desafio"]);
+    }
+
     public static function getBackground(int $LevelID): string
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         return $_SESSION["fases"][$LevelID]->getLinkBackground();
     }
 
@@ -24,7 +35,7 @@ class DesafioService
         return [
             new Desafio(
                 "Ponte Quebrada",
-                8,
+                    220,
                 "A ponte está quebrada. Você precisará atravessar seus restos para continuar.",
                 "ponte_quebrada",
                 "velocidade",
@@ -162,9 +173,11 @@ class DesafioService
 
     public static function initDesafio(string $level): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
 
-        if (!isset($_SESSION["desafio"])){
+        if (!isset($_SESSION["desafio"])) {
             unset($_SESSION["acoesDesafio"]);
             $desafio = DesafioService::gerarDesafio($level);
             $_SESSION["desafio"] = $desafio;
@@ -173,16 +186,18 @@ class DesafioService
 
     public static function gerarDesafio(string $level = "1"): \Desafio
     {
-        $get = "getTabelaLv". $level;
+        $get = "getTabelaLv" . $level;
         $table = DesafioService::$get();
         return $table[array_rand($table)];
     }
 
     public static function desafiarDesafio(Desafio $desafio, string $selectedAtribute): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
 
-        switch ($selectedAtribute){
+        switch ($selectedAtribute) {
             case "AcaoE":
                 $atribute = $_SESSION["player"]->getChanceEsquiva();
                 break;
@@ -202,10 +217,51 @@ class DesafioService
 
     private static function processarDesafio(int $cd, string $bestAtribute, $selectedAtribute, $atributeValue): bool
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         if ($bestAtribute == $selectedAtribute) {
             $atributeValue *= 1.2;
         }
         return Dados::testeCD($cd, $atributeValue);
+    }
+
+    private static function enviarMapa(): void
+    {
+        self::limpar();
+        header("Location: mapa.php");
+        exit();
+    }
+
+    private static function getTVD($level): array
+    {
+        $types = ["dano", "velocidade", "chance_esquiva", "vida_max"];
+        $type = $types[array_rand($types)];
+
+        $value = rand(1, ($level * 2)) * 2;
+
+        if ($level == 3) {
+            $duration = -1;
+        } else {
+            $duration = $level * 5;
+        }
+        return [$type, $value, $duration];
+    }
+
+    public static function penalizar(int $level): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        $tvd = self::getTVD($level);
+        $_SESSION["player"]->debuff($tvd[0], -$tvd[1], $tvd[2]);
+        self::enviarMapa();
+    }
+
+    public static function recompensar(int $level): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $_SESSION["player"]->buff(...self::getTVD($level));
+        self::enviarMapa();
     }
 }

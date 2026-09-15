@@ -9,6 +9,7 @@ class Player extends AbsEntity
     private array $inventario = [];
 
     private array $buffs = ["dano" => ["value" => 0, "duration" => 0], "velocidade" => ["value" => 0, "duration" => 0], "chance_esquiva" => ["value" => 0, "duration" => 0], "vida_max" => ["value" => 0, "duration" => 0]];
+    private array $debuffs = ["dano" => ["value" => 0, "duration" => 0], "velocidade" => ["value" => 0, "duration" => 0], "chance_esquiva" => ["value" => 0, "duration" => 0], "vida_max" => ["value" => 0, "duration" => 0]];
 
     public function __construct(string $nome = "Héroi", string $link_imagem = "./img/default_hero.gif")
     {
@@ -89,9 +90,19 @@ class Player extends AbsEntity
         $this->buffs[$type] = ["value" => $value, "duration" => $duration];
     }
 
+    public function debuff(string $type, int $value, int $duration): void
+    {
+        $this->debuffs[$type] = ["value" => $value, "duration" => $duration];
+    }
+
     public function getBuffs(): array
     {
         return $this->buffs;
+    }
+
+    public function getDebuffs(): array
+    {
+        return $this->debuffs;
     }
 
     public function decreaseBuffDuration(): void
@@ -106,6 +117,17 @@ class Player extends AbsEntity
             }
         }
         unset($buff);
+
+        foreach ($this->debuffs as &$debuff) {
+            if ($debuff["duration"] > 0) {
+                $debuff["duration"]--;
+            }
+
+            if ($debuff["duration"] === 0) {
+                $debuff["value"] = 0;
+            }
+        }
+        unset($debuff);
     }
 
     public function decreaseAttacksCooldown(): void
@@ -137,21 +159,21 @@ class Player extends AbsEntity
 
     public function getVida_Maxima(): int
     {
-        return $this->vida_maxima + $this->buffs["vida_max"]["value"] + $this->getEquipamentoBuffs("vida_max");
+        return $this->vida_maxima + $this->buffs["vida_max"]["value"] + $this->getEquipamentoBuffs("vida_max") + $this->debuffs["vida_max"]["value"];
     }
 
     public function getDano(): int
     {
-        return $this->dano + $this->buffs["dano"]["value"] + $this->getEquipamentoBuffs("dano");
+        return $this->dano + $this->buffs["dano"]["value"] + $this->getEquipamentoBuffs("dano") + $this->debuffs["dano"]["value"];
     }
     public function getVelocidade(): int
     {
-        return $this->velocidade + $this->buffs["velocidade"]["value"] + $this->getEquipamentoBuffs("velocidade");
+        return $this->velocidade + $this->buffs["velocidade"]["value"] + $this->getEquipamentoBuffs("velocidade") + $this->debuffs["velocidade"]["value"];
     }
 
     public function getChanceEsquiva(): int
     {
-        return $this->chance_esquiva + $this->buffs["chance_esquiva"]["value"] + $this->getEquipamentoBuffs("chance_esquiva");
+        return $this->chance_esquiva + $this->buffs["chance_esquiva"]["value"] + $this->getEquipamentoBuffs("chance_esquiva") + $this->debuffs["chance_esquiva"]["value"];
     }
     public function attack(AbsEntity $entity) : void {
         AnimationService::acaoAtacar("jogador");

@@ -38,6 +38,14 @@ if (isset($_GET["fugiu"])) {
     DesafioService::fugir();
 }
 
+if (isset($_GET["resultado"])) {
+    if ($_GET["resultado"] == "passou") {
+        DesafioService::recompensar($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
+    } else {
+        DesafioService::penalizar($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
+    }
+}
+
 $player = $_SESSION["player"];
 $inventario = $player->getInventario();
 
@@ -46,7 +54,7 @@ DesafioService::initDesafio($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->get
 if (!isset($_SESSION["background"])) {
     $_SESSION["background"] = $_SESSION["desafio"]->getLinkBackground();
 }
-
+var_dump($_SESSION["desafio"]);
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 //var_dump($player);
 //var_dump($_SESSION["acoes"]);
@@ -70,6 +78,7 @@ if (!isset($_SESSION["background"])) {
         .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
         }
+
         #dado3d {
             width: 100%;
             height: 100%;
@@ -342,12 +351,12 @@ if (!isset($_SESSION["background"])) {
 
     const dado3d = document.getElementById("dado3d");
 
-    async function animacaoDado(resultado){
+    async function animacaoDado(resultado) {
         bloquearBatalha(true);
 
         rolarDado(resultado)
 
-        await  esperarAnimacao(1500);
+        await esperarAnimacao(1500);
     }
 
     async function animacaoDerrota() {
@@ -375,7 +384,11 @@ if (!isset($_SESSION["background"])) {
 
         await esperarAnimacao(3000);
 
-        window.location.href = "../public/mapa.php";
+        const url = new URL(window.location.href);
+
+        url.searchParams.set("resultado", "nahhh");
+
+        window.location.href = url.toString();
     }
 
     async function animacaoVitoria() {
@@ -402,7 +415,11 @@ if (!isset($_SESSION["background"])) {
 
         await esperarAnimacao(3000);
 
-        window.location.href = "../public/mapa.php";
+        const url = new URL(window.location.href);
+
+        url.searchParams.set("resultado", "passou");
+
+        window.location.href = url.toString();
     }
 
 
@@ -542,26 +559,26 @@ if (!isset($_SESSION["background"])) {
 
     const orientacoes = {
 
-        1:  { x: 29.3059, y: 31.4159, z: 0.0000 },
-        2:  { x: 77.0282, y: 82.7014, z: 0.2600 },
-        3:  { x: 83.3177, y: 114.1273, z: -8.4850 },
-        4:  { x: 0.0500, y: 0.5600, z: 2.2000 },
-        5:  { x: 20.4859, y: 36.6891, z: -4.0550 },
-        6:  { x: 69.2082, y: 87.3946, z: 4.1500 },
-        7:  { x: 27.3859, y: 37.6991, z: -3.1400 },
-        8:  { x: 70.8750, y: 74.3782, z: -0.3100 },
-        9:  { x: -10.3300, y: 3.1500, z: -2.5100 },
-        10: { x: -13.6100, y: 3.1500, z: -3.7500 },
-        11: { x: -10.5400, y: 3.1500, z: -3.7500 },
-        12: { x: -7.3300, y: 3.1500, z: -2.5100 },
-        13: { x: 36.1591, y: 42.9623, z: -0.3100 },
-        14: { x: 30.3859, y: 37.6991, z: -3.1400 },
-        15: { x: 34.5091, y: 43.4123, z: 4.1500 },
-        16: { x: 55.0018, y: 80.6714, z: -4.0550 },
-        17: { x: -3.2300, y: 0.5600, z: 2.2000 },
-        18: { x: 86.4177, y: 114.1273, z: -8.4850 },
-        19: { x: 36.1791, y: 45.0223, z: 0.3600 },
-        20: { x: 1.1, y: 0, z: 0 }
+        1: {x: 29.3059, y: 31.4159, z: 0.0000},
+        2: {x: 77.0282, y: 82.7014, z: 0.2600},
+        3: {x: 83.3177, y: 114.1273, z: -8.4850},
+        4: {x: 0.0500, y: 0.5600, z: 2.2000},
+        5: {x: 20.4859, y: 36.6891, z: -4.0550},
+        6: {x: 69.2082, y: 87.3946, z: 4.1500},
+        7: {x: 27.3859, y: 37.6991, z: -3.1400},
+        8: {x: 70.8750, y: 74.3782, z: -0.3100},
+        9: {x: -10.3300, y: 3.1500, z: -2.5100},
+        10: {x: -13.6100, y: 3.1500, z: -3.7500},
+        11: {x: -10.5400, y: 3.1500, z: -3.7500},
+        12: {x: -7.3300, y: 3.1500, z: -2.5100},
+        13: {x: 36.1591, y: 42.9623, z: -0.3100},
+        14: {x: 30.3859, y: 37.6991, z: -3.1400},
+        15: {x: 34.5091, y: 43.4123, z: 4.1500},
+        16: {x: 55.0018, y: 80.6714, z: -4.0550},
+        17: {x: -3.2300, y: 0.5600, z: 2.2000},
+        18: {x: 86.4177, y: 114.1273, z: -8.4850},
+        19: {x: 36.1791, y: 45.0223, z: 0.3600},
+        20: {x: 1.1, y: 0, z: 0}
 
     };
 
@@ -676,7 +693,6 @@ if (!isset($_SESSION["background"])) {
 
 
     loader.load(
-
         "../public/resources/3d/d20_dice_w20_wurfel_3d_model_free_1k.glb",
 
         function (gltf) {
@@ -706,7 +722,6 @@ if (!isset($_SESSION["background"])) {
             cena.add(dado);
 
         }
-
     );
 
 

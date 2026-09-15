@@ -82,7 +82,7 @@ class EquipamentoService
                 "Coroa do Campeão",
                 "cabeca",
                 "Uma coroa lendária que fortalece seu portador.",
-                40, 0, 10, 5
+                40, 1, 10, 5
             ),
             new Equipamento(
                 "Armadura de Titã",
@@ -94,10 +94,10 @@ class EquipamentoService
                 "Botas do Relâmpago",
                 "botas",
                 "Botas imbuídas com energia elétrica, aumentando drasticamente sua velocidade.",
-                0, 15, 0, 7
+                0, 15, 0, 10
             ),
             new Equipamento(
-                "Espada Fodedora",
+                "Espada GPC",
                 "mao_principal",
                 "Espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente.",
                 0, 0, 45, 0
