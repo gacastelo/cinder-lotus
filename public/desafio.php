@@ -70,13 +70,20 @@ if (!isset($_SESSION["background"])) {
         .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
         }
+        #dado3d {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            display: none;
+            z-index: 9998;
+        }
     </style>
 </head>
 
 <body>
 
 <main>
-
+    <div id="dado3d"></div>
     <section class="batalha">
         <div id="descricao">
             <span><?= $_SESSION["desafio"]->getDescricao() ?></span>
@@ -294,6 +301,15 @@ if (!isset($_SESSION["background"])) {
 
                     break;
 
+                case "dado":
+                    dado3d.style.display = "block";
+                    dado3d.classList.add("esmaecer");
+                    await esperarAnimacao(1000);
+
+                    await animacaoDado(acao.resultado);
+
+                    break;
+
                 case "resultado":
 
                     await esperarAnimacao(1000);
@@ -324,6 +340,15 @@ if (!isset($_SESSION["background"])) {
 
     }
 
+    const dado3d = document.getElementById("dado3d");
+
+    async function animacaoDado(resultado){
+        bloquearBatalha(true);
+
+        rolarDado(resultado)
+
+        await  esperarAnimacao(1500);
+    }
 
     async function animacaoDerrota() {
 
@@ -357,12 +382,10 @@ if (!isset($_SESSION["background"])) {
 
         bloquearBatalha(true);
 
-        // Jogador comemora
         personagemJogador.classList.add("animacao-vitoria");
 
         await esperarAnimacao(1000);
 
-        // Cria a tela de vitória
         const tela = document.createElement("div");
 
         tela.classList.add("tela-vitoria");
@@ -463,11 +486,6 @@ if (!isset($_SESSION["background"])) {
     }
 
     function usarAcao(nomeAcao) {
-
-        alert(
-            "<?=$_SESSION["player"]->getAtribute("nome") ?> usou: " + nomeAcao
-        );
-
         const url = new URL(window.location.href);
 
         url.searchParams.set("acao", nomeAcao);
@@ -500,7 +518,346 @@ if (!isset($_SESSION["background"])) {
 
     }
 </script>
+<!--Daqui pra baixo vai ser só o dado q eu fiquei fazendo (JS com ajuda de IA)-->
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+        }
+    }
+</script>
+<script type="module">
 
+    import * as THREE from "three";
+
+    import {
+        GLTFLoader
+    } from 'three/addons/loaders/GLTFLoader.js';
+
+
+    // =====================================================
+    // ORIENTAÇÕES
+    // =====================================================
+
+    const orientacoes = {
+
+        1:  { x: 29.3059, y: 31.4159, z: 0.0000 },
+        2:  { x: 77.0282, y: 82.7014, z: 0.2600 },
+        3:  { x: 83.3177, y: 114.1273, z: -8.4850 },
+        4:  { x: 0.0500, y: 0.5600, z: 2.2000 },
+        5:  { x: 20.4859, y: 36.6891, z: -4.0550 },
+        6:  { x: 69.2082, y: 87.3946, z: 4.1500 },
+        7:  { x: 27.3859, y: 37.6991, z: -3.1400 },
+        8:  { x: 70.8750, y: 74.3782, z: -0.3100 },
+        9:  { x: -10.3300, y: 3.1500, z: -2.5100 },
+        10: { x: -13.6100, y: 3.1500, z: -3.7500 },
+        11: { x: -10.5400, y: 3.1500, z: -3.7500 },
+        12: { x: -7.3300, y: 3.1500, z: -2.5100 },
+        13: { x: 36.1591, y: 42.9623, z: -0.3100 },
+        14: { x: 30.3859, y: 37.6991, z: -3.1400 },
+        15: { x: 34.5091, y: 43.4123, z: 4.1500 },
+        16: { x: 55.0018, y: 80.6714, z: -4.0550 },
+        17: { x: -3.2300, y: 0.5600, z: 2.2000 },
+        18: { x: 86.4177, y: 114.1273, z: -8.4850 },
+        19: { x: 36.1791, y: 45.0223, z: 0.3600 },
+        20: { x: 1.1, y: 0, z: 0 }
+
+    };
+
+
+    // =====================================================
+    // THREE.JS
+    // =====================================================
+
+    const container =
+        document.getElementById("dado3d");
+
+
+    const cena =
+        new THREE.Scene();
+
+
+    const camera =
+        new THREE.PerspectiveCamera(
+            45,
+            container.clientWidth / container.clientHeight,
+            0.1,
+            100
+        );
+
+
+    camera.position.set(
+        0,
+        1.5,
+        5
+    );
+
+
+    camera.lookAt(
+        0,
+        0,
+        0
+    );
+
+
+    // =====================================================
+    // RENDERER
+    // =====================================================
+
+    const renderer =
+        new THREE.WebGLRenderer({
+            antialias: true,
+            alpha: true
+        });
+
+
+    renderer.setSize(
+        container.clientWidth,
+        container.clientHeight
+    );
+
+
+    renderer.setPixelRatio(
+        Math.min(window.devicePixelRatio, 2)
+    );
+
+
+    renderer.shadowMap.enabled = true;
+
+
+    container.appendChild(
+        renderer.domElement
+    );
+
+
+    // =====================================================
+    // LUZ
+    // =====================================================
+
+    cena.add(
+        new THREE.HemisphereLight(
+            0xffffff,
+            0x222233,
+            2
+        )
+    );
+
+
+    const luz =
+        new THREE.DirectionalLight(
+            0xffffff,
+            4
+        );
+
+
+    luz.position.set(
+        3,
+        5,
+        4
+    );
+
+
+    luz.castShadow = true;
+
+
+    cena.add(luz);
+
+
+    // =====================================================
+    // DADO
+    // =====================================================
+
+    let dado = null;
+
+
+    const loader =
+        new GLTFLoader();
+
+
+    loader.load(
+
+        "../public/resources/3d/d20_dice_w20_wurfel_3d_model_free_1k.glb",
+
+        function (gltf) {
+
+            dado = gltf.scene;
+
+
+            dado.scale.set(
+                0.01,
+                0.01,
+                0.01
+            );
+
+
+            dado.traverse(function (obj) {
+
+                if (obj.isMesh) {
+
+                    obj.castShadow = true;
+                    obj.receiveShadow = true;
+
+                }
+
+            });
+
+
+            cena.add(dado);
+
+        }
+
+    );
+
+
+    // =====================================================
+    // ROLAR
+    // =====================================================
+
+    function rolarDado(resultado) {
+
+        if (!dado) return;
+
+
+        const orientacao =
+            orientacoes[resultado];
+
+
+        if (!orientacao) return;
+
+
+        const inicio =
+            performance.now();
+
+
+        const duracao =
+            2000;
+
+
+        const inicioX =
+            dado.rotation.x;
+
+        const inicioY =
+            dado.rotation.y;
+
+        const inicioZ =
+            dado.rotation.z;
+
+
+        const destinoX =
+            orientacao.x +
+            Math.PI * 2 * 3;
+
+        const destinoY =
+            orientacao.y +
+            Math.PI * 2 * 3;
+
+        const destinoZ =
+            orientacao.z;
+
+
+        function animar(tempo) {
+
+            const progresso =
+                Math.min(
+                    (tempo - inicio) / duracao,
+                    1
+                );
+
+
+            const suavizado =
+                1 - Math.pow(
+                    1 - progresso,
+                    4
+                );
+
+
+            dado.rotation.x =
+                inicioX +
+                (destinoX - inicioX) *
+                suavizado;
+
+
+            dado.rotation.y =
+                inicioY +
+                (destinoY - inicioY) *
+                suavizado;
+
+
+            dado.rotation.z =
+                inicioZ +
+                (destinoZ - inicioZ) *
+                suavizado;
+
+
+            if (progresso < 1) {
+
+                requestAnimationFrame(
+                    animar
+                );
+
+            }
+
+        }
+
+
+        requestAnimationFrame(
+            animar
+        );
+
+    }
+
+
+    // =====================================================
+    // RENDER
+    // =====================================================
+
+    function renderizar() {
+
+        requestAnimationFrame(
+            renderizar
+        );
+
+
+        renderer.render(
+            cena,
+            camera
+        );
+
+    }
+
+
+    renderizar();
+
+
+    // =====================================================
+    // RESPONSIVO
+    // =====================================================
+
+    window.addEventListener(
+        "resize",
+        function () {
+
+            camera.aspect =
+                container.clientWidth /
+                container.clientHeight;
+
+
+            camera.updateProjectionMatrix();
+
+
+            renderer.setSize(
+                container.clientWidth,
+                container.clientHeight
+            );
+
+        }
+    );
+
+    window.rolarDado =
+        rolarDado;
+
+</script>
 </body>
 
 </html>
