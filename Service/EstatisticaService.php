@@ -82,12 +82,33 @@ class EstatisticaService
             session_start();
         }
 
-        $tempoConclusao = new DateTime();
+        $tempoConclusao = (int) (microtime(true) * 1000);
 
         $tempoInicial = $_SESSION["tempoInicial"];
 
-        $tempoDeJogo = $tempoInicial->diff($tempoConclusao);
+        $tempoDeJogo = $tempoConclusao - $tempoInicial;
 
         $_SESSION["estatisticas"]->setTempoConclusao($tempoDeJogo);
+    }
+
+    public static function getAtualEstatisticaValues(): array
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+
+        $nome = $_SESSION["estatisticas"]->getNome();
+        $ataquesTotais = $_SESSION["estatisticas"]->getAtaquesTotais();
+        $ataquesAcertados = $_SESSION["estatisticas"]->getAtaquesAcertados();
+        $itensConsumidos = $_SESSION["estatisticas"]->getItensConsumidos();
+        $combatesGanhos = $_SESSION["estatisticas"]->getCombatesGanhos();
+        $combatesFugas = $_SESSION["estatisticas"]->getCombatesFugas();
+        $desafiosSuperados = $_SESSION["estatisticas"]->getDesafiosSuperados();
+        $desafiosFugas = $_SESSION["estatisticas"]->getDesafiosFugas();
+        $danoCausado = $_SESSION["estatisticas"]->getDanoCausado();
+        $danoSofrido = $_SESSION["estatisticas"]->getDanoSofrido();
+        $tempoConclusao = $_SESSION["estatisticas"]->getTempoConclusao();
+
+        return [$nome, $ataquesTotais, $ataquesAcertados, $itensConsumidos,
+            $combatesGanhos, $combatesFugas, $desafiosSuperados,
+            $desafiosFugas, $danoCausado, $danoSofrido, $tempoConclusao];
     }
 }

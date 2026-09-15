@@ -9,7 +9,9 @@ class Estatistica
     private int $combatesFugas = 0;
     private int $desafiosSuperados = 0;
     private int $desafiosFugas = 0;
-    private DateInterval $tempoConclusao;
+    private int $danoCausado = 0;
+    private int $danoSofrido = 0;
+    private int $tempoConclusao;
 
     public function __construct(string $nome)
     {
@@ -51,7 +53,16 @@ class Estatistica
         $this->desafiosFugas++;
     }
 
-    public function setTempoConclusao($tempo): void
+    public function increaseDanoCausado(int $value): void
+    {
+        $this->danoCausado += $value;
+    }
+
+    public function increaseDanoSofrido(int $value): void
+    {
+        $this->danoSofrido += $value;
+    }
+    public function setTempoConclusao(int $tempo): void
     {
         $this->tempoConclusao = $tempo;
     }
@@ -96,10 +107,19 @@ class Estatistica
         return $this->desafiosFugas;
     }
 
-    public function getTempoConclusao(): DateInterval
+    public function getTempoConclusao(): int
     {
         return $this->tempoConclusao;
     }
 
+    public function getDanoCausado(): int
+    {
+        return $this->danoCausado;
+    }
+
+    public function getDanoSofrido(): int
+    {
+        return $this->danoSofrido;
+    }
 
 }
