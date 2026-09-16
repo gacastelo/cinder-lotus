@@ -2,6 +2,7 @@
 require "../AbsModel/AbsEntity.php";
 require "../Model/Itens/Consumivel.php";
 require "../Model/Itens/Equipamento.php";
+require_once "../Service/EstatisticaService.php";
 
 class Player extends AbsEntity
 {
@@ -143,6 +144,7 @@ class Player extends AbsEntity
         $args = $efeito['args'];
         $this->$metodo(...$args);
         unset($this->inventario[$id]);
+        EstatisticaService::increaseItensConsumidos();
     }
 
     public function getEquipamentoBuffs(string $type): int

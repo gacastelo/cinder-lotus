@@ -2,6 +2,7 @@
 require "../Service/AnimationService.php";
 require "../Service/CenarioService.php";
 require "../Service/LootService.php";
+require_once "../Service/EstatisticaService.php";
 class CombateService
 {
     private function getTabelaLv1(): array
@@ -75,6 +76,7 @@ class CombateService
         if ($_SESSION["inimigo"]->is_dead()) {
             $this->destribuirLoot();
             AnimationService::vitoria();
+            EstatisticaService::increaseCombatesGanhos();
             CenarioService::unlockNextLevel($_SESSION["cenarioAtualId"]);
         }
         if ($_SESSION["player"]->is_dead()) {
@@ -131,6 +133,7 @@ class CombateService
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         AnimationService::limpar();
         unset($_SESSION["inimigo"]);
+        EstatisticaService::increaseCombatesFugas();
         header("location: ../public/mapa.php");
         exit();
     }

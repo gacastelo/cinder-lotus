@@ -76,6 +76,33 @@ class EstatisticaService
         $_SESSION["estatisticas"]->increaseDesafiosFugas();
     }
 
+    public static function increaseDesafiosFalhos():void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        $_SESSION["estatisticas"]->increaseDesafiosFalhos();
+    }
+
+    public static function increaseDanoCausado(int $value): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        $_SESSION["estatisticas"]->increaseDanoCausado($value);
+    }
+
+    public static function increaseDanoSofrido(int $value): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        $_SESSION["estatisticas"]->increaseDanoSofrido($value);
+    }
+
     public static function setTempoConclusao(): void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -103,12 +130,13 @@ class EstatisticaService
         $combatesFugas = $_SESSION["estatisticas"]->getCombatesFugas();
         $desafiosSuperados = $_SESSION["estatisticas"]->getDesafiosSuperados();
         $desafiosFugas = $_SESSION["estatisticas"]->getDesafiosFugas();
+        $desafiosFalhos = $_SESSION["estatisticas"]->getDesafiosFalhos();
         $danoCausado = $_SESSION["estatisticas"]->getDanoCausado();
         $danoSofrido = $_SESSION["estatisticas"]->getDanoSofrido();
         $tempoConclusao = $_SESSION["estatisticas"]->getTempoConclusao();
 
         return [$nome, $ataquesTotais, $ataquesAcertados, $itensConsumidos,
             $combatesGanhos, $combatesFugas, $desafiosSuperados,
-            $desafiosFugas, $danoCausado, $danoSofrido, $tempoConclusao];
+            $desafiosFugas, $desafiosFalhos, $danoCausado, $danoSofrido, $tempoConclusao];
     }
 }

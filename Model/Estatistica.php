@@ -9,9 +9,11 @@ class Estatistica
     private int $combatesFugas = 0;
     private int $desafiosSuperados = 0;
     private int $desafiosFugas = 0;
+    private int $desafiosFalhos = 0;
     private int $danoCausado = 0;
     private int $danoSofrido = 0;
     private int $tempoConclusao;
+    private bool $saved = false;
 
     public function __construct(string $nome)
     {
@@ -51,6 +53,11 @@ class Estatistica
     public function increaseDesafiosFugas(): void
     {
         $this->desafiosFugas++;
+    }
+
+    public function increaseDesafiosFalhos(): void
+    {
+        $this->desafiosFalhos++;
     }
 
     public function increaseDanoCausado(int $value): void
@@ -107,6 +114,11 @@ class Estatistica
         return $this->desafiosFugas;
     }
 
+    public function getDesafiosFalhos(): int
+    {
+        return $this->desafiosFalhos;
+    }
+
     public function getTempoConclusao(): int
     {
         return $this->tempoConclusao;
@@ -122,4 +134,13 @@ class Estatistica
         return $this->danoSofrido;
     }
 
+    public function isSaved(): bool
+    {
+        return $this->saved;
+    }
+
+    public function save(): void
+    {
+        $this->saved = true;
+    }
 }

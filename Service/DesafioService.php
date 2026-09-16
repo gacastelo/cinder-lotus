@@ -2,6 +2,7 @@
 require_once "../Model/Desafio.php";
 require_once "../Model/Dados.php";
 require_once "../Service/AnimationService.php";
+require_once "../Service/EstatisticaService.php";
 
 class DesafioService
 {
@@ -11,8 +12,8 @@ class DesafioService
             session_start();
         }
         self::limpar();
-        header("location: ../public/mapa.php");
-        exit();
+        EstatisticaService::increaseDesafiosFugas();
+        self::enviarMapa();
     }
 
     public static function limpar():void
@@ -262,6 +263,7 @@ class DesafioService
             session_start();
         }
         $_SESSION["player"]->buff(...self::getTVD($level));
+        EstatisticaService::increaseDesafiosSuperados();
         self::enviarMapa();
     }
 }

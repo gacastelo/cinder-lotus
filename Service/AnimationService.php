@@ -1,4 +1,5 @@
 <?php
+require_once "../Service/EstatisticaService.php";
 
 class AnimationService
 {
@@ -23,8 +24,17 @@ class AnimationService
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
+        EstatisticaService::increaseAtaquesTotais();
         if ($acertou) {
             $_SESSION["acoes"][] = ["tipo" => "dano", "alvo" => $alvo, "valor" => $valor];
+            EstatisticaService::increaseAtaquesAcertados();
+
+            if ($alvo == "inimigo") {
+                EstatisticaService::increaseDanoCausado($valor);
+            } else {
+                EstatisticaService::increaseDanoSofrido($valor);
+            }
+
         } else {
             $_SESSION["acoes"][] = ["tipo" => "esquiva", "alvo" => $alvo];
         }
