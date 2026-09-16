@@ -305,3 +305,24 @@
         transform: translateY(0) scale(1);
     }
 }
+
+.animacao-esquiva {
+    animation: esquiva 0.5s ease-out;
+}
+
+@keyframes esquiva {
+    0% {
+        transform: translateX(0);
+        filter: brightness(1);
+    }
+
+    40% {
+        transform: translateX(180px);
+        filter: brightness(0.5);
+    }
+
+    100% {
+        transform: translateX(0);
+        filter: brightness(1);
+    }
+}

@@ -41,7 +41,6 @@ if (!isset($_SESSION["background"])) {
     $_SESSION["background"] = CombateService::getBackground();
 }
 
-
 $_SESSION["combateService"]->initCombate($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
 $inventario = $player->getInventario();
 
@@ -67,6 +66,7 @@ $inventario = $player->getInventario();
         .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
         }
+
         <?php
             if ($_SESSION["inimigo"]->getNome() == "Cinder Lotus"){
                 echo ".inimigo {
@@ -88,8 +88,8 @@ $inventario = $player->getInventario();
 
         <img
                 class="inimigo"
-                src="<?=$_SESSION["inimigo"]->getLinkImagem()?>"
-                alt="<?=$_SESSION["inimigo"]->getNome()?>"
+                src="<?= $_SESSION["inimigo"]->getLinkImagem() ?>"
+                alt="<?= $_SESSION["inimigo"]->getNome() ?>"
         >
 
         <img
@@ -426,6 +426,14 @@ $inventario = $player->getInventario();
                     }
 
                     break;
+
+                case "esquiva":
+
+                    await animacaoEsquiva(
+                        acao.alvo
+                    );
+
+                    break;
             }
 
         }
@@ -568,6 +576,10 @@ $inventario = $player->getInventario();
             "animacao-dano"
         );
 
+        personagem.classList.add(
+            "animacao-tremer"
+        );
+
         /*
             [ANIMAÇÃO NOVA]
 
@@ -612,6 +624,39 @@ $inventario = $player->getInventario();
 
     }
 
+    async function animacaoEsquiva(alvo) {
+
+        let personagem;
+
+        if (alvo === "jogador") {
+
+            personagem = personagemJogador;
+
+        } else {
+
+            personagem = personagemInimigo;
+
+        }
+
+        personagem.classList.add(
+            "animacao-esquiva"
+        );
+
+        mostrarNumeroDano(
+            personagem,
+            "Esquivou"
+        );
+
+
+        await esperarAnimacao(600);
+
+        personagem.classList.remove(
+            "animacao-esquiva"
+        );
+
+        await esperarAnimacao(100);
+
+    }
 
     /*
         ========================================================
@@ -640,10 +685,12 @@ $inventario = $player->getInventario();
             "numero-dano"
         );
 
-
-        numero.textContent =
-            "-" + valor;
-
+        if (valor === "Esquivou"){
+            numero.textContent = "*" + valor + "*";
+        } else {
+            numero.textContent =
+                "-" + valor;
+        }
 
         /*
             [ANIMAÇÃO NOVA]
@@ -788,6 +835,7 @@ $inventario = $player->getInventario();
         });
 
     }
+
     executarAcoes(<?= json_encode($_SESSION["acoes"]) ?>)
 
 </script>

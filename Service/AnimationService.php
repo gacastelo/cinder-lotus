@@ -1,45 +1,64 @@
 <?php
+
 class AnimationService
 {
     public static function acaoMessage(string $texto): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"][] = ["tipo" => "mensagem", "texto" => $texto];
     }
 
     public static function acaoAtacar(string $quem): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"][] = ["tipo" => "atacar", "quem" => $quem];
     }
 
-    public static function acaoDano(string $alvo, int $valor): void
+    public static function acaoDano(string $alvo, int $valor, bool $acertou): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-        $_SESSION["acoes"][] = ["tipo" => "dano", "alvo" => $alvo, "valor" => $valor];
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if ($acertou) {
+            $_SESSION["acoes"][] = ["tipo" => "dano", "alvo" => $alvo, "valor" => $valor];
+        } else {
+            $_SESSION["acoes"][] = ["tipo" => "esquiva", "alvo" => $alvo];
+        }
     }
 
     public static function acaoEsperar(int $ms): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"][] = ["tipo" => "esperar", "tempo" => $ms];
     }
 
     public static function limpar(): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"] = [];
     }
 
     public static function derrota(): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "derrota"];
     }
 
     public static function vitoria(): void
     {
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
         $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
     }
 }

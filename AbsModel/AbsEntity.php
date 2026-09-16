@@ -37,9 +37,9 @@ class AbsEntity
         return $this->is_dead;
     }
 
-    public function take_damage(int $damage) : void {
+    public function take_damage(int $damage) : bool {
         if(rand(0,100) <= $this->chance_esquiva){
-            return;
+            return false;
         }
 
         $this->vida_atual -= $damage;
@@ -47,6 +47,7 @@ class AbsEntity
         if ($this->vida_atual <= 0){
             $this->die();
         }
+        return true;
     }
 
     public function getDano() : int {

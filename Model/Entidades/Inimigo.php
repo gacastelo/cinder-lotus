@@ -23,10 +23,11 @@ class Inimigo extends AbsEntity
         AnimationService::acaoAtacar("inimigo");
         parent::attack($entity);
     }
-    public function take_damage(int $damage): void
+    public function take_damage(int $damage): bool
     {
-        AnimationService::acaoDano("inimigo", $damage);
-        parent::take_damage($damage);
+        $resultado = parent::take_damage($damage);
+        AnimationService::acaoDano("inimigo", $damage, $resultado);
+        return $resultado;
     }
     public function getLinkImagem(): string
     {

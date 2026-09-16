@@ -180,9 +180,10 @@ class Player extends AbsEntity
         parent::attack($entity);
 
     }
-    public function take_damage(int $damage): void
+    public function take_damage(int $damage): bool
     {
-        AnimationService::acaoDano("jogador", $damage);
-        parent::take_damage($damage);
+        $resultado = parent::take_damage($damage);
+        AnimationService::acaoDano("jogador", $damage, $resultado);
+        return $resultado;
     }
 }
