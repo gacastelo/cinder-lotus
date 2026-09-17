@@ -98,24 +98,72 @@ class CombateService
         }
     }
 
+    private function inimigoAtaca(): void
+    {
+        $_SESSION["inimigo"]->attack($_SESSION["player"]);
+        $this->check_resultado();
+    }
+
+    private function playerAtaca(): void
+    {
+        $_SESSION["player"]->attack($_SESSION["inimigo"]);
+        $this->check_resultado();
+    }
+
+    private function playerAtacaForte(): void
+    {
+        $_SESSION["player"]->strongAttack($_SESSION["inimigo"]);
+        $this->check_resultado();
+    }
+
+    private function playerDefende(): void
+    {
+        $_SESSION["player"]->defender();
+        $this->check_resultado();
+    }
+
+    private function playerChora(): void
+    {
+        $_SESSION["player"]->cry();
+        $this->check_resultado();
+    }
+
     private function resultado(): void
     {
         AnimationService::limpar();
-        if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
-        if ($_SESSION["inimigo"]->getVelocidade() > $_SESSION["player"]->getVelocidade()) {
-            $_SESSION["inimigo"]->attack($_SESSION["player"]);
-            $this->check_resultado();
-            if (isset($_GET["ataque"])){
-                $_SESSION["player"]->attack($_SESSION["inimigo"]);
-                $this->check_resultado();
+
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+
+        $inimigoPrimeiro = $_SESSION["inimigo"]->getVelocidade() > $_SESSION["player"]->getVelocidade();
+
+        if (isset($_GET["ataque"])){
+            if ($_GET["ataque"] === "Chorar"){
+                $this->playerChora();
             }
-        } else {
-            if (isset($_GET["ataque"])){
-                $_SESSION["player"]->attack($_SESSION["inimigo"]);
-                $this->check_resultado();
+            if ($_GET["ataque"] === "Defender"){
+                $this->playerDefende();
             }
-            $_SESSION["inimigo"]->attack($_SESSION["player"]);
-            $this->check_resultado();
+        }
+
+        if ($inimigoPrimeiro) {
+            $this->inimigoAtaca();
+        }
+
+        if (isset($_GET["ataque"])) {
+
+            if ($_GET["ataque"] === "Ataque"){
+                $this->playerAtaca();
+            }
+
+            if ($_GET["ataque"] === "AtaqueForte"){
+                $this->playerAtacaForte();
+            }
+        }
+
+        if (!$inimigoPrimeiro) {
+            $this->inimigoAtaca();
         }
     }
     public function passarTurno(): void
@@ -123,6 +171,7 @@ class CombateService
         if (session_status() !== PHP_SESSION_ACTIVE) {session_start();}
         $this->resultado();
         $_SESSION["player"]->decreaseBuffDuration();
+        $_SESSION["player"]->decreaseDebuffDuration();
         $_SESSION["player"]->decreaseAttacksCooldown();
         header("Location: combate.php");
         exit();

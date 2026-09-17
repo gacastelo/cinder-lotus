@@ -71,4 +71,20 @@ class AnimationService
         }
         $_SESSION["acoes"][] = ["tipo" => "resultado", "resultado" => "vitoria"];
     }
+
+    public static function acaoChorar(string $alvo): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $_SESSION["acoes"][] = ["tipo" => "chorar", "alvo" => $alvo];
+    }
+
+    public static function acaoDefender(string $alvo): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $_SESSION["acoes"][] = ["tipo" => "defender", "alvo" => $alvo];
+    }
 }

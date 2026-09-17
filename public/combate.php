@@ -62,6 +62,8 @@ $inventario = $player->getInventario();
 
     <link rel="stylesheet" href="resources/css/animacoes.css">
     <link rel="stylesheet" href="resources/css/combate.css">
+    <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         .batalha {
             background-image: url("<?= $_SESSION["background"] ?>");
@@ -108,7 +110,7 @@ $inventario = $player->getInventario();
                     class="ativo"
                     onclick="mostrarAtaques()"
             >
-                Ataques
+                Ações
             </button>
 
 
@@ -137,23 +139,25 @@ $inventario = $player->getInventario();
                     id="ataques"
             >
 
-                <div onclick="usarAcao('Ataque1')">
-                    <span>Ataque 1</span>
+                <div onclick="usarAcao('Ataque')">
+                    <span>Atacar</span>
                 </div>
 
 
-                <div onclick="usarAcao('Ataque2')">
-                    <span>Ataque 2</span>
+                <div onclick="usarAcao('AtaqueForte')" id="ataqueForte">
+                    <span>Atacar Forte</span>
+                    <span class="cooldown"><?= $player->getStrongAttackCooldown()?></span>
                 </div>
 
 
-                <div onclick="usarAcao('Ataque3')">
-                    <span>Ataque 3</span>
+                <div onclick="usarAcao('Defender')" id="defesa">
+                    <span>Defender</span>
+                    <span class="cooldown"><?= $player->getDefenderCooldown()?></span>
                 </div>
 
 
-                <div onclick="usarAcao('Ataque4')">
-                    <span>Ataque 4</span>
+                <div onclick="usarAcao('Chorar')">
+                    <span>Chorar</span>
                 </div>
 
 
@@ -212,7 +216,10 @@ $inventario = $player->getInventario();
 
 
 <script>
-
+    const botaoAtaqueForte = document.getElementById("ataqueForte")
+    const botaoDefesa = document.getElementById("defesa")
+    bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() !=0) ?>)
+    bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() !=0) ?>)
 
     const ataques =
         document.getElementById("ataques");
@@ -434,11 +441,25 @@ $inventario = $player->getInventario();
                     );
 
                     break;
+
+                case "chorar":
+
+                    await animacaoChoro(
+                        acao.alvo
+                    );
+
+                    break;
+
+                case "defender":
+
+                    await animacaoDefesa(
+                        acao.alvo
+                    );
+
+                    break;
             }
 
         }
-
-
         /*
             [ANIMAÇÃO NOVA]
 
@@ -658,6 +679,50 @@ $inventario = $player->getInventario();
 
     }
 
+    async function animacaoChoro(alvo){
+        let personagem;
+
+        if (alvo === "jogador") {
+            personagem = personagemJogador;
+        } else {
+            personagem = personagemInimigo;
+        }
+
+        personagem.classList.add(
+            "animacao-chorar"
+        );
+        await esperarAnimacao(3000);
+
+        personagem.classList.remove(
+            "animacao-chorar"
+        );
+
+        await esperarAnimacao(100);
+    }
+
+
+    async function animacaoDefesa(alvo){
+        let personagem;
+
+        if (alvo === "jogador") {
+            personagem = personagemJogador;
+        } else {
+            personagem = personagemInimigo;
+        }
+
+        personagem.classList.add(
+            "animacao-defender"
+        );
+
+        await esperarAnimacao(600);
+
+        personagem.classList.remove(
+            "animacao-defender"
+        );
+
+        await esperarAnimacao(100);
+    }
+
     /*
         ========================================================
         [ANIMAÇÃO NOVA]
@@ -769,6 +834,14 @@ $inventario = $player->getInventario();
 
         document.querySelector(".batalha").appendChild(tela);
 
+        const texto = document.createElement("div");
+
+        texto.classList.add("texto-derrota");
+
+        texto.textContent = "Derrota";
+
+        tela.appendChild(texto);
+
         await esperarAnimacao(3000);
 
         window.location.href = "../public/derrota.php";
@@ -834,6 +907,23 @@ $inventario = $player->getInventario();
 
         });
 
+        if (!bloquear){
+            bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() !=0) ?>)
+            bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() !=0) ?>)
+        }
+
+    }
+
+    function bloquearAcao(botao, bloquear) {
+            botao.style.pointerEvents =
+                bloquear ? "none" : "auto";
+
+
+            botao.style.opacity =
+                bloquear ? "0.6" : "1";
+            let cooldown = botao.querySelector(".cooldown");
+            cooldown.style.display=
+                bloquear ? "flex" : "none";
     }
 
     executarAcoes(<?= json_encode($_SESSION["acoes"]) ?>)

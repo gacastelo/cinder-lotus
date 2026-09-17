@@ -11,6 +11,7 @@ class Player extends AbsEntity
 
     private array $buffs = ["dano" => ["value" => 0, "duration" => 0], "velocidade" => ["value" => 0, "duration" => 0], "chance_esquiva" => ["value" => 0, "duration" => 0], "vida_max" => ["value" => 0, "duration" => 0]];
     private array $debuffs = ["dano" => ["value" => 0, "duration" => 0], "velocidade" => ["value" => 0, "duration" => 0], "chance_esquiva" => ["value" => 0, "duration" => 0], "vida_max" => ["value" => 0, "duration" => 0]];
+    private array $actions = ["ataqueForte" => 0, "defesa" => 0];
 
     public function __construct(string $nome = "Héroi", string $link_imagem = "./img/default_hero.gif")
     {
@@ -73,8 +74,8 @@ class Player extends AbsEntity
 
     public function heal(int $amount): void
     {
-        if ($this->vida_atual + $amount > $this->getVida_Maxima()) {
-            $this->vida_atual = $this->getVida_Maxima();
+        if ($this->vida_atual + $amount > $this->getVidaMaxima()) {
+            $this->vida_atual = $this->getVidaMaxima();
         } else {
             $this->vida_atual += $amount;
         }
@@ -118,7 +119,10 @@ class Player extends AbsEntity
             }
         }
         unset($buff);
+    }
 
+    public function decreaseDebuffDuration(): void
+    {
         foreach ($this->debuffs as &$debuff) {
             if ($debuff["duration"] > 0) {
                 $debuff["duration"]--;
@@ -133,7 +137,11 @@ class Player extends AbsEntity
 
     public function decreaseAttacksCooldown(): void
     {
-        //TODO: if make different attacks make they cooldown here
+        foreach ($this->actions as &$action) {
+            if ($action > 0) {
+                $action--;
+            }
+        }
     }
 
     public function consume(string $id): void
@@ -159,9 +167,14 @@ class Player extends AbsEntity
         return $buffs;
     }
 
-    public function getVida_Maxima(): int
+    public function getVidaMaxima(): int
     {
         return $this->vida_maxima + $this->buffs["vida_max"]["value"] + $this->getEquipamentoBuffs("vida_max") + $this->debuffs["vida_max"]["value"];
+    }
+
+    public function getVidaAtual(): int
+    {
+        return $this->vida_atual;
     }
 
     public function getDano(): int
@@ -187,5 +200,39 @@ class Player extends AbsEntity
         $resultado = parent::take_damage($damage);
         AnimationService::acaoDano("jogador", $damage, $resultado);
         return $resultado;
+    }
+
+    public function strongAttack(AbsEntity $entity) : void
+    {
+        if ($this->actions["ataqueForte"] == 0){
+            AnimationService::acaoAtacar("jogador");
+            $entity->take_damage(floor($this->getDano() * 1.5));
+            $this->actions["ataqueForte"] = 3;
+        }
+    }
+
+    public function defender(): void
+    {
+        if ($this->actions["defesa"] == 0){
+            AnimationService::acaoDefender("jogador");
+            $this->buff("chance_esquiva", floor($this->getChanceEsquiva()/2), 1);
+            $this->actions["defesa"] = 2;
+        }
+    }
+
+    public function cry(): string
+    {
+        AnimationService::acaoChorar("jogador");
+        return parent::cry();
+    }
+
+    public function getStrongAttackCooldown(): int
+    {
+        return $this->actions["ataqueForte"];
+    }
+
+    public function getDefenderCooldown(): int
+    {
+        return $this->actions["defesa"];
     }
 }

@@ -378,7 +378,7 @@ if (!isset($_SESSION["background"])) {
 
         texto.classList.add("texto-derrota");
 
-        texto.textContent = "Falhou ;-;";
+        texto.textContent = "Falhou";
 
         tela.appendChild(texto);
 

@@ -3,7 +3,9 @@ require_once "../Model/Entidades/Player.php";
 require_once "../Repository/EstatisticaRepository.php";
 require_once "../Service/EstatisticaService.php";
 session_start();
-
+if (!$_SESSION["estatisticas"]->isSaved()){
+    EstatisticaService::setTempoConclusao();
+}
 ?>
 
 <!DOCTYPE html>
@@ -11,9 +13,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>Derrota</title>
-    <style>
-
-    </style>
+    <link href="resources/css/rank.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>

@@ -91,21 +91,22 @@ unset($_SESSION["background"]);
     }
     ?>
     <div id="status">
-        <span>
-            <img src="img/icons/dano_icon.png" alt="Dano" width="25">
-            <?= $_SESSION["player"]->getEquipamentoBuffs("dano"); ?>
-        </span>
-            <span>
-            <img src="img/icons/velocidade_icon.png" alt="Velocidade" width="25">
-            <?= $_SESSION["player"]->getEquipamentoBuffs("velocidade"); ?>
-        </span>
+
         <span>
             <img src="img/icons/vida_icon.png" alt="Vida Máxima" width="25">
-            <?= $_SESSION["player"]->getEquipamentoBuffs("vida_max"); ?>
+            <?= $_SESSION["player"]->getVidaAtual(). "/" . $_SESSION["player"]->getVidaMaxima(); ?>
         </span>
-            <span>
+        <span>
+            <img src="img/icons/velocidade_icon.png" alt="Velocidade" width="25">
+            <?= $_SESSION["player"]->getVelocidade(); ?>
+        </span>
+        <span>
+            <img src="img/icons/dano_icon.png" alt="Dano" width="25">
+            <?= $_SESSION["player"]->getDano(); ?>
+        </span>
+        <span>
             <img src="img/icons/esquiva_icon.png" alt="Esquiva" width="25">
-            <?= $_SESSION["player"]->getEquipamentoBuffs("chance_esquiva"); ?>
+            <?= $_SESSION["player"]->getChanceEsquiva(); ?>
         </span>
     </div>
 
@@ -117,7 +118,7 @@ unset($_SESSION["background"]);
                 <tr>
                     <th>Nome</th>
                     <th>Tipo</th>
-                    <!--                    <th>Descrição</th>-->
+                    <!--<th>Descrição</th>-->
                     <th>Status</th>
                     <th>Ação</th>
                 </tr>
