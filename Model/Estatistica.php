@@ -143,4 +143,62 @@ class Estatistica
     {
         $this->saved = true;
     }
+
+    public function getHTMLTable(): void
+    {
+        echo "
+    <table id='estatisticaTable'>
+        <tbody>
+            <tr>
+                <th>Nome</th>
+                <td>" . $this->getNome() . "</td>
+            </tr>
+            <tr>
+                <th>Ataques Totais</th>
+                <td>" . $this->getAtaquesTotais() . "</td>
+            </tr>
+            <tr>
+                <th>Ataques Acertados</th>
+                <td>" . $this->getAtaquesAcertados() . "</td>
+            </tr>
+            <tr>
+                <th>Itens Consumidos</th>
+                <td>" . $this->getItensConsumidos() . "</td>
+            </tr>
+            <tr>
+                <th>Combates Ganhos</th>
+                <td>" . $this->getCombatesGanhos() . "</td>
+            </tr>
+            <tr>
+                <th>Combates Fugas</th>
+                <td>" . $this->getCombatesFugas() . "</td>
+            </tr>
+            <tr>
+                <th>Desafios Superados</th>
+                <td>" . $this->getDesafiosSuperados() . "</td>
+            </tr>
+            <tr>
+                <th>Desafios Fugas</th>
+                <td>" . $this->getDesafiosFugas() . "</td>
+            </tr>
+            <tr>
+                <th>Desafios Falhos</th>
+                <td>" . $this->getDesafiosFalhos() . "</td>
+            </tr>
+            <tr>
+                <th>Dano Causado</th>
+                <td>" . $this->getDanoCausado() . "</td>
+            </tr>
+            <tr>
+                <th>Dano Sofrido</th>
+                <td>" . $this->getDanoSofrido() . "</td>
+            </tr>
+            <tr>
+                <th>Tempo Conclusão</th>
+                <td>" . $this->getTempoConclusao() . "</td>
+            </tr>
+        </tbody>
+    </table>";
+    }
+
 }

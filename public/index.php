@@ -36,6 +36,7 @@ if (!isset($_SERVER["DBStatus"])){
             </label>
             <input type="submit" value="Iniciar Jogo">
         </form>
+        <button onclick="window.location.href = './rank.php'">Ver Ranking</button>
     </main>
 </body>
 </html>

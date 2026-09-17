@@ -1,0 +1,53 @@
+#estatisticaTable {
+    border-collapse: collapse;
+    font-family: "VT323",'Pixelify Sans', serif;
+    font-size: 25px;
+    width: 100%;
+    max-width: 35%;
+    margin: 20px 0;
+    background: #ab925c;
+}
+#estatisticaTable th, #estatisticaTable td {
+    padding: 12px 15px;
+    border: 2px dashed #6c572f;
+    text-align: left;
+}
+#estatisticaTable th {
+    background-color: #6c572f;
+    border: 2px dashed #ab925c;
+    color: #dcc8a8;
+    font-weight: bold;
+    width: 40%;
+}
+#estatisticaTable td {
+
+}
+#rankingTable{
+    border-collapse: collapse;
+    font-family: "VT323",'Pixelify Sans', serif;
+    font-size: 25px;
+    width: 100%;
+    max-width: 50%;
+    margin: 20px 0;
+    background: #ab925c;
+    text-align: center;
+}
+#rankingTable th, #rankingTable td {
+    border: 2px dashed #6c572f;
+}
+#rankingTable th{
+    background-color: #6c572f;
+    border: 2px dashed #ab925c;
+    color: #f3eee6;
+    font-size: 30px;
+}
+#estatisticaTable td {
+    max-width: 50%;
+}
+#estatisticaTable td,
+#estatisticaTable th,
+#rankingTable td,
+#rankingTable th {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
