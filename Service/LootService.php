@@ -9,6 +9,12 @@ class LootService
         for ($i = 0; $i < $numberOfItems; $i++) {
             $loot[] = self::getLoot($level);
         }
+
+        if (rand(1,5) == 1){
+            $ConsumivelService = new ConsumivelService();
+            $loot[] = $ConsumivelService->gerarPocaoCura($level);
+        }
+
         return $loot;
     }
 

@@ -8,24 +8,30 @@ class CombateService
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0,2)), "goblin_base"),
-            new Inimigo("Macharanguejo",30 , 0, 10, 2, LootService::getLoots(1, rand(0,2)), "macharanguejo_base")
-//            new Inimigo("Goblin", 50, 2, 5, 5, [], "img/default_hero.gif")
+            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0, 2)), "goblin_base"),
+            new Inimigo("Macharanguejo", 40, 2, 8, 5, LootService::getLoots(1, rand(0, 2)), "macharanguejo_base"),
+            new Inimigo("Orcopete", 55, -2, 6, 2, LootService::getLoots(1, rand(0, 2)), "orcopete_base"),
         ];
     }
+
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Goblin de Elite", 50, 3, 7, 10, LootService::getLoots(2, rand(0,2)), "goblin_azul"),
-            new Inimigo("Goblin Elitissímo", 50, 8, 10, 12, LootService::getLoots(2, rand(0,2)), "goblin_rosa"),
-            new Inimigo("Macharanguejo de Elite",80 , 2, 15, 3, LootService::getLoots(2, rand(0,2)), "macharanguejo_rosa")
+            new Inimigo("Goblin de Elite", 65, 3, 9, 8, LootService::getLoots(2, rand(1, 2)), "goblin_azul"),
+            new Inimigo("Goblin Elitissímo", 60, 8, 11, 12, LootService::getLoots(2, rand(1, 3)), "goblin_rosa"),
+            new Inimigo("Macharanguejo de Elite", 90, 4, 15, 8, LootService::getLoots(2, rand(1, 2)), "macharanguejo_rosa"),
+            new Inimigo("Pirâmuitos", 140, 7, 13, 15, LootService::getLoots(2, rand(0, 2)), "pirâmuitos_base"),
+            new Inimigo("Orcopete de Elite", 90, -3, 11, 4, LootService::getLoots(2, rand(1, 2)), "orcopete_base"),
         ];
     }
+
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Macharanguejo Elitissímo",350 , 5, 18, 10, LootService::getLoots(3, rand(0,2)), "macharanguejo_verde")
-
+            new Inimigo("Macharanguejo Elitissímo", 160, 5, 22, 12, LootService::getLoots(3, rand(1, 3)), "macharanguejo_verde"),
+            new Inimigo("Pirâmuitos de Elite", 220, 9, 20, 20, LootService::getLoots(3, rand(1, 2)), "pirâmuitos_rosa"),
+            new Inimigo("Pirâmuitos Elitíssimo", 280, 12, 24, 25, LootService::getLoots(3, rand(1, 3)), "pirâmuitos_verde"),
+            new Inimigo("Orcopete Elitíssimo", 220, -4, 17, 6, LootService::getLoots(3, rand(1, 3)), "orcopete_base"),
         ];
     }
     private function getTabelaLv4(): array

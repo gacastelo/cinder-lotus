@@ -46,19 +46,19 @@ class EquipamentoService
                 "Elmo de Ferro",
                 "cabeca",
                 "Um elmo resistente que protege bem a cabeça.",
-                25, 0, 0, 2
+                20, 0, 0, 2
             ),
             new Equipamento(
                 "Peitoral Reforçado",
                 "peitoral",
                 "Uma armadura reforçada que oferece excelente proteção.",
-                50, 0, 0, 0
+                40, 0, 0, 0
             ),
             new Equipamento(
                 "Botas do Vento",
                 "botas",
                 "Botas leves encantadas com a força dos ventos.",
-                0, 7, 0, 3
+                0, 6, 0, 3
             ),
             new Equipamento(
                 "Espada Longa",
@@ -82,31 +82,31 @@ class EquipamentoService
                 "Coroa do Campeão",
                 "cabeca",
                 "Uma coroa lendária que fortalece seu portador.",
-                40, 1, 10, 5
+                35, 1, 8, 5
             ),
             new Equipamento(
                 "Armadura de Titã",
                 "peitoral",
                 "Uma armadura extremamente pesada e resistente.",
-                100, -3, 10, 0
+                60, -3, 10, 0
             ),
             new Equipamento(
                 "Botas do Relâmpago",
                 "botas",
                 "Botas imbuídas com energia elétrica, aumentando drasticamente sua velocidade.",
-                0, 15, 0, 10
+                0, 10, 0, 8
             ),
             new Equipamento(
                 "Espada GPC",
                 "mao_principal",
                 "Espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente.",
-                0, 0, 45, 0
+                0, 0, 35, 0
             ),
             new Equipamento(
                 "Escudo do Guardião",
                 "mao_secundaria",
                 "Um escudo lendário capaz de proteger seu portador dos ataques mais poderosos.",
-                50, -2, 5, 10
+                40, -2, 5, 10
             )
         ];
     }
