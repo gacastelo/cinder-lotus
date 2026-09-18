@@ -1,7 +1,14 @@
 <?php
+require_once "../Model/Entidades/Player.php";
 require_once "../Service/EstatisticaService.php";
 require_once "../Repository/EstatisticaRepository.php";
 session_start();
+
+if (!$_SESSION["matouBossFinal"]){
+    header("location: ../public/mapa.php");
+    exit();
+}
+
 if (!$_SESSION["estatisticas"]->isSaved()){
     EstatisticaService::setTempoConclusao();
     EstatisticaRepository::insertEstatisticaAtual();
@@ -15,11 +22,12 @@ $rankeado = false;
 <head>
     <meta charset="UTF-8">
     <title>Vitória</title>
-    <link rel="stylesheet" href="resources/css/rank.css">
+    <link rel="stylesheet" href="resources/css/vitoria.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
+    <h1>Parabéns <?= $_SESSION["player"]->getNome() ?>, você venceu!</h1>
     <table id="rankingTable">
         <thead>
         <tr>
@@ -53,7 +61,7 @@ $rankeado = false;
         if (!$rankeado){
             $query = EstatisticaRepository::getPosicaoRank($_SESSION["ultimoSalvo"]);
             echo
-                "<tr>
+                "<tr id='reduce'>
             <td>...</td>
             <td><em>...</em></td>
             <td>...</td>

@@ -6,10 +6,19 @@
 
 body {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #493a16;
     font-family: "VT323", "Pixelify Sans", serif;
     font-size: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    width: 100%;
+    min-height: 100vh;
 
     display: flex;
     flex-direction: column;
@@ -17,48 +26,54 @@ body {
     justify-content: center;
 }
 
-#rankingTable {
+h1 {
+    margin-bottom: 15px;
+    color: #fdedce;
+    font-size: 80px;
+    text-shadow: 6px 6px 0 #211a09;
+}
+
+#estatisticaTable {
     border-collapse: collapse;
     font-family: "VT323", "Pixelify Sans", serif;
-    font-size: 30px;
+    font-size: 28px;
     width: 100%;
-    max-width: 60%;
+    max-width: 35%;
     background-color: #ab925c;
-    text-align: center;
     border: 5px solid #33270e;
     box-shadow: 7px 7px 0 #211a09;
 }
 
-#rankingTable th,
-#rankingTable td {
-    padding: 12px 15px;
+#estatisticaTable th,
+#estatisticaTable td {
+    padding: 8px 15px;
     border: 2px dashed #6c572f;
     overflow-wrap: break-word;
     word-wrap: break-word;
 }
 
-#rankingTable th {
+#estatisticaTable th {
+    width: 55%;
     background-color: #6c572f;
     border: 2px dashed #ab925c;
     color: #fdedce;
-    font-size: 36px;
+    font-weight: bold;
+    text-align: left;
     text-shadow: 2px 2px 0 #33270e;
 }
 
-#rankingTable td {
+#estatisticaTable td {
+    width: 45%;
     color: #33270e;
+    text-align: center;
 }
 
-#rankingTable tbody tr:nth-child(even) {
+#estatisticaTable tr:nth-child(even) {
     background-color: #9b824f;
 }
 
-#rankingTable tbody tr:hover {
+#estatisticaTable tr:hover {
     background-color: #bca46d;
-}
-
-#rankingTable em {
-    font-style: normal;
 }
 
 #menu-button {

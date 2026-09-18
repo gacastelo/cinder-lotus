@@ -6,8 +6,9 @@
 
 body {
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #493a16;
+    color: #fdedce;
     font-family: "VT323", "Pixelify Sans", serif;
     font-size: 40px;
 
@@ -17,21 +18,32 @@ body {
     justify-content: center;
 }
 
+h1 {
+    margin-bottom: 30px;
+    color: #fdedce;
+    font-size: 65px;
+    text-align: center;
+    text-shadow: 6px 6px 0 #211a09;
+}
+
 #rankingTable {
-    border-collapse: collapse;
-    font-family: "VT323", "Pixelify Sans", serif;
-    font-size: 30px;
     width: 100%;
     max-width: 60%;
+    border-collapse: collapse;
+
     background-color: #ab925c;
-    text-align: center;
+
     border: 5px solid #33270e;
-    box-shadow: 7px 7px 0 #211a09;
+    box-shadow: 8px 8px 0 #211a09;
+
+    font-family: "VT323", "Pixelify Sans", serif;
+    font-size: 30px;
+    text-align: center;
 }
 
 #rankingTable th,
 #rankingTable td {
-    padding: 12px 15px;
+    padding: 8px 11px;
     border: 2px dashed #6c572f;
     overflow-wrap: break-word;
     word-wrap: break-word;
@@ -62,8 +74,8 @@ body {
 }
 
 #menu-button {
-    margin-top: 25px;
-    padding: 10px 30px;
+    margin-top: 30px;
+    padding: 10px 35px;
 
     background-color: #6c572f;
     color: #fdedce;
@@ -84,4 +96,9 @@ body {
 #menu-button:active {
     transform: translate(5px, 5px);
     box-shadow: none;
+}
+#reduce td{
+    padding: 0 11px;
+    font-size: 20px;
+    justify-content: center;
 }

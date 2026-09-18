@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #222;
+    font-family: "VT323", "Pixelify Sans", Arial, serif;
+    font-size: 40px;
+}
+
+main {
+    width: 100%;
+    height: 100vh;
+    background-color: #493a16;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+h1,h2 {
+    color: #fdedce;
+    font-size: 80px;
+    text-shadow: 6px 6px 0 #211a09;
+}
+
+h2{
+    font-size: 60px;
+    margin: -40px 0 -10px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+input[type="text"] {
+    width: 350px;
+    padding: 10px 15px;
+
+    background-color: #6c572f;
+    color: #fdedce;
+
+    border: 4px solid #33270e;
+    outline: none;
+
+    font-family: inherit;
+    font-size: 32px;
+
+    box-shadow: 5px 5px 0 #211a09;
+}
+
+input[type="text"]::placeholder {
+    color: #d6c49f;
+}
+
+input[type="text"]:focus {
+    border-color: #d6b878;
+}
+
+input[type="submit"],
+button {
+    padding: 10px 25px;
+
+    background-color: #6c572f;
+    color: #fdedce;
+
+    border: 4px solid #33270e;
+    box-shadow: 5px 5px 0 #211a09;
+
+    font-family: inherit;
+    font-size: 32px;
+
+    cursor: pointer;
+}
+
+input[type="submit"]:hover,
+button:hover {
+    background-color: #80683a;
+}
+
+input[type="submit"]:active,
+button:active {
+    transform: translate(5px, 5px);
+    box-shadow: none;
+}
+
+button {
+    margin-top: 5px;
+}
