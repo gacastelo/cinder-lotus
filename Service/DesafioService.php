@@ -36,9 +36,9 @@ class DesafioService
         return [
             new Desafio(
                 "Ponte Quebrada",
-                    220,
+                    8,
                 "A ponte está quebrada. Você precisará atravessar seus restos para continuar.",
-                "ponte_quebrada",
+                "img/cenarios/cena_desafio_ponte.png",
                 "velocidade",
                 "Correr pelos escombros",
                 "Destruir o restante da estrutura",
@@ -54,7 +54,7 @@ class DesafioService
                 "Ponte de Madeira",
                 12,
                 "A velha ponte range a cada passo. Atravesse sem deixar que ela desabe.",
-                "ponte_madeira",
+                "img/cenarios/cena_desafio_ponte_noite.png",
                 "velocidade",
                 "Correr pela ponte",
                 "Pular a ponte",
