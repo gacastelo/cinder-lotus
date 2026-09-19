@@ -134,7 +134,7 @@ if (isset($_SESSION["new_loots"])) {
 }
 ?>
 <div id="inventario_button">
-    <button onclick="openInventario()">Inventário</button>
+    <button onclick="openInventario()" id="inventario_button_btn">Inventário</button>
 </div>
 
 
@@ -142,18 +142,20 @@ if (isset($_SESSION["new_loots"])) {
 
     const inventario = document.getElementById("inventario");
     const status = document.getElementById("status");
+    const inventarioButton = document.getElementById("inventario_button_btn")
 
     function openInventario() {
         if (inventario.style.display === "block") {
             inventario.style.display = "none"
+            status.style.display = "none"
+            inventarioButton.classList.remove("active")
+            inventarioButton.style.boxShadow = "5px 5px 0 #3a2b0e"
+
         } else {
             inventario.style.display = "block"
-        }
-
-        if (status.style.display === "grid") {
-            status.style.display = "none"
-        } else {
             status.style.display = "grid"
+            inventarioButton.classList.add("active")
+            inventarioButton.style.boxShadow = "none"
         }
     }
 
