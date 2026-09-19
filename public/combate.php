@@ -969,7 +969,7 @@ $inventario = $player->getInventario();
     }
 
     function isTutorial(){
-        return <?= json_encode($_SESSION["cenarioAtualId"] == 1 && !isset($_SESSION["TutorialIniciado"])); $_SESSION["TutorialIniciado"] = true; ?>;
+        return <?= json_encode($_SESSION["cenarioAtualId"] == 1 && !isset($_SESSION["TutorialCombate"])); $_SESSION["TutorialCombate"] = true; ?>;
     }
 
 

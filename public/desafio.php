@@ -59,6 +59,7 @@ if (!isset($_SESSION["background"])) {
 //var_dump($_SESSION["cenarios"][$_SESSION["cenarioAtualId"]]["dificuldade"]);
 //var_dump($player);
 //var_dump($_SESSION["acoes"]);
+//unset($_SESSION["TutorialDesafio"])
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +72,7 @@ if (!isset($_SESSION["background"])) {
     <title>Desafio</title>
 
     <link rel="stylesheet" href="resources/css/desafio.css">
+    <link rel="stylesheet" href="resources/css/tutorial.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/animacoes.css">
@@ -94,6 +96,19 @@ if (!isset($_SESSION["background"])) {
 
 <main>
     <div id="dado3d"></div>
+    <div id='tutorial'>
+        <span id='tutorial-message'></span>
+    </div>
+    <div id="tutorial-pergunta">
+        <div class="tutorial-caixa">
+            <span>Deseja fazer o tutorial dos <span style="color: #dcc8a8">*</span>Desafios<span style="color: #dcc8a8">*</span>?</span>
+
+            <div class="tutorial-botoes">
+                <button onclick="iniciarTutorial()">Sim</button>
+                <button onclick="fecharTutorial()">Não</button>
+            </div>
+        </div>
+    </div>
     <section class="batalha">
         <div id="descricao">
             <span><?= $_SESSION["desafio"]->getDescricao() ?></span>
@@ -873,6 +888,103 @@ if (!isset($_SESSION["background"])) {
     window.rolarDado =
         rolarDado;
 
+</script>
+<script>
+    const divTutorial = document.getElementById("tutorial")
+    const textTutorial = document.getElementById("tutorial-message")
+
+
+    const tutorialPergunta = document.getElementById("tutorial-pergunta");
+
+    function perguntarTutorial() {
+        tutorialPergunta.style.display = "flex";
+    }
+
+    function fecharTutorial() {
+        tutorialPergunta.style.display = "none";
+    }
+
+    async function iniciarTutorial() {
+        tutorialPergunta.style.display = "none";
+        await initTutorial();
+    }
+
+    if (isTutorial()){
+        perguntarTutorial();
+    }
+
+    function isTutorial(){
+        return <?= json_encode($_SESSION["cenarioAtualId"] == 2 && !isset($_SESSION["TutorialDesafio"])); $_SESSION["TutorialDesafio"] = true; ?>;
+    }
+
+
+    function escurecerBatalha($escurecer) {
+        const batalha = document.getElementsByClassName("batalha");
+        batalha.item(0).style.filter = $escurecer ? "brightness(0.5)" : "brightness(1.0)"
+    }
+
+    function escreverTexto(elemento, html, velocidade = 30) {
+        return new Promise(resolve => {
+            elemento.innerHTML = html;
+
+            const walker = document.createTreeWalker(
+                elemento,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const textos = [];
+            let node;
+
+            while (node = walker.nextNode()) {
+                textos.push(node);
+            }
+
+            const originais = textos.map(node => node.textContent);
+
+            textos.forEach(node => node.textContent = "");
+
+            let indiceTexto = 0;
+            let indiceCaractere = 0;
+
+            function escrever() {
+                if (indiceTexto >= textos.length) {
+                    resolve();
+                    return;
+                }
+
+                const texto = originais[indiceTexto];
+
+                textos[indiceTexto].textContent += texto[indiceCaractere];
+                indiceCaractere++;
+
+                if (indiceCaractere >= texto.length) {
+                    indiceTexto++;
+                    indiceCaractere = 0;
+                }
+
+                setTimeout(escrever, velocidade);
+            }
+
+            escrever();
+        });
+    }
+
+    async function initTutorial(){
+        bloquearBatalha(true)
+        let textoDesafios = "Esse é um <strong>Desafio</strong>. Cada desafio possui uma <strong>Classe de Dificuldade (CD)</strong> que você precisa alcançar. Para tentar superá-lo, um <strong>dado</strong> é rolado e seu resultado é somado ao atributo relacionado à ação escolhida: <strong>Velocidade</strong>, <strong>Dano</strong> ou <strong>Chance de Esquiva</strong>. Se o resultado final for igual ou maior que a <strong>CD</strong>, você supera o desafio e recebe <strong>buffs temporários aleatórios</strong>. Porém, se falhar, você receberá <strong>debuffs temporários</strong>. Boa sorte!";
+
+        escurecerBatalha(true);
+        divTutorial.style.display = "block"
+        divTutorial.style.top = "41%";
+        divTutorial.style.left = "36%";
+        acoes.classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoDesafios, 50)
+        await esperarAnimacao(800)
+        acoes.classList.remove("btn-pisca")
+        divTutorial.style.display = "none"
+        escurecerBatalha(false)
+        bloquearBatalha(false)
+    }
 </script>
 </body>
 
