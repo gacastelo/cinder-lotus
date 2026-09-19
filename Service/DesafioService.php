@@ -244,7 +244,7 @@ class DesafioService
         if ($level == 3) {
             $duration = -1;
         } else {
-            $duration = $level * 5;
+            $duration = $level * 3;
         }
         return [$type, $value, $duration];
     }
