@@ -5,7 +5,7 @@ require_once "../Model/Itens/Equipamento.php";
 require_once "../Model/Itens/Consumivel.php";
 require_once "../Service/ConsumivelService.php";
 require_once "../Service/DesafioService.php";
-require_once "../Model/Fase.php";
+require_once "../Service/CenarioService.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -40,6 +40,7 @@ if (isset($_GET["fugiu"])) {
 
 if (isset($_GET["resultado"])) {
     if ($_GET["resultado"] == "passou") {
+        CenarioService::unlockNextLevel($_SESSION["cenarioAtualId"]);
         DesafioService::recompensar($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
     } else {
         DesafioService::penalizar($_SESSION["fases"][$_SESSION["cenarioAtualId"]]->getDificuldade());
