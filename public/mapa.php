@@ -39,9 +39,9 @@ if (isset($_GET["item"])) {
     exit();
 }
 
-for ($i = 2; $i < 12; $i++) {
-    CenarioService::unlockNextLevel($i);
-}
+//for ($i = 2; $i < 12; $i++) {
+//    CenarioService::unlockNextLevel($i);
+//}
 
 if (isset($_SESSION["matouBossFinal"])) {
     if ($_SESSION["matouBossFinal"]) {
@@ -66,30 +66,14 @@ unset($_SESSION["background"]);
 </head>
 
 <body>
-
+<div id="informacoes">
+    <strong>Mapa do Mundo</strong><br>
+    Use as setas do teclado para se mover <br>
+    aperte ENTER para entrar na fase
+</div>
 <div id="mapa">
 
-    <div id="informacoes">
-        <strong>Mapa do Mundo</strong><br>
-        Use as setas do teclado para se mover <br>
-        aperte ENTER para entrar na fase
-    </div>
-
     <img src="img/chibi_hero.gif" alt="Hero_mini" id="jogador">
-    <div id="mensagem">
-        Você está na Fase 1
-    </div>
-
-    <div id="inventario_button">
-        <button onclick="openInventario()">Inventário</button>
-    </div>
-
-    <?php
-    if (isset($_SESSION["new_loots"])) {
-        echo "<div id='new_loots'><p>" . $_SESSION["new_loots"] . "</p></div>";
-        unset($_SESSION["new_loots"]);
-    }
-    ?>
     <div id="status">
 
         <span>
@@ -139,6 +123,18 @@ unset($_SESSION["background"]);
         </div>
 
     </div>
+</div>
+<div id="mensagem">
+    Você está na Fase 1
+</div>
+<?php
+if (isset($_SESSION["new_loots"])) {
+    echo "<div id='new_loots'><p>" . $_SESSION["new_loots"] . "</p></div>";
+    unset($_SESSION["new_loots"]);
+}
+?>
+<div id="inventario_button">
+    <button onclick="openInventario()">Inventário</button>
 </div>
 
 
@@ -203,7 +199,11 @@ unset($_SESSION["background"]);
 
             if (fase.bloqueada) {
                 elemento.classList.add("bloqueada");
-                elemento.innerHTML = "🔒";
+                let imagem = document.createElement("img");
+                imagem.classList.add("lock")
+                imagem.src = "img/icons/lock_icon.png";
+                imagem.alt = "Fase bloqueada";
+                elemento.appendChild(imagem)
             } else {
                 elemento.innerHTML = fase.id;
             }
