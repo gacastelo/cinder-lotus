@@ -20,7 +20,7 @@ class LootService
 
     private static function getLoot(string $level): Equipamento|Consumivel
     {
-            if (rand(0, 2) < 2) {
+            if (rand(0,1)) {
                 $ConsumivelService = new ConsumivelService();
                 return $ConsumivelService->gerarConsumivel($level);
             } else {
