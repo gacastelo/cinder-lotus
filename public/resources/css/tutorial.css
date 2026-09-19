@@ -1,0 +1,81 @@
+#tutorial {
+    position: absolute;
+    display: none;
+    width: 35%;
+    height: auto;
+    border: #6c572f dashed 5px;
+    color: #2f250e;
+    background: #ab925c;
+    font-family: 'Pixelify Sans', serif;
+    font-size: 25px;
+    padding: 10px;
+    text-align: justify;
+    z-index: 99999;
+}
+
+.btn-pisca {
+    animation: pisca 0.75s ease-in-out infinite;
+}
+
+@keyframes pisca {
+    0% {
+        filter: brightness(1.0);
+    }
+
+    50% {
+        filter: brightness(1.5);
+    }
+
+    100%{
+        filter: brightness(1);
+    }
+}
+
+#tutorial-pergunta {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.tutorial-caixa {
+    width: 35%;
+    padding: 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    background: #6c572f;
+    border: 5px solid #493a16;
+    box-shadow: 8px 8px 0 #222;
+
+    font-size: 40px;
+    text-align: center;
+}
+
+.tutorial-botoes {
+    display: flex;
+    gap: 30px;
+}
+
+.tutorial-botoes button {
+    padding: 10px 30px;
+
+    border: 4px solid #493a16;
+    background: #8a7040;
+
+    font-family: inherit;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.tutorial-botoes button:hover {
+    background: #a88b52;
+}

@@ -62,6 +62,7 @@ $inventario = $player->getInventario();
 
     <link rel="stylesheet" href="resources/css/animacoes.css">
     <link rel="stylesheet" href="resources/css/combate.css">
+    <link rel="stylesheet" href="resources/css/tutorial.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
@@ -85,7 +86,19 @@ $inventario = $player->getInventario();
 <body>
 
 <main>
+    <div id='tutorial'>
+        <span id='tutorial-message'></span>
+    </div>
+    <div id="tutorial-pergunta">
+        <div class="tutorial-caixa">
+            <span>Deseja fazer o tutorial?</span>
 
+            <div class="tutorial-botoes">
+                <button onclick="iniciarTutorial()">Sim</button>
+                <button onclick="fecharTutorial()">Não</button>
+            </div>
+        </div>
+    </div>
     <section class="batalha">
 
         <img
@@ -146,13 +159,13 @@ $inventario = $player->getInventario();
 
                 <div onclick="usarAcao('AtaqueForte')" id="ataqueForte">
                     <span>Atacar Forte</span>
-                    <span class="cooldown"><?= $player->getStrongAttackCooldown()?></span>
+                    <span class="cooldown"><?= $player->getStrongAttackCooldown() ?></span>
                 </div>
 
 
                 <div onclick="usarAcao('Defender')" id="defesa">
                     <span>Defender</span>
-                    <span class="cooldown"><?= $player->getDefenderCooldown()?></span>
+                    <span class="cooldown"><?= $player->getDefenderCooldown() ?></span>
                 </div>
 
 
@@ -218,8 +231,8 @@ $inventario = $player->getInventario();
 <script>
     const botaoAtaqueForte = document.getElementById("ataqueForte")
     const botaoDefesa = document.getElementById("defesa")
-    bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() !=0) ?>)
-    bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() !=0) ?>)
+    bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() != 0) ?>)
+    bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() != 0) ?>)
 
     const ataques =
         document.getElementById("ataques");
@@ -679,7 +692,7 @@ $inventario = $player->getInventario();
 
     }
 
-    async function animacaoChoro(alvo){
+    async function animacaoChoro(alvo) {
         let personagem;
 
         if (alvo === "jogador") {
@@ -701,7 +714,7 @@ $inventario = $player->getInventario();
     }
 
 
-    async function animacaoDefesa(alvo){
+    async function animacaoDefesa(alvo) {
         let personagem;
 
         if (alvo === "jogador") {
@@ -750,7 +763,7 @@ $inventario = $player->getInventario();
             "numero-dano"
         );
 
-        if (valor === "Esquivou"){
+        if (valor === "Esquivou") {
             numero.textContent = "*" + valor + "*";
         } else {
             numero.textContent =
@@ -892,7 +905,7 @@ $inventario = $player->getInventario();
 
         const botoes =
             document.querySelectorAll(
-                ".menu button, .ataques div, .itens button"
+                ".menu button, .ataques div, .itens button, td a"
             );
 
 
@@ -906,28 +919,245 @@ $inventario = $player->getInventario();
                 bloquear ? "0.6" : "1";
 
         });
-
-        if (!bloquear){
-            bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() !=0) ?>)
-            bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() !=0) ?>)
+        let table = document.getElementById("itens")
+            table.style.opacity =
+                bloquear ? "0.6" : "1";
+        if (!bloquear) {
+            bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() != 0) ?>)
+            bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() != 0) ?>)
         }
 
     }
 
     function bloquearAcao(botao, bloquear) {
-            botao.style.pointerEvents =
-                bloquear ? "none" : "auto";
+        botao.style.pointerEvents =
+            bloquear ? "none" : "auto";
 
 
-            botao.style.opacity =
-                bloquear ? "0.6" : "1";
-            let cooldown = botao.querySelector(".cooldown");
-            cooldown.style.display=
-                bloquear ? "flex" : "none";
+        botao.style.opacity =
+            bloquear ? "0.6" : "1";
+        let cooldown = botao.querySelector(".cooldown");
+        cooldown.style.display =
+            bloquear ? "flex" : "none";
     }
 
     executarAcoes(<?= json_encode($_SESSION["acoes"]) ?>)
 
+</script>
+<script>
+    const divTutorial = document.getElementById("tutorial")
+    const textTutorial = document.getElementById("tutorial-message")
+
+
+    const tutorialPergunta = document.getElementById("tutorial-pergunta");
+
+    function perguntarTutorial() {
+        tutorialPergunta.style.display = "flex";
+    }
+
+    function fecharTutorial() {
+        tutorialPergunta.style.display = "none";
+    }
+
+    async function iniciarTutorial() {
+        tutorialPergunta.style.display = "none";
+        await initTutorial();
+    }
+
+    if (isTutorial()){
+        perguntarTutorial();
+    }
+
+    function isTutorial(){
+        return <?= json_encode($_SESSION["cenarioAtualId"] == 1 && !isset($_SESSION["TutorialIniciado"])); $_SESSION["TutorialIniciado"] = true; ?>;
+    }
+
+
+    async function changeTextToBatalhaTutorial(){
+        bloquearBatalha(true);
+        divTutorial.style.display = "block";
+        let textoJogador = "Esse é <strong>você</strong>. Aqui você pode acompanhar seu personagem e suas ações durante o combate.";
+
+        let textoInimigo = "Esse é o seu <strong>inimigo</strong>. Aqui você pode acompanhar o adversário e ações de quem está enfrentando.";
+
+        divTutorial.style.display = "block";
+
+        divTutorial.style.top = "23%"
+        divTutorial.style.left = "15.1%"
+        destacar(personagemJogador, true);
+        await escreverTexto(textTutorial, textoJogador);
+        await esperarAnimacao(500);
+        destacar(personagemJogador, false);
+
+        divTutorial.style.top = "13%"
+        divTutorial.style.left = "38%"
+        destacar(personagemInimigo, true);
+        await escreverTexto(textTutorial, textoInimigo);
+        await esperarAnimacao(500);
+        destacar(personagemInimigo, false);
+
+    }
+
+    async function changeTextToAcaoTutorial() {
+
+        let texto = "Essa é a área de <strong>Ações</strong>, onde você escolhe qual ação deseja realizar. Algumas ações especiais, como <strong>Defender</strong> e <strong>Atacar Forte</strong>, possuem um <strong>Tempo de Recarga</strong>, sendo necessário aguardar alguns turnos antes de utilizá-las novamente.";
+
+        let textoAtaque = "Essa ação realiza um <strong>Ataque</strong> comum, causando dano ao inimigo.";
+
+        let textoAtaqueForte = "Essa ação realiza um <strong>Ataque Forte</strong>, causando <strong>1,5x o seu dano</strong>. Porém, possui <strong>2 turnos de recarga</strong>.";
+
+        let textoDefender = "Essa ação permite <strong>Defender</strong>, aumentando sua <strong>chance de esquiva em 1,5x</strong>. Possui <strong>1 turno de recarga</strong>.";
+
+        let textoChorar = "Essa ação permite <strong>Chorar</strong>. Não causa dano nem possui efeitos especiais, mas pode ser útil em <strong>momentos desesperadores</strong>.";
+
+        bloquearBatalha(true);
+        divTutorial.style.display = "block";
+
+        divTutorial.style.top = "70%"
+        divTutorial.style.left = "15.1%"
+        btnAtaques.classList.add("btn-pisca")
+        await escreverTexto(textTutorial, texto)
+        btnAtaques.classList.remove("btn-pisca")
+        await esperarAnimacao(800)
+
+        divTutorial.style.top = "61%"
+        divTutorial.style.left = "18.6%"
+        ataques.children.item(0).classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoAtaque)
+        ataques.children.item(0).classList.remove("btn-pisca")
+        await esperarAnimacao(800)
+
+        divTutorial.style.top = "61%"
+        divTutorial.style.left = "62%"
+        ataques.children.item(1).classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoAtaqueForte)
+        ataques.children.item(1).classList.remove("btn-pisca")
+        await esperarAnimacao(800)
+
+        divTutorial.style.top = "75%"
+        divTutorial.style.left = "18.6%"
+        ataques.children.item(2).classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoDefender)
+        ataques.children.item(2).classList.remove("btn-pisca")
+        await esperarAnimacao(800)
+
+        divTutorial.style.top = "75%"
+        divTutorial.style.left = "62%"
+        ataques.children.item(3).classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoChorar)
+        ataques.children.item(3).classList.remove("btn-pisca")
+        await esperarAnimacao(800)
+    }
+
+    async function changeTextToItemTutorial() {
+
+        let texto = "Essa é a área de <strong>Itens</strong>, onde você pode utilizar itens durante o combate. Existem itens de uso instantâneo, como <strong>Poções de Cura</strong>, e itens que concedem <strong>efeitos temporários</strong>, como <strong>Poções de Fortalecimento</strong>.";
+        let textoInventario = "Essa é o seu <strong>Inventário</strong>. Nele você pode ver todos os itens disponíveis durante o combate. A coluna <strong>Item</strong> mostra o nome do item, <strong>Tipo</strong> indica sua categoria, <strong>Descrição</strong> mostra o efeito que ele possui e, em <strong>Ação</strong>, você pode utilizar o item.";
+        let inventario = document.getElementById("itens");
+
+        mostrarItens();
+        bloquearBatalha(true);
+
+        divTutorial.style.display = "block";
+        divTutorial.style.top = "75%";
+        divTutorial.style.left = "15.1%";
+        btnItens.classList.add("btn-pisca");
+
+        await escreverTexto(textTutorial, texto);
+        await esperarAnimacao(500)
+        btnItens.classList.remove("btn-pisca");
+
+        divTutorial.style.top = "52%";
+        divTutorial.style.left = "36%";
+        inventario.classList.add("btn-pisca")
+        await escreverTexto(textTutorial, textoInventario);
+        inventario.classList.remove("btn-pisca");
+    }
+
+    async function changeTextToFugaTutorial() {
+        mostrarAtaques();
+        bloquearBatalha(true);
+        divTutorial.style.display = "block";
+        divTutorial.style.width = "20%";
+        divTutorial.style.top = "77%"
+        divTutorial.style.left = "0"
+        btnFugir.classList.add("btn-pisca")
+
+        let texto = "O botão de <strong>Fugir</strong> permite que você escape do combate.";
+        await escreverTexto(textTutorial, texto)
+        btnFugir.classList.remove("btn-pisca")
+    }
+
+    function escreverTexto(elemento, html, velocidade = 30) {
+        return new Promise(resolve => {
+            elemento.innerHTML = html;
+
+            const walker = document.createTreeWalker(
+                elemento,
+                NodeFilter.SHOW_TEXT
+            );
+
+            const textos = [];
+            let node;
+
+            while (node = walker.nextNode()) {
+                textos.push(node);
+            }
+
+            const originais = textos.map(node => node.textContent);
+
+            textos.forEach(node => node.textContent = "");
+
+            let indiceTexto = 0;
+            let indiceCaractere = 0;
+
+            function escrever() {
+                if (indiceTexto >= textos.length) {
+                    resolve();
+                    return;
+                }
+
+                const texto = originais[indiceTexto];
+
+                textos[indiceTexto].textContent += texto[indiceCaractere];
+                indiceCaractere++;
+
+                if (indiceCaractere >= texto.length) {
+                    indiceTexto++;
+                    indiceCaractere = 0;
+                }
+
+                setTimeout(escrever, velocidade);
+            }
+
+            escrever();
+        });
+    }
+
+    function escurecerBatalha($escurecer) {
+        const batalha = document.getElementsByClassName("batalha");
+        batalha.item(0).style.filter = $escurecer ? "brightness(0.5)" : "brightness(1.0)"
+    }
+
+    async function initTutorial(){
+        escurecerBatalha(true)
+        await changeTextToBatalhaTutorial();
+        await esperarAnimacao(500);
+        await changeTextToAcaoTutorial();
+        await esperarAnimacao(800);
+        await changeTextToItemTutorial();
+        await esperarAnimacao(1000);
+        await changeTextToFugaTutorial();
+        await esperarAnimacao(1500);
+        escurecerBatalha(false)
+        divTutorial.style.display = "none";
+        bloquearBatalha(false);
+    }
+
+    function destacar($elemento, $destacar){
+        $elemento.style.filter = $destacar
+                    ? 'brightness(2)' : "none"
+    }
 </script>
 
 </body>
