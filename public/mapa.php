@@ -2,6 +2,7 @@
 require_once "../Service/CenarioService.php";
 require_once "../Service/AnimationService.php";
 require_once "../Model/Entidades/Player.php";
+require_once "../Service/BestiarioService.php";
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -61,6 +62,7 @@ unset($_SESSION["background"]);
     <title>Mapa do Jogo</title>
 
     <link rel="stylesheet" href="resources/css/mapa.css">
+    <link rel="stylesheet" href="resources/css/bestiario.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
@@ -78,7 +80,7 @@ unset($_SESSION["background"]);
 
         <span>
             <img src="img/icons/vida_icon.png" alt="Vida Máxima" width="25">
-            <?= $_SESSION["player"]->getVidaAtual(). "/" . $_SESSION["player"]->getVidaMaxima(); ?>
+            <?= $_SESSION["player"]->getVidaAtual() . "/" . $_SESSION["player"]->getVidaMaxima(); ?>
         </span>
         <span>
             <img src="img/icons/velocidade_icon.png" alt="Velocidade" width="25">
@@ -123,6 +125,12 @@ unset($_SESSION["background"]);
         </div>
 
     </div>
+    <div id="bestiario">
+        <h1>Bestiário</h1>
+        <div class="lista-monstros">
+            <?=BestiarioService::getBestiario(); ?>
+        </div>
+    </div>
 </div>
 <div id="mensagem">
     Você está na Fase 1
@@ -133,30 +141,55 @@ if (isset($_SESSION["new_loots"])) {
     unset($_SESSION["new_loots"]);
 }
 ?>
+
 <div id="inventario_button">
     <button onclick="openInventario()" id="inventario_button_btn">Inventário</button>
 </div>
-
+<div id="bestiario_button">
+    <button onclick="openBestiario()" id="bestiario_button_btn">Bestiário</button>
+</div>
 
 <script>
 
     const inventario = document.getElementById("inventario");
     const status = document.getElementById("status");
-    const inventarioButton = document.getElementById("inventario_button_btn")
+    const inventarioButton = document.getElementById("inventario_button_btn");
+    const bestiarioButton = document.getElementById("bestiario_button_btn");
+    const bestiario = document.getElementById("bestiario")
 
     function openInventario() {
         if (inventario.style.display === "block") {
             inventario.style.display = "none"
             status.style.display = "none"
-            inventarioButton.classList.remove("active")
-            inventarioButton.style.boxShadow = "5px 5px 0 #3a2b0e"
-
         } else {
             inventario.style.display = "block"
             status.style.display = "grid"
-            inventarioButton.classList.add("active")
-            inventarioButton.style.boxShadow = "none"
         }
+
+        if (bestiario.style.display === "flex") {
+            bestiario.style.display = "none"
+            bestiarioButton.classList.toggle("active")
+        }
+
+        inventarioButton.classList.toggle("active")
+    }
+
+
+    function openBestiario() {
+        if (bestiario.style.display === "flex") {
+            bestiario.style.display = "none"
+
+        } else {
+            bestiario.style.display = "flex"
+        }
+
+        if (inventario.style.display === "block") {
+            inventario.style.display = "none"
+            status.style.display = "none"
+            inventarioButton.classList.toggle("active")
+        }
+
+        bestiarioButton.classList.toggle("active")
     }
 
     // CÓDIGO JAVASCRIPT FEITO COM AUXÍLIO DE IA, PARA DEIXAR MAIS BONITA A NAVEGAÇÃO ENTRE FASES POR MEIO DE MAPA INTERATIVO
@@ -487,6 +520,5 @@ if (isset($_SESSION["new_loots"])) {
     moverPara(faseAtual);
 
 </script>
-
 </body>
 </html>

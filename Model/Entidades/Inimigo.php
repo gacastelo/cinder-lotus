@@ -33,4 +33,8 @@ class Inimigo extends AbsEntity
     {
         return $this->link_imagem;
     }
+    public function getBestiarioId(): string
+    {
+        return str_replace(["img/inimigos/",".gif"],"", $this->link_imagem);
+    }
 }

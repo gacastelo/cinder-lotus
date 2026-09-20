@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /*user-select: none;*/
 }
 
 body {
@@ -153,26 +154,32 @@ body {
     right: 3%;
     bottom: 5%;
 }
-#inventario_button button {
+#bestiario_button{
+    position: absolute;
+    display: flex;
+    right: 3%;
+    bottom: 17%;
+}
+
+#inventario_button button, #bestiario_button button {
     border: #6c572f dashed 5px;
     width: 200px;
     height: 100px;
     color: #6c572f;
     background: #ab925c;
     font-family: 'Pixelify Sans', serif;
-    font-size: 25px;
+    font-size: 30px;
     box-shadow: 5px 5px 0 #3a2b0e;
 }
-#inventario_button button:hover{
+#inventario_button button:hover,#bestiario_button button:hover{
     background: #c8b17d;
     cursor: pointer;
 }
-#inventario_button button:active, .active{
+#inventario_button button:active, #bestiario_button button:active, .active{
     transform: translate(5px, 5px);
-    box-shadow: none;
+    box-shadow: none !important;
     filter: brightness(0.75) saturate(1.25);
 }
-
 
 #inventario {
     top: 15%;
