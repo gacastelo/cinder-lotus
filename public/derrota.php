@@ -5,6 +5,7 @@ require_once "../Service/EstatisticaService.php";
 session_start();
 if (!$_SESSION["estatisticas"]->isSaved()){
     EstatisticaService::setTempoConclusao();
+    $_SESSION["estatisticas"]->save();
 }
 ?>
 

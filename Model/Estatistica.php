@@ -195,7 +195,7 @@ class Estatistica
             </tr>
             <tr>
                 <th>Tempo Conclusão</th>
-                <td>" . $this->getTempoConclusao() . "</td>
+                <td>" . EstatisticaRepository::formatTime($this->getTempoConclusao()) . "</td>
             </tr>
         </tbody>
     </table>";
