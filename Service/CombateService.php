@@ -53,7 +53,7 @@ class CombateService
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Goblin de Pano", 15, -5, 0, 1, [], "boneco_treino")
+            new Inimigo("Boneco de Treino", 15, -5, 0, 1, [], "boneco_de_treino")
         ];
     }
 
