@@ -40,10 +40,6 @@ class ConsumivelService
 
     public function gerarPocaoCura(string $level): \Consumivel
     {
-        if ($level != "1" || $level != "2" || $level != "3") {
-            $level = strval(rand(1,3));
-        }
-
         $t1 = [new Consumivel("Poçao de Cura Mínima", "Cura 10 de vida", ["metodo" => "heal", "args" => [10]]),
             new Consumivel("Poçao de Cura Menor", "Cura 25 de vida", ["metodo" => "heal", "args" => [25]]),];
         $t2 = [new Consumivel("Poçao de Cura", "Cura 35 de vida", ["metodo" => "heal", "args" => [35]]),
@@ -59,10 +55,6 @@ class ConsumivelService
 
     public function gerarConsumivel(string $level): \Consumivel
     {
-        if ($level != "1" || $level != "2" || $level != "3") {
-            $level = strval(rand(1,3));
-        }
-
         $get = "getTabelaLv". $level;
         $table = $this->$get();
         return $table[array_rand($table)];

@@ -111,9 +111,6 @@ class EquipamentoService
 
     public function gerarEquipamento(string $level): \Equipamento
     {
-        if ($level != "1" || $level != "2" || $level != "3") {
-            $level = strval(rand(1,3));
-        }
 
         $get = "getTabelaLv". $level;
         $table = $this->$get();
