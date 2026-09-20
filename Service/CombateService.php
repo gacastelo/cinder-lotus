@@ -153,7 +153,7 @@ class CombateService
             }
         }
 
-        if ($inimigoPrimeiro) {
+        if ($inimigoPrimeiro && !$_SESSION["inimigo"]->is_dead()) {
             $this->inimigoAtaca();
         }
 
@@ -168,7 +168,7 @@ class CombateService
             }
         }
 
-        if (!$inimigoPrimeiro) {
+        if (!$inimigoPrimeiro && !$_SESSION["inimigo"]->is_dead()) {
             $this->inimigoAtaca();
         }
     }
