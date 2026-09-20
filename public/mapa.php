@@ -520,5 +520,8 @@ if (isset($_SESSION["new_loots"])) {
     moverPara(faseAtual);
 
 </script>
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
 </body>
 </html>

@@ -1159,7 +1159,8 @@ $inventario = $player->getInventario();
                     ? 'brightness(2)' : "none"
     }
 </script>
-
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
 </body>
-
 </html>

@@ -53,7 +53,9 @@ if (!isset($_SERVER["DBStatus"])){
             </div>
             <button onclick="window.location.href = './creditos.html'">Créditos</button>
         </form>
-
     </main>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
 </body>
 </html>

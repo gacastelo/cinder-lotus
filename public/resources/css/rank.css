@@ -60,7 +60,10 @@ body {
 #rankingTable em {
     font-style: normal;
 }
-
+h1{
+    color: #fdedce;
+    margin-bottom: 2%;
+}
 #menu-button {
     margin-top: 25px;
     padding: 10px 30px;

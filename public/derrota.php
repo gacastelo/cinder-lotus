@@ -24,5 +24,8 @@ if (!$_SESSION["estatisticas"]->isSaved()){
         <?php $_SESSION["estatisticas"]->getHTMLTable(); ?>
         <button id="menu-button" onclick="window.location.href = '../public/index.php'">Menu</button>
     </main>
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+    </script>
 </body>
 </html>

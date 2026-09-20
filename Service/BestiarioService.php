@@ -16,7 +16,7 @@ class BestiarioService
                 continue;
             }
 
-            $nome = ucwords(ucwords(str_replace(["_", "base", ".gif"], [" ", "", ""], $inimigo)));
+            $nome = ucwords(str_replace(["_", "base", ".gif"], [" ", "", ""], $inimigo));
             if (isset($_SESSION["bestiario"][str_replace([".gif"], "", $inimigo)])) {
                 $encontrado = $_SESSION["bestiario"][str_replace([".gif"], "", $inimigo)]["encontrados"];
                 $derrotado = $_SESSION["bestiario"][str_replace([".gif"], "", $inimigo)]["derrotados"];

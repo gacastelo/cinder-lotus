@@ -53,6 +53,12 @@
     width: 140px;
     height: 140px;
     object-fit: contain;
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
 
 .monstro-imagem.desconhecido {

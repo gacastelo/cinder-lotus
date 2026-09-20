@@ -14,6 +14,7 @@ $rank = EstatisticaRepository::getRank();
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 </head>
 <body>
+<h1>Ranking</h1>
 <table id="rankingTable">
     <thead>
     <tr>
@@ -36,5 +37,8 @@ $rank = EstatisticaRepository::getRank();
     </tbody>
 </table>
 <button id="menu-button" onclick="window.location.href = '../public/index.php'">Menu</button>
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
 </body>
 </html>

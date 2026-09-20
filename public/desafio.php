@@ -986,6 +986,8 @@ if (!isset($_SESSION["background"])) {
         bloquearBatalha(false)
     }
 </script>
+<script>
+    document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
 </body>
-
 </html>
