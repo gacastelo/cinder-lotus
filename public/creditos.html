@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créditos</title>
+    <link rel="stylesheet" href="./resources/css/creditos.css">
+    <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<main class="creditos">
+    <h1>CRÉDITOS</h1>
+
+    <div class="credito">
+        <h2>Programador</h2>
+        <p>Gabriel C<span onclick="secreto()">a</span>stelo</p>
+    </div>
+
+    <div class="credito">
+        <h2>Inimigos</h2>
+        <p>Olavo Pasquini</p>
+    </div>
+
+    <div class="credito">
+        <h2>Cenários</h2>
+        <p>Henrique Augusto</p>
+    </div>
+
+    <div class="credito">
+        <h2>Áudios</h2>
+        <p>Victória Terribili</p>
+    </div>
+
+    <a href="../public/index.php" class="voltar">VOLTAR</a>
+</main>
+<script>
+    function secreto() {
+        const perguntas = [{
+            tipo: "boolean",
+            pergunta: "Parabéns por achar o segredo! Deseja continuar?",
+            resposta: true
+        }, {
+            tipo: "boolean",
+            pergunta: "O 18º monstro do bestiário é o Pirâmuitos?",
+            resposta: false
+        }, {
+            tipo: "texto",
+            pergunta: "Qual é o nome do programador do jogo?",
+            respostas: ["gabriel castelo", "gabriel", "castelo", "gabriel castelo dos reis"]
+        }, {
+            tipo: "boolean",
+            pergunta: "A cor principal do mapa é #8f7643?",
+            resposta: false
+        }, {
+            tipo: "texto",
+            pergunta: "Qual é o nome do criador dos inimigos?",
+            respostas: ["olavo pasquini", "olavo"]
+        }, {
+            tipo: "texto",
+            pergunta: "Quantas árvores existem no mapa?",
+            respostas: ["34", "trinta e quatro", "XXXIV"]
+        }, {
+            tipo: "boolean",
+            pergunta: "Falhar em um desafio pode causar debuffs temporários?",
+            resposta: true
+        }, {
+            tipo: "texto",
+            pergunta: "Qual é o nome do criador dos cenários?",
+            respostas: ["henrique augusto", "henrique"]
+        }, {
+            tipo: "boolean",
+            pergunta: "Os desafios podem conceder buffs temporários quando são superados?",
+            resposta: true
+        }, {
+            tipo: "texto",
+            pergunta: "Qual o dano total do jogador após usar todos os consumíveis iniciais?",
+            respostas: ["5", "cinco", "V"]
+        }, {
+            tipo: "texto",
+            pergunta: "Qual foi a questão pulada?",
+            respostas: ["8", "oito", "VIII", "oitava", "8ª"]
+        }, {
+            tipo: "texto",
+            pergunta: "Qual o nome do inimigo que é um crustáceo?",
+            respostas: ["macharanguejo", "macharanguejo de elite", "macharanguejo elitissimo", "macharanguejo elitíssimo"]
+        }];
+        let perguntaAtual = 0;
+        const overlay = document.createElement("div");
+        overlay.classList.add("secreto-overlay");
+        const caixa = document.createElement("div");
+        caixa.classList.add("secreto-caixa");
+        const titulo = document.createElement("h2");
+        titulo.textContent = "SEGREDO";
+        const texto = document.createElement("p");
+        const respostas = document.createElement("div");
+        respostas.classList.add("secreto-respostas");
+        caixa.appendChild(titulo);
+        caixa.appendChild(texto);
+        caixa.appendChild(respostas);
+        overlay.appendChild(caixa);
+        document.body.appendChild(overlay);
+
+        function mostrarPergunta() {
+            titulo.textContent = (perguntaAtual + 1) + "ª Pergunta"
+            if (perguntaAtual > 6) {
+                titulo.textContent = (perguntaAtual + 2) + "ª Pergunta"
+            }
+
+            const pergunta = perguntas[perguntaAtual];
+            texto.textContent = pergunta.pergunta;
+            respostas.innerHTML = "";
+            if (pergunta.tipo === "boolean") {
+                criarBotao("SIM", true);
+                criarBotao("NÃO", false);
+                return;
+            }
+            const input = document.createElement("input");
+            input.type = "text";
+            input.placeholder = "Digite sua resposta...";
+            const confirmar = document.createElement("button");
+            confirmar.textContent = "CONFIRMAR";
+            confirmar.addEventListener("click", () => {
+                responder(input.value);
+            });
+            input.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    responder(input.value);
+                }
+            });
+            respostas.appendChild(input);
+            respostas.appendChild(confirmar);
+            input.focus();
+        }
+
+        function criarBotao(textoBotao, resposta) {
+            const botao = document.createElement("button");
+            botao.textContent = textoBotao;
+            botao.addEventListener("click", () => {
+                responder(resposta);
+            });
+            respostas.appendChild(botao);
+        }
+
+        function responder(resposta) {
+            const pergunta = perguntas[perguntaAtual];
+            if (!respostaValida(pergunta, resposta)) {
+                finalizar("Você errou! Parece que ainda precisa explorar um pouco mais o jogo.");
+                return;
+            }
+            perguntaAtual++;
+            if (perguntaAtual >= perguntas.length) {
+                finalizar('Aeeeeeeeeeeee! Você sabe muito sobre o jogo! Use o nome "Geo<3" em sua próxima partida!');
+                return;
+            }
+            mostrarPergunta();
+        }
+
+        function respostaValida(pergunta, resposta) {
+            if (pergunta.tipo === "boolean") {
+                return resposta === pergunta.resposta;
+            }
+            const respostaNormalizada = resposta.trim().toLowerCase();
+            return pergunta.respostas.some(respostaAceita => respostaNormalizada === respostaAceita);
+        }
+
+        function finalizar(mensagem) {
+            texto.textContent = mensagem;
+            respostas.innerHTML = "";
+            const fechar = document.createElement("button");
+            fechar.textContent = "VOLTAR";
+            fechar.addEventListener("click", () => {
+                overlay.remove();
+            });
+            respostas.appendChild(fechar);
+        }
+
+        mostrarPergunta();
+    }
+</script>
+</body>
+</html>

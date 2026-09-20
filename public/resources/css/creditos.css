@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    background-color: #493a16;
+    color: #fdedce;
+    font-family: "VT323", "Pixelify Sans", Arial, serif;
+    font-size: 32px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.creditos {
+    width: 70%;
+    max-width: 900px;
+    padding: 50px;
+
+    background-color: #493a16;
+    border: 8px solid #6c572f;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+
+    box-shadow: 10px 10px 15px #181206;
+}
+
+.creditos h1 {
+    color: #fdedce;
+    font-size: 70px;
+    margin-bottom: 10px;
+}
+
+.credito {
+    width: 80%;
+    padding: 15px 20px;
+
+    text-align: center;
+
+    background-color: #6c572f;
+    border: 4px solid #fdedce;
+    box-shadow: 10px 10px 15px #181206;
+}
+
+.credito:hover {
+    transform: scale(1.05);
+}
+
+.credito h2 {
+    font-size: 38px;
+    color: #fdedce;
+}
+
+.credito p {
+    font-size: 42px;
+    color: #222;
+}
+
+.voltar {
+    margin-top: 10px;
+    padding: 10px 35px;
+
+    background-color: #6c572f;
+    color: #fdedce;
+
+    border: 4px solid #fdedce;
+
+    text-decoration: none;
+    font-size: 34px;
+
+    transition: 0.15s;
+}
+
+.voltar:hover {
+    background-color: #fdedce;
+    color: #493a16;
+    transform: scale(1.05);
+}
+
+.secreto-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.secreto-caixa {
+    width: 65%;
+    max-width: 750px;
+    padding: 45px;
+    background-color: #493a16;
+    border: 6px solid #6c572f;
+    box-shadow: 0 10px 0 #181206;
+    text-align: center;
+    color: #fdedce;
+}
+
+.secreto-caixa h2 {
+    margin-bottom: 30px;
+    color: #fdedce;
+    font-size: 55px;
+}
+
+.secreto-caixa p {
+    margin-bottom: 35px;
+    font-size: 32px;
+    line-height: 1.2;
+}
+
+.secreto-respostas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.secreto-respostas input {
+    width: 70%;
+    padding: 10px 15px;
+    background-color: #fdedce;
+    border: 4px solid #6c572f;
+    outline: none;
+    color: #493a16;
+    font-family: inherit;
+    font-size: 28px;
+}
+
+.secreto-respostas input:focus {
+    border-color: #fdedce;
+}
+
+.secreto-respostas button {
+    padding: 10px 30px;
+    background-color: #6c572f;
+    border: 4px solid #fdedce;
+    color: #fdedce;
+    font-family: inherit;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.secreto-respostas button:hover {
+    background-color: #fdedce;
+    color: #493a16;
+}

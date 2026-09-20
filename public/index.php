@@ -46,9 +46,14 @@ if (!isset($_SERVER["DBStatus"])){
             <label>
                 <input type="text" maxlength="50" placeholder="Nome do Herói" name="nome_heroi" required>
             </label>
-            <input type="submit" value="Iniciar Jogo">
+
+            <div>
+                <input type="submit" value="Iniciar Jogo">
+                <button onclick="window.location.href = './rank.php'">Ver Ranking</button>
+            </div>
+            <button onclick="window.location.href = './creditos.html'">Créditos</button>
         </form>
-        <button onclick="window.location.href = './rank.php'">Ver Ranking</button>
+
     </main>
 </body>
 </html>

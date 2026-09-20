@@ -16,14 +16,19 @@ class Player extends AbsEntity
     public function __construct(string $nome = "Héroi", string $link_imagem = "./img/default_hero.gif")
     {
         $this->nome = $nome;
-        $this->vida_maxima = 100;
+        $this->vida_maxima = ($nome == "Geo<3") ? 200 : 100;
         $this->vida_atual = $this->vida_maxima;
-        $this->velocidade = 0;
-        $this->dano = 5;
-        $this->chance_esquiva = 0;
+        $this->velocidade = ($nome == "Geo<3") ? 3 : 0;
+        $this->dano = ($nome == "Geo<3") ? 15 : 5;
+        $this->chance_esquiva = ($nome == "Geo<3") ? 10 : 5;
         $this->link_imagem = $link_imagem;
         $this->guardarItem(new Consumivel("Poçao de Cura Mínima", "Cura 10 de vida", ["metodo" => "heal", "args" => [10]]));
         $this->guardarItem(new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Máxima em 15", ["metodo" => "increaseVidaMax", "args" => [15, 3]]));
+
+        if ($nome == "Geo<3"){
+            $this->guardarItem(new Equipamento("Espada da Geo", "mao_principal", "Espada fofa", 15, 2, 25, 0));
+        }
+
         //$this->guardarItem(new Equipamento("Espada Fodedora", "mao_principal", "espada Sigma cujo o sol onsuiu aquela cuja a aura foi roubada de todos ao céu poente", 0, 0, 45, 0));
 
     }
