@@ -22,6 +22,7 @@ if (!isset($_SESSION["combateService"])) {
 }
 
 if (isset($_GET["item"])) {
+    $_SESSION["atualizarVidaItem"] = true;
     $_SESSION["player"]->useItem($_GET["item"]);
 }
 
@@ -1201,16 +1202,16 @@ $inventario = $player->getInventario();
         if (alvo === "jogador") {
             let jogadorVidaAtual = <?= $player->getVidaAtual()?>;
             let jogadorVidaMaxima = <?= $player->getVidaMaxima()?>;
-            let vida = (jogadorVidaAtual / jogadorVidaMaxima) * 100 + "%"
-            atualizarBarraVida(barraJogador,  vida)
+            let vida = (Math.max(jogadorVidaAtual, 0) / jogadorVidaMaxima) * 100 + "%"
+            atualizarBarraVida(barraJogador,  vida, true)
             sessionStorage.setItem("jogadorVidaPassada", vida)
         }
 
         if (alvo === "inimigo") {
             let inimigoVidaAtual = <?= isset($_SESSION["inimigo"]) ? $_SESSION["inimigo"]->getVidaAtual() : 0?>;
             let inimigoVidaMaxima = <?= isset($_SESSION["inimigo"]) ? $_SESSION["inimigo"]->getVidaMaxima() : 1?>;
-            let vida =(inimigoVidaAtual / inimigoVidaMaxima) * 100 + "%"
-            atualizarBarraVida(barraInimigo, vida)
+            let vida =(Math.max(inimigoVidaAtual, 0) / inimigoVidaMaxima) * 100 + "%"
+            atualizarBarraVida(barraInimigo, vida, true)
             sessionStorage.setItem("inimigoVidaPassada", vida)
         }
     }
@@ -1220,13 +1221,36 @@ $inventario = $player->getInventario();
         sessionStorage.setItem("vidaAtualizacaoInicial", "true");
     }
 
-    function atualizarBarraVida(alvo, valor){
-        alvo.style.height = valor
+    function atualizarBarraVida(alvo, valor, smooth=false){
+        if (smooth){
+            alvo.style.transition = "height 0.8s cubic-bezier(0.25, 1, 0.5, 1)";
+        } else {
+            alvo.style.transition = "none";
+        }
+        requestAnimationFrame(() => {
+            alvo.style.height = valor;
+        });
     }
 
     atualizarBarraVida(barraJogador, sessionStorage.getItem("jogadorVidaPassada"))
     atualizarBarraVida(barraInimigo, sessionStorage.getItem("inimigoVidaPassada"))
 
+    const som = new Audio('./resources/audio/combate.aac');
+
+    const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+    if (tempoSalvo !== null) {
+        som.currentTime = parseFloat(tempoSalvo);
+    }
+
+    som.loop = true;
+    som.play();
+
+    setInterval(() => {
+        sessionStorage.setItem("tempoMusica", som.currentTime);
+    }, 10);
+
+    <?= isset($_SESSION["atualizarVidaItem"]) ? "atualizarVida('jogador');": ""; unset($_SESSION["atualizarVidaItem"]); ?>;
 </script>
 </body>
 </html>

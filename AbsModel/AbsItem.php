@@ -39,12 +39,14 @@ class AbsItem
     public function getHtml(): string
     {
         return "
-        <tr>
-            <td>".$this->nome."</td>
-            <td>" . $this->tipo . "</td>
-            <td>".$this->descricao."</td>
-            <td><a href='?item=".$this->id."'>Usar</a></td>
-        </tr>
-        ";
+    <tr>
+        <td>".$this->nome."</td>
+        <td>".$this->tipo."</td>
+        <td>".$this->descricao."</td>
+        <td>
+            <a href='?item=".$this->id."' onclick=\"atualizarVida('jogador');\">Usar</a>
+        </td>
+    </tr>
+    ";
     }
 }
