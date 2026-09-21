@@ -40,13 +40,13 @@ if (isset($_GET["item"])) {
     exit();
 }
 
-//for ($i = 2; $i < 12; $i++) {
-//    CenarioService::unlockNextLevel($i);
-//}
+for ($i = 2; $i < 12; $i++) {
+    CenarioService::unlockNextLevel($i);
+}
 
 if (isset($_SESSION["matouBossFinal"])) {
     if ($_SESSION["matouBossFinal"]) {
-        header("Location: fim.php");
+        header("Location: vitoria.php");
         exit();
     }
 }
