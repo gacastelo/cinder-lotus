@@ -9,7 +9,7 @@ body {
     height: 100vh;
     background-color: #222;
     font-family: "VT323", "Pixelify Sans", Arial, serif;
-    font-size: 40px;
+    font-size: 80px;
 }
 
 main {
@@ -26,12 +26,12 @@ main {
 
 h1,h2 {
     color: #fdedce;
-    font-size: 80px;
+    font-size: 160px;
     text-shadow: 6px 6px 0 #211a09;
 }
 
 h2{
-    font-size: 60px;
+    font-size: 120px;
     margin: -40px 0 -10px;
 }
 
@@ -53,7 +53,7 @@ input[type="text"] {
     outline: none;
 
     font-family: inherit;
-    font-size: 32px;
+    font-size: 40px;
 
     box-shadow: 5px 5px 0 #211a09;
 }
@@ -77,7 +77,7 @@ button {
     box-shadow: 5px 5px 0 #211a09;
 
     font-family: inherit;
-    font-size: 32px;
+    font-size: 40px;
 
     cursor: pointer;
 }

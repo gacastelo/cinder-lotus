@@ -26,6 +26,9 @@ if (!$_SESSION["estatisticas"]->isSaved()){
     </main>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
+        const som = new Audio('./resources/audio/LOZ_Recorder_edit.mp3');
+        som.loop = true;
+        som.play();
     </script>
 </body>
 </html>

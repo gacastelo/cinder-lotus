@@ -39,6 +39,15 @@ $rank = EstatisticaRepository::getRank();
 <button id="menu-button" onclick="window.location.href = '../public/index.php'">Menu</button>
 <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
+    const som = new Audio('./resources/audio/menu.mp3');
+    const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+    if (tempoSalvo !== null) {
+        som.currentTime = parseFloat(tempoSalvo);
+    }
+
+    som.loop = true;
+    som.play();
 </script>
 </body>
 </html>

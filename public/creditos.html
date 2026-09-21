@@ -15,7 +15,7 @@
 
     <div class="credito">
         <h2>Programador</h2>
-        <p>Gabriel C<span onclick="secreto()">a</span>stelo</p>
+        <p><span onclick="secreto()">Gabriel Castelo</span></p>
     </div>
 
     <div class="credito">
@@ -28,15 +28,34 @@
         <p>Henrique Augusto</p>
     </div>
 
-    <div class="credito">
+    <div class="credito" id="audio">
         <h2>Áudios</h2>
         <p>Victória Terribili</p>
+        <p>The Legend of Zelda</p>
+        <p>Adam Haynes</p>
     </div>
 
     <a href="../public/index.php" class="voltar">VOLTAR</a>
 </main>
 <script>
+    const som = new Audio('./resources/audio/menu.mp3');
+        const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+        if (tempoSalvo !== null) {
+            som.currentTime = parseFloat(tempoSalvo);
+        }
+
+        som.loop = true;
+        som.play();
+
     function secreto() {
+        const acertoSom = new Audio('./resources/audio/acerto_desafio.wav');
+        const erroSom = new Audio('./resources/audio/derrota_desafio.mp3');
+        const comemoracaoSom = new Audio('./resources/audio/LOZ_Fanfare.wav');
+        const somSecreto = new Audio('./resources/audio/LOZ_Secret.wav');
+        som.pause();
+        somSecreto.play();
+
         const perguntas = [{
             tipo: "boolean",
             pergunta: "Parabéns por achar o segredo! Deseja continuar?",
@@ -147,11 +166,14 @@
             const pergunta = perguntas[perguntaAtual];
             if (!respostaValida(pergunta, resposta)) {
                 finalizar("Você errou! Parece que ainda precisa explorar um pouco mais o jogo.");
+                erroSom.play();
                 return;
             }
+            acertoSom.play();
             perguntaAtual++;
             if (perguntaAtual >= perguntas.length) {
                 finalizar('Aeeeeeeeeeeee! Você sabe muito sobre o jogo! Use o nome "Geo<3" em sua próxima partida!');
+                comemoracaoSom.play();
                 return;
             }
             mostrarPergunta();
@@ -172,6 +194,7 @@
             fechar.textContent = "VOLTAR";
             fechar.addEventListener("click", () => {
                 overlay.remove();
+                som.play();
             });
             respostas.appendChild(fechar);
         }

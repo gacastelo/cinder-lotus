@@ -156,6 +156,7 @@ if (isset($_SESSION["new_loots"])) {
     const inventarioButton = document.getElementById("inventario_button_btn");
     const bestiarioButton = document.getElementById("bestiario_button_btn");
     const bestiario = document.getElementById("bestiario")
+    const botaoSom = new Audio('./resources/audio/LOZ_Get_Heart.wav');
 
     function openInventario() {
         if (inventario.style.display === "block") {
@@ -171,6 +172,7 @@ if (isset($_SESSION["new_loots"])) {
             bestiarioButton.classList.toggle("active")
         }
 
+        botaoSom.play();
         inventarioButton.classList.toggle("active")
     }
 
@@ -188,7 +190,7 @@ if (isset($_SESSION["new_loots"])) {
             status.style.display = "none"
             inventarioButton.classList.toggle("active")
         }
-
+        botaoSom.play();
         bestiarioButton.classList.toggle("active")
     }
 
@@ -299,8 +301,9 @@ if (isset($_SESSION["new_loots"])) {
     function moverPara(idFase) {
 
         const novaFase = fases[idFase];
-
-
+        const andarSom = new Audio('./resources/audio/LOZ_Text.wav');
+        const bloqueioSom = new Audio('./resources/audio/LOZ_Bomb_Drop.wav');
+        
         /*
         Verificar se está bloqueada
         */
@@ -310,11 +313,11 @@ if (isset($_SESSION["new_loots"])) {
             mostrarMensagem(
                 novaFase.nome + " está bloqueada!"
             );
-
+            bloqueioSom.play();
             return;
 
         }
-
+        andarSom.play();
 
         /*
         Atualizar posição
@@ -423,6 +426,8 @@ if (isset($_SESSION["new_loots"])) {
                 mostrarMensagem(
                     "Não existe caminho nessa direção!"
                 );
+                let bloqueioSom = new Audio('./resources/audio/LOZ_Bomb_Drop.wav');
+                bloqueioSom.play();
 
             }
 
@@ -522,6 +527,19 @@ if (isset($_SESSION["new_loots"])) {
 </script>
 <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
+    const som = new Audio('./resources/audio/mapa.mp3');
+    const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+    if (tempoSalvo !== null) {
+        som.currentTime = parseFloat(tempoSalvo);
+    }
+
+    som.loop = true;
+    som.play();
+
+    setInterval(() => {
+        sessionStorage.setItem("tempoMusica", som.currentTime);
+    }, 10);
 </script>
 </body>
 </html>

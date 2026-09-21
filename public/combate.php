@@ -265,14 +265,15 @@ $inventario = $player->getInventario();
     const btnFugir =
         document.getElementById("btnFugir");
 
-
+    const AcaoAudio = new Audio('./resources/audio/LOZ_Text.wav');
+    
     function mostrarAtaques() {
 
         ataques.style.display = "grid";
 
         itens.style.display = "none";
 
-
+        AcaoAudio.play();
         btnAtaques.classList.add("ativo");
 
         btnItens.classList.remove("ativo");
@@ -288,7 +289,7 @@ $inventario = $player->getInventario();
 
         itens.style.display = "block";
 
-
+        AcaoAudio.play();
         btnItens.classList.add("ativo");
 
         btnAtaques.classList.remove("ativo");
@@ -299,6 +300,7 @@ $inventario = $player->getInventario();
 
 
     function fugir() {
+        AcaoAudio.play();
         sessionStorage.clear()
         btnFugir.classList.add("ativo");
 
@@ -316,7 +318,6 @@ $inventario = $player->getInventario();
 
 
     function usarAcao(nomeAtaque) {
-
         const url = new URL(window.location.href);
 
         url.searchParams.set("ataque", nomeAtaque);
@@ -562,7 +563,14 @@ $inventario = $player->getInventario();
 
 
         await esperarAnimacao(200);
-
+        if (quem === "jogador"){
+            let somAtaque = new Audio('./resources/audio/LTTP_Sword1.wav');
+            somAtaque.play();
+        } else {
+            let somAtaque = new Audio('./resources/audio/AOL_Sword.wav');
+            somAtaque.play();
+        }
+        
 
         /*
             [ANIMAÇÃO NOVA]
@@ -639,7 +647,13 @@ $inventario = $player->getInventario();
             );
 
         }
-
+        if (alvo === "jogador"){
+            let somAtaque = new Audio('./resources/audio/LTTP_Link_Hurt.wav');
+            somAtaque.play();
+        } else {
+            let somAtaque = new Audio('./resources/audio/LOZ_Link_Hurt.wav');
+            somAtaque.play();
+        }
 
         /*
             [ANIMAÇÃO NOVA]
@@ -711,11 +725,12 @@ $inventario = $player->getInventario();
         } else {
             personagem = personagemInimigo;
         }
-
+        let audioChoro = new Audio('./resources/audio/OOT_Goron_Cry.wav');
+        audioChoro.play();
         personagem.classList.add(
             "animacao-chorar"
         );
-        await esperarAnimacao(3000);
+        await esperarAnimacao(1000);
 
         personagem.classList.remove(
             "animacao-chorar"
@@ -737,6 +752,9 @@ $inventario = $player->getInventario();
         personagem.classList.add(
             "animacao-defender"
         );
+        
+        let somDefesa = new Audio('./resources/audio/LTTP_Sword_Magic(usar_como_defesa).wav');
+        somDefesa.play();
 
         await esperarAnimacao(600);
 
@@ -841,8 +859,11 @@ $inventario = $player->getInventario();
     }
 
     async function animacaoDerrota() {
-
         bloquearBatalha(true);
+        
+        let somDerrota = new Audio('./resources/audio/LOZ_Link_Die.wav');
+        som.pause();
+        somDerrota.play();
 
         // Faz o jogador cair
         personagemJogador.classList.add("animacao-derrota");
@@ -876,6 +897,10 @@ $inventario = $player->getInventario();
     async function animacaoVitoria() {
 
         bloquearBatalha(true);
+
+        let somVitoria = new Audio('./resources/audio/LA_Fanfare_HeartContainer.wav');
+        som.pause();
+        somVitoria.play();
 
         // Jogador comemora
         personagemJogador.classList.add("animacao-vitoria");
@@ -1216,9 +1241,10 @@ $inventario = $player->getInventario();
         }
     }
 
-    if (!sessionStorage.getItem("vidaAtualizacaoInicial")) {
+    if (!sessionStorage.getItem("AtualizacaoInicial")) {
+        sessionStorage.setItem("tempoMusica", 0)
         atualizarVida("jogador");
-        sessionStorage.setItem("vidaAtualizacaoInicial", "true");
+        sessionStorage.setItem("AtualizacaoInicial", "true");
     }
 
     function atualizarBarraVida(alvo, valor, smooth=false){

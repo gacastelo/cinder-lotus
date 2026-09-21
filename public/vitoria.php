@@ -14,7 +14,6 @@ if (!$_SESSION["estatisticas"]->isSaved()) {
     EstatisticaRepository::insertEstatisticaAtual();
 }
 $rank = EstatisticaRepository::getRank();
-
 $rankeado = false;
 ?>
 <!DOCTYPE html>
@@ -42,7 +41,7 @@ $rankeado = false;
         if ($posicao->ID == $_SESSION["ultimoSalvo"]) {
             $rankeado = true;
             echo
-                    "<tr>
+                "<tr>
                 <td>*" . $posicao->POSICAO . "º*</td>
                 <td><em>*" . $posicao->NOME . "*</em></td>
                 <td>*" . EstatisticaRepository::formatTime($posicao->TEMPO_CONCLUSAO) . "*</td>
@@ -50,14 +49,13 @@ $rankeado = false;
             continue;
         }
         echo
-                "<tr>
+            "<tr>
             <td>" . $posicao->POSICAO . "º</td>
             <td><em>" . $posicao->NOME . "</em></td>
             <td>" . EstatisticaRepository::formatTime($posicao->TEMPO_CONCLUSAO) . "</td>
             </tr>";
 
     }
-
     if (!$rankeado) {
         $query = EstatisticaRepository::getPosicaoRank($_SESSION["ultimoSalvo"]);
         echo

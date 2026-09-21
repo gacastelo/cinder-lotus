@@ -10,16 +10,25 @@ class EstatisticaRepository
         $sql = "INSERT INTO `" . DBConfig::$database . "`.`ESTATISTICAS` (NOME, ATAQUES_TOTAIS, ATAQUES_ACERTADOS, ITENS_CONSUMIDOS, COMBATES_GANHOS, COMBATES_FUGAS, DESAFIOS_SUPERADOS, DESAFIOS_FUGAS, DESAFIOS_FALHOS, DANO_CAUSADO, DANO_SOFRIDO, TEMPO_CONCLUSAO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
-            $conn->beginTransaction();
-            $stmt = $conn->prepare($sql);
-            $stmt->execute(EstatisticaService::getAtualEstatisticaValues());
-            $_SESSION["estatisticas"]->save();
-        } catch (PDOException $e) {
-            $conn->rollBack();
-            echo $e->getMessage();
-        }
+
+        $conn->beginTransaction();
+        $stmt = $conn->prepare($sql);
+        $valores = EstatisticaService::getAtualEstatisticaValues();
+        $stmt->execute($valores);
+
+        $_SESSION["estatisticas"]->save();
         $_SESSION["ultimoSalvo"] = $conn->lastInsertId();
+        
+        $conn->commit();
         $conn = null;
+
+    } catch (PDOException $e) {
+
+        if ($conn->inTransaction()) {
+            $conn->rollBack();
+        }
+        die("Erro ao inserir estatística: " . $e->getMessage());
+    }
     }
 
     public static function getEstatisticas(int $id): array

@@ -267,39 +267,6 @@ if (!isset($_SESSION["background"])) {
 
             switch (acao.tipo) {
 
-
-                /*
-                    [ANIMAÇÃO NOVA]
-                    ATAQUE
-                */
-
-                case "atacar":
-
-                    await animacaoAtacar(
-                        acao.quem,
-                        acao.distancia ?? 80
-                    );
-
-                    break;
-
-
-
-                /*
-                    [ANIMAÇÃO NOVA]
-                    DANO
-                */
-
-                case "dano":
-
-                    await animacaoDano(
-                        acao.alvo,
-                        acao.valor
-                    );
-
-                    break;
-
-
-
                 /*
                     [ANIMAÇÃO NOVA]
                     ESPERAR
@@ -369,15 +336,25 @@ if (!isset($_SESSION["background"])) {
 
     async function animacaoDado(resultado) {
         bloquearBatalha(true);
+        let somDado = new Audio('./resources/audio/LTTP_Sword_Magic(usar_como_defesa).wav');
+        let somResultado = new Audio('./resources/audio/LBW_Get_Rupee.wav');
+        somDado.loop = true
+        somDado.play();
 
         rolarDado(resultado)
 
         await esperarAnimacao(1500);
+        somDado.pause()
+        somResultado.play()
     }
 
     async function animacaoDerrota() {
 
         bloquearBatalha(true);
+        
+        let somDerrota = new Audio('./resources/audio/derrota_desafio.mp3');
+        som.pause()
+        somDerrota.play();
 
         // Faz o jogador cair
         personagemJogador.classList.add("animacao-derrota");
@@ -410,6 +387,10 @@ if (!isset($_SESSION["background"])) {
     async function animacaoVitoria() {
 
         bloquearBatalha(true);
+
+        let somVitoria = new Audio('./resources/audio/LA_Fanfare_HeartContainer.wav');
+        som.pause()
+        somVitoria.play();
 
         personagemJogador.classList.add("animacao-vitoria");
 
@@ -468,6 +449,21 @@ if (!isset($_SESSION["background"])) {
 
     }
 
+    const som = new Audio('./resources/audio/combate.aac');
+
+    const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+    if (tempoSalvo !== null) {
+        som.currentTime = parseFloat(tempoSalvo);
+    }
+
+    som.loop = true;
+    som.play();
+
+    setInterval(() => {
+        sessionStorage.setItem("tempoMusica", som.currentTime);
+    }, 10);
+
     <?php
     if (isset($_SESSION["acoes"])) {
         echo "executarAcoes(" . json_encode($_SESSION["acoes"]) . ")";
@@ -489,6 +485,8 @@ if (!isset($_SESSION["background"])) {
 
     const btnItens =
         document.getElementById("btnItens");
+    
+    const AcaoAudio = new Audio('./resources/audio/LOZ_Text.wav');
 
     function mostrarAcoes() {
 
@@ -496,7 +494,7 @@ if (!isset($_SESSION["background"])) {
 
         itens.style.display = "none";
 
-
+        AcaoAudio.play();
         btnAcoes.classList.add("ativo");
 
         btnItens.classList.remove("ativo");
@@ -510,7 +508,7 @@ if (!isset($_SESSION["background"])) {
 
         itens.style.display = "block";
 
-
+        AcaoAudio.play();
         btnItens.classList.add("ativo");
 
         btnAcoes.classList.remove("ativo");
@@ -519,6 +517,7 @@ if (!isset($_SESSION["background"])) {
     }
 
     function usarAcao(nomeAcao) {
+        AcaoAudio.play();
         const url = new URL(window.location.href);
 
         url.searchParams.set("acao", nomeAcao);
@@ -528,7 +527,7 @@ if (!isset($_SESSION["background"])) {
     }
 
     function usarItem(nomeItem) {
-
+        
         alert(
             "<?=$_SESSION["player"]->getAtribute("nome") ?> usou: " + nomeItem
         );
@@ -536,7 +535,7 @@ if (!isset($_SESSION["background"])) {
     }
 
     function fugir() {
-
+        AcaoAudio.play()
         btnFugir.classList.add("ativo");
 
         btnAcoes.classList.remove("ativo");

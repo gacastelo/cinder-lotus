@@ -49,14 +49,26 @@ if (!isset($_SERVER["DBStatus"])){
 
             <div>
                 <input type="submit" value="Iniciar Jogo">
-                <button onclick="window.location.href = './rank.php'">Ver Ranking</button>
+                <button type="button" onclick="window.location.href = './rank.php'">Ver Ranking</button>
             </div>
-            <button onclick="window.location.href = './creditos.html'">Créditos</button>
+            <button type="button" onclick="window.location.href = './creditos.html'">Créditos</button>
         </form>
+        
+        
     </main>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
         sessionStorage.clear();
+
+    const som = new Audio('./resources/audio/menu.mp3');
+    const tempoSalvo = sessionStorage.getItem("tempoMusica");
+
+    if (tempoSalvo !== null) {
+        som.currentTime = parseFloat(tempoSalvo);
+    }
+
+    som.loop = true;
+    som.play();
     </script>
 </body>
 </html>

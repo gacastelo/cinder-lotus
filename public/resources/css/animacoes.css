@@ -328,7 +328,7 @@
 }
 
 .animacao-chorar {
-    animation: choro 0.9s ease-in-out 3;
+    animation: choro 0.9s ease-in-out 1;
 }
 
 @keyframes choro {

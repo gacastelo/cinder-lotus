@@ -155,3 +155,7 @@ body {
     background-color: #fdedce;
     color: #493a16;
 }
+
+#audio p{
+    font-size: 36px;
+}
