@@ -1,278 +1,338 @@
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-    body {
-        height: 100vh;
-        background-color: #222;
-        font-family: "VT323",'Pixelify Sans', Arial, serif;
-        font-size: 40px;
-    }
+body {
+    height: 100vh;
+    background-color: #222;
+    font-family: "VT323", 'Pixelify Sans', Arial, serif;
+    font-size: 40px;
+}
 
-    main {
-        width: 100%;
-        height: 100vh;
+main {
+    width: 100%;
+    height: 100vh;
 
-        display: flex;
-        flex-direction: column;
-    }
+    display: flex;
+    flex-direction: column;
+}
 
-    .batalha {
-        width: 100%;
-        height: 70%;
+.batalha {
+    width: 100%;
+    height: 70%;
 
-        position: relative;
-        overflow: hidden;
+    position: relative;
+    overflow: hidden;
 
-        background-size: 100% 100%;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
-    .inimigo {
-        position: absolute;
+.inimigo {
+    position: absolute;
 
-        top: 15%;
-        right: 2%;
+    top: 15%;
+    right: 2%;
 
-        width: 35%;
-        height: 55%;
+    width: 35%;
+    height: 55%;
 
-        object-fit: contain;
-    }
+    object-fit: contain;
+}
 
-    .jogador {
-        position: absolute;
+.jogador {
+    position: absolute;
 
-        bottom: -11%;
-        left: 10%;
+    bottom: -11%;
+    left: 10%;
 
-        width: 27%;
-        height: 69%;
+    width: 27%;
+    height: 69%;
 
-        object-fit: contain;
-    }
+    object-fit: contain;
+}
 
-    .batalha .jogador,
-    .batalha .inimigo {
-        transition: transform 0.2s ease;
-    }
+.batalha .jogador,
+.batalha .inimigo {
+    transition: transform 0.2s ease;
+}
 
-    .menu {
-        width: 100%;
-        height: 30%;
+.menu {
+    width: 100%;
+    height: 30%;
 
-        display: flex;
+    display: flex;
 
-        background-color: #ab925c;
+    background-color: #ab925c;
 
-        border-top: 3px dashed #493a16;
-    }
+    border-top: 3px dashed #493a16;
+}
+
+.opcoes {
+    width: 15%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+    padding: 8px;
+
+    background-color: #493a16;
+
+    border-right: 3px dashed #493a16;
+}
+
+.opcoes button {
+    flex: 1;
+
+    border: 3px dashed #493a16;
+    cursor: pointer;
+    font-family: "VT323", 'Pixelify Sans', Arial, serif;
+    font-size: 25px;
+    font-weight: bold;
+
+    background-color: #ab925c;
+    color: #534623;
+
+    transition: 0.2s;
+}
+
+.opcoes button:hover {
+    background-color: #6c572f;
+}
+
+.opcoes button.ativo {
+    background-color: #ab925c;
+    color: #2f250e;
+
+    border-left: 6px solid #2f250e;
+}
+
+.conteudo {
+    width: 85%;
+    height: 100%;
+
+    padding: 10px;
+
+    background-color: #423411;
+}
+
+.ataques {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+
+    gap: 10px;
+}
+
+.ataques div {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: #ab925c;
+
+    border: 3px dashed #493a16;
+
+    cursor: pointer;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    color: #2f250e;
+
+    transition: 0.2s;
+}
+
+.ataques div:hover {
+    background-color: #6c572f;
+}
+
+.itens {
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: #ab925c;
+
+    overflow-y: auto;
+
+    border: 3px dashed #493a16;
+}
+
+table {
+    width: 100%;
+    font-size: 20px;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 25px;
+    background-color: #493a16;
+    color: #f2dba7;
+    position: sticky;
+    top: 0;
+
+    z-index: 2;
+}
+
+th,
+td {
+    padding: 10px;
+
+    border: 2px dashed #493a16;
+
+    text-align: center;
+}
+
+td {
+    font-size: 22px;
+    color: #2f250e;
+}
+
+
+tr:hover {
+    background-color: #ab925c;
+}
+
+td a {
+    display: inline-block;
+
+    padding: 6px 18px;
+
+    background: #ab925c;
+    color: #493a16;
+    border-radius: 15%;
+    border: 2px dashed #493a16;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+td a:hover {
+    background: #6c572f;
+    color: #dcc8a8;
+
+    cursor: pointer;
+}
+
+.cooldown {
+    position: absolute;
+
+    top: 5px;
+    right: 5px;
+
+    min-width: 20px;
+    height: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #493a16;
+    color: #bfa463;
+
+    border-radius: 50%;
+    font-family: "VT323", "Pixelify Sans", serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media (max-width: 700px) {
 
     .opcoes {
-        width: 15%;
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-
-        gap: 5px;
-        padding: 8px;
-
-        background-color: #493a16;
-
-        border-right: 3px dashed #493a16;
-    }
-
-    .opcoes button {
-        flex: 1;
-
-        border: 3px dashed #493a16;
-        cursor: pointer;
-        font-family: "VT323",'Pixelify Sans', Arial, serif;
-        font-size: 25px;
-        font-weight: bold;
-
-        background-color: #ab925c;
-        color: #534623;
-
-        transition: 0.2s;
-    }
-
-    .opcoes button:hover {
-        background-color: #6c572f;
-    }
-
-    .opcoes button.ativo {
-        background-color: #ab925c;
-        color: #2f250e;
-
-        border-left: 6px solid #2f250e;
+        width: 25%;
     }
 
     .conteudo {
-        width: 85%;
-        height: 100%;
-
-        padding: 10px;
-
-        background-color: #423411;
+        width: 75%;
     }
 
-    .ataques {
-        width: 100%;
-        height: 100%;
-
-        display: grid;
-
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-
-        gap: 10px;
+    .inimigo {
+        width: 150px;
+        height: 150px;
     }
 
-    .ataques div {
-        position: relative;
-
-        display: flex;
-
-        align-items: center;
-        justify-content: center;
-
-        background-color: #ab925c;
-
-        border: 3px dashed #493a16;
-
-        cursor: pointer;
-
-        font-size: 30px;
-        font-weight: bold;
-
-        color: #2f250e;
-
-        transition: 0.2s;
+    .jogador {
+        width: 170px;
+        height: 170px;
     }
 
-    .ataques div:hover {
-        background-color: #6c572f;
+    .opcoes button {
+        font-size: 12px;
     }
+}
 
-    .itens {
-        display: none;
+.barraContainer {
+    position: absolute;
+    display: flex;
+    padding: 0.5% 0.5%;
+    background-color: #6c572f;
+    width: 2.5%;
+    height: 25%;
+    justify-content: center;
+    align-items: end;
+    border: #493a16 solid;
+    overflow: hidden;
+}
 
-        width: 100%;
-        height: 100%;
+.barraVida {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
-        background-color: #ab925c;
+#jogadorBarraVida {
+    background: linear-gradient(
+            to bottom,
+            #176b25 0%,
+            #299438 25%,
+            #3dbd4d 50%,
+            #299438 75%,
+            #12591e 100%
+    );
+}
 
-        overflow-y: auto;
+#jogadorBarraContainer, #jogadorBarraVida {
+    left: 6%;
+    top: 70%;
+}
 
-        border: 3px dashed #493a16;
-    }
+#inimigoBarraVida{
+    background: linear-gradient(
+            to bottom,
+            #8a1919 0%,
+            #c52c2c 25%,
+            #dc3d3d 50%,
+            #c52c2c 75%,
+            #821717 100%
+    );
+}
 
-    table {
-        width: 100%;
-        font-size: 20px;
-        border-collapse: collapse;
-    }
-
-    th {
-        font-size: 25px;
-        background-color: #493a16;
-        color: #f2dba7;
-        position: sticky;
-        top: 0;
-
-        z-index: 2;
-    }
-
-    th,
-    td {
-        padding: 10px;
-
-        border: 2px dashed #493a16;
-
-        text-align: center;
-    }
-
-    td {
-        font-size: 22px;
-        color: #2f250e;
-    }
-
-
-    tr:hover {
-        background-color: #ab925c;
-    }
-    td a {
-        display: inline-block;
-
-        padding: 6px 18px;
-
-        background: #ab925c;
-        color: #493a16;
-        border-radius: 15%;
-        border: 2px dashed #493a16;
-
-        text-decoration: none;
-
-        font-weight: bold;
-
-        transition: 0.2s;
-    }
-
-    td a:hover {
-        background: #6c572f;
-        color: #dcc8a8;
-
-        cursor: pointer;
-    }
-
-    .cooldown {
-        position: absolute;
-
-        top: 5px;
-        right: 5px;
-
-        min-width: 20px;
-        height: 20px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        background: #493a16;
-        color: #bfa463;
-
-        border-radius: 50%;
-        font-family: "VT323", "Pixelify Sans", serif;
-        font-size: 20px;
-        font-weight: bold;
-    }
-
-    @media (max-width: 700px) {
-
-        .opcoes {
-            width: 25%;
-        }
-
-        .conteudo {
-            width: 75%;
-        }
-
-        .inimigo {
-            width: 150px;
-            height: 150px;
-        }
-
-        .jogador {
-            width: 170px;
-            height: 170px;
-        }
-
-        .opcoes button {
-            font-size: 12px;
-        }
-    }
+#inimigoBarraContainer, #inimigoBarraVida {
+    right: 7%;
+    top: 15%;
+}
+.barraBackground{
+    display: flex;
+    align-items: end;
+    background-color: #3a2b0e;
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+}

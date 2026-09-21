@@ -37,4 +37,14 @@ class Inimigo extends AbsEntity
     {
         return str_replace(["img/inimigos/",".gif"],"", $this->link_imagem);
     }
+
+    public function getVidaMaxima(): int
+    {
+        return $this->vida_maxima;
+    }
+
+    public function getVidaAtual(): int
+    {
+        return $this->vida_atual;
+    }
 }

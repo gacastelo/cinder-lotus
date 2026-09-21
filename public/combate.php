@@ -106,12 +106,23 @@ $inventario = $player->getInventario();
                 src="<?= $_SESSION["inimigo"]->getLinkImagem() ?>"
                 alt="<?= $_SESSION["inimigo"]->getNome() ?>"
         >
+        <div id="inimigoBarraContainer" class="barraContainer">
+            <div id="inimigoBarraBackground" class="barraBackground">
+                <div id="inimigoBarraVida" class="barraVida"></div>
+            </div>
+        </div>
 
         <img
                 class="jogador"
                 src="img/default_hero.gif"
                 alt="Jogador"
         >
+        <div id="jogadorBarraContainer" class="barraContainer">
+            <div id="jogadorBarraBackground" class="barraBackground">
+                <div id="jogadorBarraVida" class="barraVida"></div>
+            </div>
+        </div>
+
     </section>
 
     <section class="menu">
@@ -287,7 +298,7 @@ $inventario = $player->getInventario();
 
 
     function fugir() {
-
+        sessionStorage.clear()
         btnFugir.classList.add("ativo");
 
         btnAtaques.classList.remove("ativo");
@@ -590,13 +601,12 @@ $inventario = $player->getInventario();
         */
 
         if (alvo === "jogador") {
-
+            atualizarVida("jogador")
             personagem = personagemJogador;
 
         } else {
-
+            atualizarVida("inimigo")
             personagem = personagemInimigo;
-
         }
 
 
@@ -857,6 +867,8 @@ $inventario = $player->getInventario();
 
         await esperarAnimacao(3000);
 
+        sessionStorage.clear()
+
         window.location.href = "../public/derrota.php";
     }
 
@@ -889,6 +901,8 @@ $inventario = $player->getInventario();
 
         await esperarAnimacao(3000);
 
+        sessionStorage.clear()
+
         window.location.href = "../public/mapa.php";
     }
 
@@ -920,8 +934,8 @@ $inventario = $player->getInventario();
 
         });
         let table = document.getElementById("itens")
-            table.style.opacity =
-                bloquear ? "0.6" : "1";
+        table.style.opacity =
+            bloquear ? "0.6" : "1";
         if (!bloquear) {
             bloquearAcao(botaoAtaqueForte, <?= json_encode($player->getStrongAttackCooldown() != 0) ?>)
             bloquearAcao(botaoDefesa, <?= json_encode($player->getDefenderCooldown() != 0) ?>)
@@ -942,7 +956,6 @@ $inventario = $player->getInventario();
     }
 
     executarAcoes(<?= json_encode($_SESSION["acoes"]) ?>)
-
 </script>
 <script>
     const divTutorial = document.getElementById("tutorial")
@@ -964,21 +977,23 @@ $inventario = $player->getInventario();
         await initTutorial();
     }
 
-    if (isTutorial()){
+    if (isTutorial()) {
         perguntarTutorial();
     }
 
-    function isTutorial(){
+    function isTutorial() {
         return <?= json_encode($_SESSION["cenarioAtualId"] == 1 && !isset($_SESSION["TutorialCombate"])); $_SESSION["TutorialCombate"] = true; ?>;
     }
 
 
-    async function changeTextToBatalhaTutorial(){
+    async function changeTextToBatalhaTutorial() {
         bloquearBatalha(true);
         divTutorial.style.display = "block";
         let textoJogador = "Esse é <strong>você</strong>. Aqui você pode acompanhar seu personagem e suas ações durante o combate.";
+        let textoVidaJogador = "Essa é sua <strong>Barra de Vida</strong>, por ela você pode acompanhar sua vida atual."
 
         let textoInimigo = "Esse é o seu <strong>inimigo</strong>. Aqui você pode acompanhar o adversário e ações de quem está enfrentando.";
+        let textoVidaInimigo = "Essa é a <strong>Barra de Vida</strong> do seu <strong>Inimigo</strong>, por ela você pode acompanhar a vida atual de seu <strong>Inimigo</strong>."
 
         divTutorial.style.display = "block";
 
@@ -989,12 +1004,28 @@ $inventario = $player->getInventario();
         await esperarAnimacao(500);
         destacar(personagemJogador, false);
 
+        divTutorial.style.top = "34%"
+        divTutorial.style.left = "3%"
+        let barraVidaJogador = document.getElementById("jogadorBarraContainer");
+        destacar(barraVidaJogador, true);
+        await escreverTexto(textTutorial, textoVidaJogador);
+        await esperarAnimacao(500);
+        destacar(barraVidaJogador, false);
+
         divTutorial.style.top = "13%"
-        divTutorial.style.left = "38%"
+        divTutorial.style.left = "42%"
         destacar(personagemInimigo, true);
         await escreverTexto(textTutorial, textoInimigo);
         await esperarAnimacao(500);
         destacar(personagemInimigo, false);
+
+        divTutorial.style.top = "13%"
+        divTutorial.style.left = "52%"
+        let barraVidaInimigo = document.getElementById("inimigoBarraContainer");
+        destacar(barraVidaInimigo, true);
+        await escreverTexto(textTutorial, textoVidaInimigo);
+        await esperarAnimacao(500);
+        destacar(barraVidaInimigo, false);
 
     }
 
@@ -1139,7 +1170,7 @@ $inventario = $player->getInventario();
         batalha.item(0).style.filter = $escurecer ? "brightness(0.5)" : "brightness(1.0)"
     }
 
-    async function initTutorial(){
+    async function initTutorial() {
         escurecerBatalha(true)
         await changeTextToBatalhaTutorial();
         await esperarAnimacao(500);
@@ -1154,13 +1185,48 @@ $inventario = $player->getInventario();
         bloquearBatalha(false);
     }
 
-    function destacar($elemento, $destacar){
+    function destacar($elemento, $destacar) {
         $elemento.style.filter = $destacar
-                    ? 'brightness(2)' : "none"
+            ? 'brightness(2)' : "none"
     }
 </script>
 <script>
     document.addEventListener('contextmenu', event => event.preventDefault());
+</script>
+<script>
+    const barraInimigo = document.getElementById("inimigoBarraVida");
+    const barraJogador = document.getElementById("jogadorBarraVida");
+
+    function atualizarVida(alvo) {
+        if (alvo === "jogador") {
+            let jogadorVidaAtual = <?= $player->getVidaAtual()?>;
+            let jogadorVidaMaxima = <?= $player->getVidaMaxima()?>;
+            let vida = (jogadorVidaAtual / jogadorVidaMaxima) * 100 + "%"
+            atualizarBarraVida(barraJogador,  vida)
+            sessionStorage.setItem("jogadorVidaPassada", vida)
+        }
+
+        if (alvo === "inimigo") {
+            let inimigoVidaAtual = <?= isset($_SESSION["inimigo"]) ? $_SESSION["inimigo"]->getVidaAtual() : 0?>;
+            let inimigoVidaMaxima = <?= isset($_SESSION["inimigo"]) ? $_SESSION["inimigo"]->getVidaMaxima() : 1?>;
+            let vida =(inimigoVidaAtual / inimigoVidaMaxima) * 100 + "%"
+            atualizarBarraVida(barraInimigo, vida)
+            sessionStorage.setItem("inimigoVidaPassada", vida)
+        }
+    }
+
+    if (!sessionStorage.getItem("vidaAtualizacaoInicial")) {
+        atualizarVida("jogador");
+        sessionStorage.setItem("vidaAtualizacaoInicial", "true");
+    }
+
+    function atualizarBarraVida(alvo, valor){
+        alvo.style.height = valor
+    }
+
+    atualizarBarraVida(barraJogador, sessionStorage.getItem("jogadorVidaPassada"))
+    atualizarBarraVida(barraInimigo, sessionStorage.getItem("inimigoVidaPassada"))
+
 </script>
 </body>
 </html>

@@ -56,6 +56,7 @@ if (!isset($_SERVER["DBStatus"])){
     </main>
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
+        sessionStorage.clear();
     </script>
 </body>
 </html>
