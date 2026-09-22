@@ -47,7 +47,7 @@ class CombateService
     private function getTabelaLv4(): array
     {
         return [
-            new Inimigo("Cinder Lotus", 500, 20, 50, 25, [], "cinder_lotus")
+            new Inimigo("Cinder Lotus", 350, 20, 30, 25, [], "cinder_lotus")
         ];
     }
     private function getTabelaLv0(): array
@@ -65,7 +65,9 @@ class CombateService
            "img/cenarios/cena_campo_noite.png",
            "img/cenarios/cena_campo_tarde.png",
             "img/cenarios/cena_floresta_dia.png",
-            "img/cenarios/cena_floresta_noite.png"
+            "img/cenarios/cena_floresta_noite.png",
+            "img/cenarios/cena_montanha_dia.png",
+            "img/cenarios/cena_montanha_dia.png"
         ];
 
         return $backgrounds[array_rand($backgrounds)];
