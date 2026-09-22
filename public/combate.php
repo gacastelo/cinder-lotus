@@ -1061,7 +1061,7 @@ $inventario = $player->getInventario();
 
         let textoAtaque = "Essa ação realiza um <strong>Ataque</strong> comum, causando dano ao inimigo.";
 
-        let textoAtaqueForte = "Essa ação realiza um <strong>Ataque Forte</strong>, causando <strong>1,5x o seu dano</strong>. Porém, possui <strong>2 turnos de recarga</strong>.";
+        let textoAtaqueForte = "Essa ação realiza um <strong>Ataque Forte</strong>, causando <strong>2x o seu dano</strong>. Porém, possui <strong>2 turnos de recarga</strong>.";
 
         let textoDefender = "Essa ação permite <strong>Defender</strong>, aumentando sua <strong>chance de esquiva em 1,5x</strong>. Possui <strong>1 turno de recarga</strong>.";
 

@@ -22,7 +22,6 @@ class Player extends AbsEntity
         $this->dano = ($nome == "Geo<3") ? 15 : 5;
         $this->chance_esquiva = ($nome == "Geo<3") ? 10 : 5;
         $this->link_imagem = $link_imagem;
-        $this->guardarItem(new Consumivel("Poçao de Cura Mínima", "Cura 10 de vida", ["metodo" => "heal", "args" => [10]]));
         $this->guardarItem(new Consumivel("Poçao de Fortalecimento", "Aumenta Vida Máxima em 15", ["metodo" => "increaseVidaMax", "args" => [15, 3]]));
 
         if ($nome == "Geo<3"){
@@ -211,7 +210,7 @@ class Player extends AbsEntity
     {
         if ($this->actions["ataqueForte"] == 0){
             AnimationService::acaoAtacar("jogador");
-            $entity->take_damage(floor($this->getDano() * 1.5));
+            $entity->take_damage(floor($this->getDano() * 2));
             $this->actions["ataqueForte"] = 3;
         }
     }
