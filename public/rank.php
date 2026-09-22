@@ -12,6 +12,7 @@ $rank = EstatisticaRepository::getRank();
     <link rel="stylesheet" href="resources/css/rank.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
 <h1>Ranking</h1>

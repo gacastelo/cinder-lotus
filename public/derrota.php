@@ -17,6 +17,7 @@ if (!$_SESSION["estatisticas"]->isSaved()){
     <link href="resources/css/derrota.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <main>

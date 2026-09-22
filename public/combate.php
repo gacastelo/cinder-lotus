@@ -66,6 +66,7 @@ $inventario = $player->getInventario();
     <link rel="stylesheet" href="resources/css/tutorial.css">
     <link href='https://fonts.googleapis.com/css?family=Pixelify%20Sans' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
     <style>
         .batalha {
             background-image: url("<?= ($_SESSION["inimigo"]->getNome() == "Cinder Lotus") ? "img/cenarios/cena_montanha_dia.png" : $_SESSION["background"] ?>");

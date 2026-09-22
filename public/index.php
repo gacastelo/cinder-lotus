@@ -37,6 +37,7 @@ if (!isset($_SERVER["DBStatus"])){
     <title>Tela Inicial</title>
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=VT323&display=swap" rel="stylesheet">
     <link href="resources/css/index.css" rel="stylesheet">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
     <main>
