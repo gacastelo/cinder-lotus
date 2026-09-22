@@ -70,7 +70,7 @@ class CombateService
             "img/cenarios/cena_floresta_dia.png",
             "img/cenarios/cena_floresta_noite.png",
             "img/cenarios/cena_montanha_dia.png",
-            "img/cenarios/cena_montanha_dia.png"
+            "img/cenarios/cena_montanha_noite.png"
         ];
 
         return $backgrounds[array_rand($backgrounds)];
