@@ -6,7 +6,7 @@ require_once "../Service/EstatisticaService.php";
 
 class DesafioService
 {
-    public static function fugir()
+    public static function fugir():void
     {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
@@ -65,7 +65,7 @@ class DesafioService
                 "Ponte de Pedra",
                 14,
                 "Uma antiga ponte de pedra bloqueia o caminho. O terreno é irregular e perigoso.",
-                "ponte_pedra",
+                "./img/cenarios/cena_desafio_pontepedra.png",
                 "chance_esquiva",
                 "Atravessar correndo rapidamente",
                 "Forçar passagem pisando firme",
