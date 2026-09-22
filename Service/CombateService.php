@@ -12,8 +12,8 @@ class CombateService
             new Inimigo("Focanana", 30, 3, 10, 4, LootService::getLoots(1, rand(0, 2)), "focanana_base"),
             new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0, 2)), "goblin_base"),
             new Inimigo("Macharanguejo", 40, 2, 8, 5, LootService::getLoots(1, rand(0, 2)), "macharanguejo_base"),
-            new Inimigo("Mofopão", 60, -2, 5, 3, LootService::getLoots(1, rand(0, 2)), "mofopão_base"),
-            new Inimigo("Orcopete", 55, -2, 6, 2, LootService::getLoots(1, rand(0, 2)), "orcopete_base"),
+            new Inimigo("Mofopão", 45, -2, 5, 3, LootService::getLoots(1, rand(0, 2)), "mofopão_base"),
+            new Inimigo("Orcopete", 50, -2, 6, 2, LootService::getLoots(1, rand(0, 2)), "orcopete_base"),
             new Inimigo("Punkalo", 30, 6, 6, 10, LootService::getLoots(1, rand(0, 2)), "punkalo_base"),
             new Inimigo("Fungareba", 40, 7, 6, 6, LootService::getLoots(1, rand(0, 2)), "fungareba_base"),
         ];
@@ -26,9 +26,9 @@ class CombateService
             new Inimigo("Goblin de Elite", 65, 3, 9, 8, LootService::getLoots(2, rand(1, 2)), "goblin_de_elite"),
             new Inimigo("Goblin Elitíssimo", 60, 8, 11, 12, LootService::getLoots(2, rand(1, 3)), "goblin_elitíssimo"),
             new Inimigo("Macharanguejo de Elite", 90, 4, 15, 8, LootService::getLoots(2, rand(1, 2)), "macharanguejo_de_elite"),
-            new Inimigo("Mofopão de Elite", 110, -3, 9, 6, LootService::getLoots(2, rand(1, 2)), "mofopão_de_elite"),
+            new Inimigo("Mofopão de Elite", 100, -3, 9, 6, LootService::getLoots(2, rand(1, 2)), "mofopão_de_elite"),
             new Inimigo("Orcopete de Elite", 90, -3, 11, 4, LootService::getLoots(2, rand(1, 2)), "orcopete_de_elite"),
-            new Inimigo("Pirâmuitos", 140, 7, 13, 15, LootService::getLoots(2, rand(0, 2)), "pirâmuitos_base"),
+            new Inimigo("Pirâmuitos", 120, 7, 13, 15, LootService::getLoots(2, rand(0, 2)), "pirâmuitos_base"),
             new Inimigo("Punkalo de Elite", 50, 10, 10, 16, LootService::getLoots(2, rand(1, 2)), "punkalo_de_elite"),
             new Inimigo("Fungareba de Elite", 75, 10, 11, 10, LootService::getLoots(2, rand(1, 2)), "fungareba_de_elite"),
         ];
