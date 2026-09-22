@@ -163,7 +163,7 @@ class DesafioService
                 "Parede de Deslizamento",
                 28,
                 "A parede começa a desmoronar enquanto você tenta atravessá-la. Não há tempo para hesitar.",
-                "parede_deslizamento",
+                "./img/cenarios/cena_desafio_pedras.png",
                 "chance_esquiva",
                 "Escalar correndo do desabamento",
                 "Segurar firme na rocha que cede",
