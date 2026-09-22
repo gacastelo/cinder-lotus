@@ -38,6 +38,28 @@ class BestiarioService
                 </div>
             </div>";
         }
+        $nome = "Cinder Lotus";
+        if (isset($_SESSION["bestiario"]["cinder_lotus"])) {
+            $encontrado = $_SESSION["bestiario"]["cinder_lotus"]["encontrados"];
+            $derrotado = $_SESSION["bestiario"]["cinder_lotus"]["derrotados"];
+            $status = "";
+        }
+        else {
+            $nome = preg_replace('/\S/', '?', $nome);
+            $encontrado = 0;
+            $derrotado = 0;
+            $status = "desconhecido";
+        }
+
+        $r .= "<div class='monstro'>
+                <div class='blocker'><img src=./img/inimigos/cinder_lotus.gif class='monstro-imagem $status' alt='$nome'></div>
+                <div class='monstro-info'>
+                    <span class='monstro-nome'>$nome</span>
+                    <span>Encontrados: $encontrado</span>
+                    <span>Derrotados: $derrotado</span>
+                </div>
+            </div>";
+
 
         return $r;
     }
