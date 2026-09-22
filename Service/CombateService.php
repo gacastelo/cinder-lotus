@@ -9,54 +9,54 @@ class CombateService
     private function getTabelaLv1(): array
     {
         return [
-            new Inimigo("Focanana", 30, 3, 10, 4, LootService::getLoots(1, rand(0, 2)), "focanana_base"),
-            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(0, 2)), "goblin_base"),
-            new Inimigo("Macharanguejo", 40, 2, 8, 5, LootService::getLoots(1, rand(0, 2)), "macharanguejo_base"),
-            new Inimigo("Mofopão", 45, -2, 5, 3, LootService::getLoots(1, rand(0, 2)), "mofopão_base"),
-            new Inimigo("Orcopete", 50, -2, 6, 2, LootService::getLoots(1, rand(0, 2)), "orcopete_base"),
-            new Inimigo("Punkalo", 30, 6, 6, 10, LootService::getLoots(1, rand(0, 2)), "punkalo_base"),
-            new Inimigo("Fungareba", 40, 7, 6, 6, LootService::getLoots(1, rand(0, 2)), "fungareba_base"),
+            new Inimigo("Focanana", 30, 3, 7, 4, LootService::getLoots(1, rand(1, 2)), "focanana_base"),
+            new Inimigo("Goblin", 35, 2, 5, 5, LootService::getLoots(1, rand(1, 2)), "goblin_base"),
+            new Inimigo("Macharanguejo", 40, 2, 8, 5, LootService::getLoots(1, rand(1, 2)), "macharanguejo_base"),
+            new Inimigo("Mofopão", 45, -2, 3, 3, LootService::getLoots(1, rand(1, 2)), "mofopão_base"),
+            new Inimigo("Orcopete", 50, -2, 6, 2, LootService::getLoots(1, rand(1, 2)), "orcopete_base"),
+            new Inimigo("Punkalo", 30, 6, 6, 10, LootService::getLoots(1, rand(1, 2)), "punkalo_base"),
+            new Inimigo("Fungareba", 40, 7, 6, 6, LootService::getLoots(1, rand(1, 2)), "fungareba_base"),
         ];
     }
 
     private function getTabelaLv2(): array
     {
         return [
-            new Inimigo("Focanana de Elite", 55, 5, 17, 6, LootService::getLoots(2, rand(1, 2)), "focanana_de_elite"),
-            new Inimigo("Goblin de Elite", 65, 3, 9, 8, LootService::getLoots(2, rand(1, 2)), "goblin_de_elite"),
-            new Inimigo("Goblin Elitíssimo", 60, 8, 11, 12, LootService::getLoots(2, rand(1, 3)), "goblin_elitíssimo"),
-            new Inimigo("Macharanguejo de Elite", 90, 4, 15, 8, LootService::getLoots(2, rand(1, 2)), "macharanguejo_de_elite"),
-            new Inimigo("Mofopão de Elite", 100, -3, 9, 6, LootService::getLoots(2, rand(1, 2)), "mofopão_de_elite"),
-            new Inimigo("Orcopete de Elite", 90, -3, 11, 4, LootService::getLoots(2, rand(1, 2)), "orcopete_de_elite"),
-            new Inimigo("Pirâmuitos", 120, 7, 13, 15, LootService::getLoots(2, rand(0, 2)), "pirâmuitos_base"),
-            new Inimigo("Punkalo de Elite", 50, 10, 10, 16, LootService::getLoots(2, rand(1, 2)), "punkalo_de_elite"),
-            new Inimigo("Fungareba de Elite", 75, 10, 11, 10, LootService::getLoots(2, rand(1, 2)), "fungareba_de_elite"),
+            new Inimigo("Focanana de Elite", 55, 5, 14, 6, LootService::getLoots(2, rand(2, 3)), "focanana_de_elite"),
+            new Inimigo("Goblin de Elite", 65, 3, 9, 8, LootService::getLoots(2, rand(2, 3)), "goblin_de_elite"),
+            new Inimigo("Goblin Elitíssimo", 60, 8, 11, 12, LootService::getLoots(2, rand(2, 3)), "goblin_elitíssimo"),
+            new Inimigo("Macharanguejo de Elite", 90, 4, 15, 8, LootService::getLoots(2, rand(2, 3)), "macharanguejo_de_elite"),
+            new Inimigo("Mofopão de Elite", 100, -3, 9, 6, LootService::getLoots(2, rand(2, 3)), "mofopão_de_elite"),
+            new Inimigo("Orcopete de Elite", 90, -3, 11, 4, LootService::getLoots(2, rand(2, 3)), "orcopete_de_elite"),
+            new Inimigo("Pirâmuitos", 120, 7, 13, 15, LootService::getLoots(2, rand(2, 3)), "pirâmuitos_base"),
+            new Inimigo("Punkalo de Elite", 50, 10, 10, 16, LootService::getLoots(2, rand(2, 3)), "punkalo_de_elite"),
+            new Inimigo("Fungareba de Elite", 75, 10, 11, 10, LootService::getLoots(2, rand(2, 3)), "fungareba_de_elite"),
         ];
     }
 
     private function getTabelaLv3(): array
     {
         return [
-            new Inimigo("Focanana Elitíssimo", 100, 7, 25, 8, LootService::getLoots(3, rand(1, 3)), "focanana_elitíssimo"),
-            new Inimigo("Macharanguejo Elitíssimo", 160, 5, 22, 12, LootService::getLoots(3, rand(1, 3)), "macharanguejo_elitíssimo"),
-            new Inimigo("Mofopão Elitíssimo", 240, -4, 14, 10, LootService::getLoots(3, rand(1, 3)), "mofopão_elitíssimo"),
-            new Inimigo("Orcopete Elitíssimo", 220, -4, 17, 6, LootService::getLoots(3, rand(1, 3)), "orcopete_elitíssimo"),
-            new Inimigo("Pirâmuitos de Elite", 220, 9, 20, 20, LootService::getLoots(3, rand(1, 2)), "pirâmuitos_de_elite"),
-            new Inimigo("Pirâmuitos Elitíssimo", 280, 12, 24, 25, LootService::getLoots(3, rand(1, 3)), "pirâmuitos_elitíssimo"),
-            new Inimigo("Punkalo Elitíssimo", 85, 14, 17, 22, LootService::getLoots(3, rand(1, 3)), "punkalo_elitíssimo"),
-            new Inimigo("Fungareba Elitíssimo", 150, 14, 18, 16, LootService::getLoots(3, rand(1, 3)), "fungareba_elitíssimo"),
+            new Inimigo("Focanana Elitíssimo", 85, 7, 20, 8, LootService::getLoots(3, rand(2, 4)), "focanana_elitíssimo"),
+            new Inimigo("Macharanguejo Elitíssimo", 135, 5, 18, 12, LootService::getLoots(3, rand(2, 4)), "macharanguejo_elitíssimo"),
+            new Inimigo("Mofopão Elitíssimo", 165, -4, 12, 10, LootService::getLoots(3, rand(2, 4)), "mofopão_elitíssimo"),
+            new Inimigo("Orcopete Elitíssimo", 180, -4, 14, 6, LootService::getLoots(3, rand(2, 4)), "orcopete_elitíssimo"),
+            new Inimigo("Pirâmuitos de Elite", 180, 9, 17, 18, LootService::getLoots(3, rand(2, 4)), "pirâmuitos_de_elite"),
+            new Inimigo("Pirâmuitos Elitíssimo", 230, 12, 20, 22, LootService::getLoots(3, rand(2, 4)), "pirâmuitos_elitíssimo"),
+            new Inimigo("Punkalo Elitíssimo", 75, 14, 15, 20, LootService::getLoots(3, rand(2, 4)), "punkalo_elitíssimo"),
+            new Inimigo("Fungareba Elitíssimo", 125, 14, 16, 16, LootService::getLoots(3, rand(2, 4)), "fungareba_elitíssimo"),
         ];
     }
     private function getTabelaLv4(): array
     {
         return [
-            new Inimigo("Cinder Lotus", 350, 20, 30, 25, [], "cinder_lotus")
+            new Inimigo("Cinder Lotus", 280, 20, 30, 25, [], "cinder_lotus")
         ];
     }
     private function getTabelaLv0(): array
     {
         return [
-            new Inimigo("Boneco de Treino", 15, -5, 0, 1, [], "boneco_de_treino")
+            new Inimigo("Boneco de Treino", 30, -5, 0, 1, LootService::getLootBonecoTreino(), "boneco_de_treino")
         ];
     }
 

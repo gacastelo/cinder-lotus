@@ -28,4 +28,10 @@ class LootService
                 return $EquipamentoService->gerarEquipamento($level);
             }
     }
+
+    public static function getLootBonecoTreino(): array
+    {
+        $ConsumivelService = new ConsumivelService();
+        return [$ConsumivelService->gerarPocaoCura("1")];
+    }
 }
