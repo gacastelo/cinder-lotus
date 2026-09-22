@@ -955,6 +955,9 @@ if (!isset($_SESSION["background"])) {
 
                 textos[indiceTexto].textContent += texto[indiceCaractere];
                 indiceCaractere++;
+                let somCaracter = new Audio("./resources/audio/LOZ_Text_Slow.wav");
+                somCaracter.volume = 0.5;
+                somCaracter.play();
 
                 if (indiceCaractere >= texto.length) {
                     indiceTexto++;

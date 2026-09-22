@@ -74,10 +74,10 @@ $inventario = $player->getInventario();
         <?php
             if ($_SESSION["inimigo"]->getNome() == "Cinder Lotus"){
                 echo ".inimigo {
-                  top: 22%;
-                  right: 5%;
-                  width: 25%;
-                  height: 80%;
+                    top: 4%;
+                    right: 6%;
+                    width: 40%;
+                    height: 90%;
                 }";
             }
         ?>
@@ -1178,6 +1178,9 @@ $inventario = $player->getInventario();
 
                 textos[indiceTexto].textContent += texto[indiceCaractere];
                 indiceCaractere++;
+                let somCaracter = new Audio("./resources/audio/LOZ_Text_Slow.wav");
+                somCaracter.volume = 0.5;
+                somCaracter.play();
 
                 if (indiceCaractere >= texto.length) {
                     indiceTexto++;
